@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三目录查询</title>
+    <link rel="stylesheet" href="../assets/less/base.css" type="text/css">
+    <link rel="stylesheet" href="../assets/less/index.css" type="text/css">
+    <link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../webuploader/webuploader.css">
+
+    <style>
+        select {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 3rem;
+            outline: none;
+        }
+        
+        select:disabled {
+            color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .header ul li a {
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .fw {
+            font-weight: 600 !important;
+        }
+        /* #picker {
+            width: 100%!important;
+            height: 100%!important;
+        } */
+    </style>
+
+</head>
+
+<body>
+    <!-- 左边的侧边栏 -->
+    <div class="aside" id="aside">
+        <!-- 左上部分的用户信息 -->
+        <div class="profile">
+            <div class="avatar" id="aa">
+                <img src="../uploader/1.jpg" alt="" class='img-circle'>
+            </div>
+            <h5 id="usersName">南南</h5>
+        </div>
+
+        <!--左下部分的导航-->
+        <div class="menu">
+            <ul>
+                <li><a href="./personnel.html">权限管理</a></li>
+                <li><a href="./userControl.html">用户管理</a></li>
+                <li style="display: none;"><a href="./operation.html">业务管理</a></li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">业务管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li><a href="./operation.html">就管中心</a> </li>
+                        <li><a href="./operation.html">社保中心</a> </li>
+                        <li><a href="./operation.html">劳动监察</a> </li>
+                        <li><a href="./operation.html">仲裁院</a> </li>
+                        <li><a href="./operation.html">人事处</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">信息管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li><a href="./notice.html">公告</a> </li>
+                        <li><a href="./commonProblems.html">常见问题</a> </li>
+                        <li><a href="./guide.html">办事指南</a> </li>
+                        <li>
+                            <a href="./query.html">信息录入</a>
+                        </li>
+                        <li>
+                            <a href="./datafill.html">数据录入</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="./DataDisplay2.html">数据报表</a></li>
+                <li><a href="./systemMaintenance.html">系统维护</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右边主体部分 -->
+    <div class="main">
+        <!-- 右边上部分工具部分 -->
+        <div class="header">
+            <!-- 导航条部分 -->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;"><span class='fa fa-navicon'></span></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a data-toggle="modal" data-target="#personalInformation"> <span class='fa fa-user-circle'></span> 个人中心</a>
+                            </li>
+                            <li><a data-toggle="modal" data-target="#changePassword"><span class='fa fa-key fa-fw'></span>修改密码</a></li>
+                            <li><a data-toggle="modal" data-target="#logOut"><span class='fa fa-sign-out'></span>退出</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+
+        </div>
+
+        <!-- 右边下部分 ，网站的主体页面-->
+        <div class="body">
+            <!-- 面包屑导航 -->
+            <ol class="breadcrumb">
+                <li><a href="./operation.html">业务管理</a></li>
+                <li>三目录查询</li>
+            </ol>
+            <!-- 面板，添加人员-->
+            <div class="panel panel-default">
+                <div class="panel-body ">
+                    <form class="form-inline">
+
+                        <div class="form-group">
+                            <label>查询类型：</label>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <select name="" id="mySelect" onchange="show_sub(this.value)">
+                                <option value="13">药品</option>
+                                <option value="14">诊疗</option>
+                                <option value="15">材料</option>
+                              <!--  <input type="hidden" name="" id="imptype" value="13" />-->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <!-- 面板，搜索框与表格 -->
+            <!--药品查询-->
+            <div class="panel panel-default" id="panel1">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-6">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>药品查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="中文通用名" class="form-control chineName1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success button1" type="button">搜索</button>
+                                </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" value="导入">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover" id='medicalTb'>
+                        <thead>
+                            <th class='fw'>序号</th>
+                            <th class='fw'>分类编码</th>
+                            <th class='fw'>药品通用名编码</th>
+                            <th class='fw'>原药品通用名编码</th>
+                            <th class='fw'>中文通用名</th>
+                            <th class='fw'> 操作</th>
+
+                        </thead>
+                        <tbody class="drugs">
+
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination" style='    margin: 40px -240px;'>
+
+                                <li id="fristPage">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style='    float: right;
+    margin: 40px;'>
+                                <span>跳转到</span>
+                                 <input type="number" name="" id="toPage" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage" style="margin-left: 10px;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!--诊疗查询-->
+            <div class="panel panel-default" id="panel2" style="display: none;">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-8">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>诊疗查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="收费项目名称" class="form-control chineName2" id='DiagnosisSearch'>
+                                <span class="input-group-btn">
+                                        <button class="btn btn-success button2" type="button">搜索</button>
+                                    </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" value="导入">
+                        </form>
+                    </div>
+
+                </div>
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover" id='DiagnosisTb'>
+                        <thead>
+                            <tr>
+                                <th class='fw'>序号</th>
+                                <th class='fw'>收费项目编码
+                                </th>
+                                <th class='fw'>收费项目名称</th>
+                                <th class='fw'>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="diagnosis">
+
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination" style='    margin: 40px -240px;'>
+
+                                <li id="fristPage">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style='    float: right;
+    margin: 40px;'>
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage" style="margin-left: 10px;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!--材料查询-->
+            <div class="panel panel-default" id="panel3" style="display: none;">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-8">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>材料查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="特殊材料名称" class="form-control chineName3">
+                                <span class="input-group-btn">
+                                            <button class="btn btn-success button3" type="button">搜索</button>
+                                        </span>
+                            </div>
+                            <!--   <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal3" style="outline: none;" onclick="myModal3()" value="新录医保报销"> -->
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" value="导入">
+                        </form>
+                    </div>
+
+                </div>
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover" id='ClinicalTb'>
+                        <thead>
+                            <tr>
+                                <th class='fw'>序号</th>
+                                <th class='fw'>编码</th>
+                                <th class='fw'>特殊材料名称</th>
+                                <th class='fw'>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="materialScience">
+
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination" style='    margin: 40px -240px;'>
+
+                                <li id="fristPage">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style='    float: right;
+    margin: 40px;'>
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage" style="margin-left: 10px;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 导入档案 -->
+    <div class="modal fade" id="myModal4" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" id='modelClose' class='fileClose'>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">导入</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- <form class="form-horizontal"> -->
+
+                    <div id="uploader" class="wu-example">
+
+                        <div class="btns">
+                            <div id="picker">选择文件</div>
+
+                        </div>
+                        <!--用来存放文件信息-->
+                        <div id="thelist" class="uploader-list"></div>
+                    </div>
+
+                    <!-- 
+                    </form> -->
+
+                </div>
+                <div class="modal-footer">
+                    <button id="ctlBtn" class="btn btn-default">开始导入</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" id='fileClose'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 药品详细信息 -->
+    <div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">药品详细信息</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" id="formInformation1">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label ">序号</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput " type="text" value=" 4587" readonly id='medicalId' name='id' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">分类编码</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" XB05BA" readonly id='medicalCategoryCode' name='categoryCode' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">药品通用名编码</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" XB05BAD203B001" readonly id='medicalGeneralCode' name='generalCode' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">原药品通用名编码</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 1060105200115" readonly id='medicalOgeneralCode' name='ogeneralCode' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">中文通用名</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 12种复合维生素" readonly id='medicalGeneralName' name='generalName' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">支付类别</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 乙类" readonly id='medicalPaymentType' name='paymentType' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">标注剂型</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 注射剂" readonly id='medicalMarkDosage' name='markDosage' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">产品名编码</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 100016180001" readonly id='medicalProductCode' name='productCode' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">基本医疗自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 0.2" readonly id='medicalMedicalRatio' name='medicalRatio' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">居民统筹自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 0.2" readonly id='medicalOverallRatio' name='overallRatio' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">离休自付比列</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" readonly value=" 0.05" id='medicalRetireRatio' name='retireRatio' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">工伤保险自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 0" readonly id='medicalInjuryRatio' name='injuryRatio' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">生育保险自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 0" readonly id='medicalBirthRatio' name='birthRatio' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">产品名称</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 注射用多种维生素(12)(冻干)" readonly id='medicalProductName' name='productName' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">商品名</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 施尼维他" readonly id='medicalCommercialName' name='commercialName' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">剂型</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 冻干粉针" readonly id='medicalDosage' name='dosage' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">规格</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 5ml" readonly id='medicalSpecs' name='specs' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">包装材质</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 空" readonly id='medicalPackMaterial' name='packMaterial' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">最小包装数量（转换比）</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 1" readonly id='medicalMinPackVolume' name='minPackVolume' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">单位</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 支" readonly id='medicalUnit' name='unit' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">是否OTC</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly id='medicalIsOtc' name='isOtc' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">是否基药</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly id='medicalIsBase' name='isBase' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">低价药标识</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly id='medicalMarkPrice' name='markPrice' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">政府定价</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly id='medicalGovPrice' name='govPrice' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">省集中采购上限价</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 83.83" readonly id='medicalProcurePrice' name='procurePrice' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">药品批准文号</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 注册证号H20130405" readonly id='medicalOfficialNumber' name='officialNumber' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">供应商</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 北京科园信海医药经营有限公司" readonly id='medicalSupplier' name='supplier' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">生产企业</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 比利时Baxter S.A." readonly id='medicalManufacturer' name='manufacturer' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">限定支付范围</label>
+                            <div class="col-md-7">
+                                <textarea class="form-control disabledInput" name="" rows="" cols="" readonly id='medicalPaymentScope' name='paymentScope'> 限经营养风险筛查明确具有营养风险患者，消化道有功能的患者应首先选用肠内营养剂。</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">省目录编号</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" 291" readonly id='medicalCatalogNumber' name='catalogNumber' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">招标申报编号</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" CN00024876" readonly id='medicalReportingNumber' name='reportingNumber ' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">变更类型</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly id='medicalVariationType' name='variationType' autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">变更原因</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly id='medicalVariationCause' name='variationCause' autocomplete="off">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success editOne" style="outline: none;">编辑</button>
+                    <button type="button" class="btn btn-success saveOne" style="outline: none;" disabled="disabled" data-dismiss="modal">保存</button>
+                    <button type="button" class="btn btn-default " style="outline: none;" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 诊疗详细信息 -->
+    <div class="modal fade" id="detail2" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">诊疗详细信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation2">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">序号</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="1" readonly autocomplete="off" id='DiagnosisId' name='id'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">收费项目编码</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="110100001" readonly autocomplete="off" id='DiagnosisChargeCode' name='chargeCode'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">收费项目名称</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="挂号费" readonly autocomplete="off" id='DiagnosisChargeName' name='chargeName'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">收费类别</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='DiagnosisChargeType' name='chargeType'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">收费项目等类</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="丙" readonly autocomplete="off" id='DiagnosisChargeLevel' name='chargeLevel'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">基本医疗自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="100%" readonly autocomplete="off" id='DiagnosisMedicalRatio' name='medicalRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">居民统筹自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="100%" readonly autocomplete="off" id='DiagnosisOverallRatio' name='overallRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">工伤保险自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0%" readonly autocomplete="off" id='DiagnosisInjuryRatio' name='injuryRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">生育保险自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="100%" readonly autocomplete="off" id='DiagnosisBirthRatio' name='birthRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">离休自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="100%" readonly autocomplete="off" id='DiagnosisRetireRatio' name='retireRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">项目内涵</label>
+                            <div class="col-md-7">
+                                <textarea class="form-control disabledInput" name="projectContent" rows="" cols="" readonly id='DiagnosisProjectContent'> 含门诊、急诊及其为患者提供候诊就诊设施条件、诊断书、收费清单</textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">除外内容</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='DiagnosisExtraContent' name='extraContent'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">计价单位</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="次" readonly autocomplete="off" id='DiagnosisUnit' name='unit'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">三类医院苏南</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="1" readonly autocomplete="off" id='DiagnosisSHospital3' name='sHospital3'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">三类医院苏中</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="1" readonly autocomplete="off" id='DiagnosisMHospital3' name='mHospital3'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">三类医院苏北</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="1" readonly autocomplete="off" id='DiagnosisNHospital3' name='nHospital3'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">二类医院苏南</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0.8" readonly autocomplete="off" id='DiagnosisSHospital2' name='sHospital2'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">二类医院苏中</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0.8" readonly autocomplete="off" id='DiagnosisMHospital2' name='mHospital2'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">二类医院苏北</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0.8" readonly autocomplete="off" id='DiagnosisNHospital2' name='nHospital2'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">一类医院苏南</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0.8" readonly autocomplete="off" id='DiagnosisSHospital1' name='sHospital1'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">一类医院苏中</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0.8" readonly autocomplete="off" id='DiagnosisMHospital1' name='mHospital1'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">一类医院苏北	</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0.8 " readonly autocomplete="off" id='DiagnosisNHospital1' name='nHospital1'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">说明</label>
+                            <div class="col-md-7">
+                                <textarea class="form-control disabledInput" name="description" rows="" cols="" readonly id='DiagnosisDescription'> 门诊注射、换药、针灸、理疗、推拿、血透、放射治疗按疗程收取一次挂号费</textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">变更类别</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly autocomplete="off" id='DiagnosisVariationType' name='variationType'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">变更内容</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value=" " readonly autocomplete="off" id='DiagnosisVariationContent' name='variationContent'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">文件依据</label>
+                            <div class="col-md-7">
+                                <textarea class="form-control disabledInput" name="evidence" rows="" cols="" readonly id='DiagnosisEvidence'> 苏价医【2013】398号、苏价医【2015】234号、苏价医【2011】195号</textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">执行范围</label>
+                            <div class="col-md-7">
+                                <textarea class="form-control disabledInput" name="scope" rows="" cols="" readonly id='DiagnosisScope'>未实施价改医院（城市公立医院、县级公立医院、基层医疗机构取消该项目）</textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">备注</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='DiagnosisRemark' name='remark'>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success editTwo" style="outline: none;">编辑</button>
+                    <button type="button" class="btn btn-success saveTwo" style="outline: none;" data-dismiss="modal" disabled="disabled">保存</button>
+                    <button type="button" class="btn btn-default " style="outline: none;" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 材料详细信息 -->
+    <div class="modal fade" id="detail3" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">材料详细信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation3">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">序号</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="1" readonly autocomplete="off" id='ClinicalId' name='id'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">编码</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="100000000-28" readonly autocomplete="off" id='ClinicalMaterialCode' name='materialCode'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">特殊材料名称</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="生物多糖冲洗液" readonly autocomplete="off" id='ClinicalMaterialName' name='materialName'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">规格</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='ClinicalMaterialSpecs' name='materialSpecs'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">特殊材料等级</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="乙" readonly autocomplete="off" id='ClinicalMaterialLevel' name='materialLevel'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">离休自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="5%" readonly autocomplete="off" id='ClinicalRetireRatio' name='retireRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">工伤保险自付比例</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0%" readonly autocomplete="off" id='ClinicalInjuryRatio' name='injuryRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">生育保险自付比例	</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="0%" readonly autocomplete="off" id='ClinicalBirthRatio' name='birthRatio'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">单位</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='ClinicalUnit' name='unit'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">说明</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='ClinicalDescription' name='description'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">医院</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="中心" readonly autocomplete="off" id='ClinicalHospital' name='hospital'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">修改日期</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="2012.1.9" readonly autocomplete="off" id='ClinicalModifyDate' name='modifyDate'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">备注</label>
+                            <div class="col-md-7">
+                                <input class="form-control disabledInput" type="text" value="" readonly autocomplete="off" id='ClinicalRemark' name='remark'>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success editThree " style="outline: none;">编辑</button>
+                    <button type="button" class="btn btn-success saveThree" style="outline: none;" data-dismiss="modal" disabled="disabled">保存</button>
+                    <button type="button" class="btn btn-default " style="outline: none;" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人信息 -->
+    <div class="modal fade" id="personalInformation" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="outline: none;" class="close" data-dismiss="modal" aria-label="Close" onclick="closeWindow()" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="information">
+                        <div class="form-group">
+                            <label class="col-md-2">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userId" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect" disabled>
+                                    <option value="请选择">请选择</option>
+                                    <option value="01">社保中心</option>
+                                    <option value="02">就管中心</option>
+                                    <option value="03">劳动监察</option>
+                                    <option value="04">劳动人事争议仲裁院</option>
+                                    <option value="05">人事处</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect2" disabled>
+                                    <option value="请选择">请选择</option>
+                                    <option value="0">管理员</option>
+                                    <option value="1">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="phone" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="remark" disabled class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button style="outline: none;" type="button" class="btn btn-default" data-dismiss="modal" onclick="restoreSettings()" style="outline: none;">关闭</button>
+                    <button style="outline: none;" type="button" class="btn btn-primary" id="informationEditor" onclick="myEditor()" style="outline: none;">编辑</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="modal fade" id="logOut" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">退出登录</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认退出此次登录？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="exitLogon()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码 -->
+    <div class="modal fade" id="changePassword" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation">
+                        <div class="form-group">
+                            <label class="col-md-2">原密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">新密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">确认密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="changePwd()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src='../assets/lib/bootstrap/dist/js/bootstrap.js'></script>
+    <script src="../assets/js/index.js"></script>
+    <script src="../assets/js/sidebarAnimation.js"></script>
+    <script src='../webuploader/webuploader.js'></script>
+    <script src='../assets/js/jquery.cookie.js'></script>
+    <script src="../assets/js/common.js"></script>
+    <script src='../assets/js/domainName.js'></script>
+    <script src='../assets/js/threeList.js'></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script src="../assets/js/navigationList.js"></script>
+</body>
+
+</html>

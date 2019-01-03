@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+    <div class="loginBox">
+        <p class="login_info">登录</p>
+        <div class="loginForm">
+            <form id="loginForm" method="" action="">
+                <ul class="reg-box">
+                    <li>
+                        <label for="userCode">账    号</label>
+                        <input type="text" placeholder="个人用户输入手机号码,单位用户输入统一社会信用代码" class="account" name='userCode' id="userCode" />
+                        <span class="error "></span>
+                    </li>
+                    <li>
+                        <label for="userPwd">密    码</label><input type="password" class="admin_pwd" name='userPwd' id='userPwd' placeholder="请输入密码" autocomplete="off" /><span class="error"></span>
+                    </li>
+                    <li>
+                        <label for="phoKey">验证码</label><input type="text" class="sradd photokey" placeholder="请输入验证码" id="phoKey" style="color:#999;" autocomplete="off" />
+                        <span class="add phoKey" id="phoKyeImg"></span>
+                        <span class="error"></span>
+                    </li>
+                </ul>
+                <div class="loginBtn">
+                    <input type="button" id="loginBtn" value="立 即 登 录">
+                </div>
+
+            </form>
+        </div>
+        <div class="loginMore">
+            <a href="./forgetPassword.html" id="forgetBtn">忘记密码</a>
+            <a href="./register.html"  id="registerBtn">新用户注册</a>
+            <a href="./homePage.html" id="mainBtn">返回大厅</a>
+        </div>
+    </div>
+</body>
+<script src='./js/jquery-1.10.2.min.js'></script>
+<script src='./lib/jquery.cookie.js'></script>
+<script src='./js/domainName.js'></script>
+<script src='./js/login.js'></script>
+
+</html>

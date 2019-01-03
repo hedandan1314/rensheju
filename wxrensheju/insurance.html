@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+	<!--
+    	作者：kongfc
+    	时间：2018-07-17
+    	描述：人社公众号社保查询
+    -->
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<style type="text/css">
+			.container {
+				max-width: 100%;
+				padding: 0px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			
+			.header {
+				width: 100%;
+				text-align: center;
+				height: 50px;
+				background-color: #2298d8;
+				padding: 15px 16px;
+				font-size: 20px;
+				color: #fff;
+			}
+			
+			.main_menu {
+				width: 90%;
+				min-height: 408px;
+				vertical-align: baseline;
+				overflow: hidden;
+				padding: 0 10px 0 10px;
+				margin: 30px auto;
+			}
+			
+			.item {
+				opacity: 1;
+				margin-bottom: 40px;
+			}
+			
+			.detailed a {
+				display: block;
+				padding: 7px 10px;
+				background: #8ccf68;
+				color: #fff;
+				font-size: 16px;
+				border-radius: 28px;
+				text-decoration: none;
+			}
+			
+			.icon {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				border: 3px solid #fff;
+				text-align: center;
+				line-height: 24px;
+				border-radius: 22px;
+				margin-right: 40px;
+				font-weight: bold;
+				vertical-align: middle;
+				font-family: "黑体";
+			}
+		</style>
+		<div class="container">
+			<div class="header">
+				<span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);float: left;" onclick="javascript:history.back(-1);"></span>
+				<span class="title">社保查询</span>
+			</div>
+			<div class="main_menu">
+				<ul class="detailed">
+					<li class="item">
+						<a href="http://jshrss.jiangsu.gov.cn/col/col45367/"><span class="icon">1</span>医疗保险查询</a>
+					</li>
+					<li class="item">
+						<a href="http://jshrss.jiangsu.gov.cn/col/col45367/"><span class="icon">2</span>养老保险查询</a>
+					</li>
+					<li class="item">
+						<a href="http://jshrss.jiangsu.gov.cn/col/col45367/"><span class="icon">3</span>工伤保险查询</a>
+					</li>
+
+				</ul>
+			</div>
+
+		</div>
+	</body>
+
+</html>

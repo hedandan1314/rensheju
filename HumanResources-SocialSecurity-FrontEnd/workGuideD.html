@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>办事指南</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/workGuide.css">
+</head>
+
+<body>
+    <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" frameborder="0"></iframe>
+   <div class="container">
+			<!-- 基本信息表格部分 -->
+			<div class="layer-info">
+				<table class="table-guide ">
+					<tbody>
+						<tr>
+							<th>事项类型</th>
+							<td colspan="8" class="td_1" id='serviceName'>
+								
+							</td>
+						</tr>
+						<tr>
+							<th>所属机构</th>
+							<td colspan="3" class="td_2" id='orgName'></td>
+							<th>下属单位</th>
+							<td colspan="4" class="td_2" id='categoryInstitution'></td>
+						</tr>
+						<tr>
+							<th>咨询电话</th>
+							<td colspan="8" class="td_1" id='consultPhone'>
+
+							</td>
+							
+							<!--<th>承诺期限</th>
+							<td colspan="2" id='promisePeriod'>
+								<br>
+							</td>-->
+						</tr>
+						<tr>
+							<th>收费标准</th>
+							<td colspan="8" id='proceedPrice'>
+								<br>
+							</td>
+						</tr>
+						<tr>
+							<th>办理时间</th>
+							<td colspan="8" class="td_1" id='proceedPeriod'>
+								夏季（7月15日-9月30日）上午9：00-12:00，下午14:00-17:30其余，工作日上午9:00-12:00，下午13:30-17:30
+							</td>
+						</tr>
+						<tr>
+							<th>办理地点</th>
+							<td colspan="8" class="td_1" id='proceedPlace'>
+								安澜北路3号开发区人力资源市场2楼大厅29-31号窗口
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 办事指南部分 -->
+			<div class="layer-info">
+				<div class=' workGuide'>
+					<ul>
+						<li>办事指南</li>
+					</ul>
+				</div>
+				<div class='list'>
+					<ul>
+						<li>
+							<a href="#condition" class='listImage'>
+								<img src="./img/wen.png" alt="">
+								<img src="./img/wens.png" alt="" style='display:none'>
+							</a><br>
+							<a href="#condition">受理条件</a>
+						</li>
+						<li>
+							<a href="#material">
+								<img src="./img/material.png" alt="">
+								<img src="./img/materials.png" alt="" style='display:none'>
+							</a><br>
+							<a href="#material">办理材料</a>
+						</li>
+						<li>
+							<a href="#flow">
+								<img src="./img/flow.png" alt="">
+								<img src="./img/flows.png" alt="" style='display:none'>
+							</a><br>
+							<a href="#flow">办理流程</a>
+						</li>
+						<li>
+							<a href="#sheet">
+								<img src="./img/table.png" alt="">
+								<img src="./img/tables.png" alt="" style='display:none'>
+							</a><br>
+							<a href="#sheet">表格下载</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 受理条件部分 -->
+			<div class="layer-info" id="condition">
+				<div class="layer-tit single-tit">
+					<span class="tit-icon">
+                    <img src="./img/download2.png" alt="">
+                </span>受理条件
+				</div>
+				<div class="layer-txt">
+					<p class="dot" style="word-wrap: break-word;" id='proceedCondition'>
+
+						
+
+					</p>
+				</div>
+			</div>
+			<!--办理材料部分-->
+			<div class="layer-info" id='material'>
+				<div class="layer-tit single-tit" id="sqcl">
+					<span class="tit-icon">
+                        <img src="./img/download2.png" alt="">
+                </span>办理材料
+				</div>
+				<div class="layer-txt">
+					<p class="dot" style="word-wrap: break-word;" id='proceedMaterial'>
+						
+
+					</p>
+				</div>
+			</div>
+			<!-- 办理流程部分 -->
+			<div class="layer-info" id='flow'>
+				<div class="layer-tit" id="bllc">
+					<span class="tit-icon">
+                        <img src="./img/download2.png" alt="">
+                </span>办理流程
+				</div>
+				<div class="layer-txt">
+					<button>点击查看流程图详情</button>
+					<div class="light">
+						<div class="close">
+							关闭
+						</div>
+						<div class="picture">
+							<img src="./img/p1.png" alt="" id='attachFlowchart'>
+						</div>
+					</div>
+					<div class="black_overlay"></div>
+				</div>
+
+			</div>
+			<!-- 表格下载部分 -->
+			<div class="layer-info" id='sheet'>
+				<div class="layer-tit" id="bllc">
+					<span class="tit-icon">
+                            <img src="./img/download2.png" alt="">
+                    </span>表格下载
+				</div>
+				<div class="layer-txt" id='loadBtn'>
+					<!--<div class="first">
+						<div class="fl" id='serviceAttachModels'>
+							1.《退休审批表》
+						</div>
+						<div class="fr">
+							<a href=""> <img src="./img/load.png" alt=""></a>
+
+						</div>
+					</div>-->
+					
+				</div>
+			</div>
+		</div>
+    <iframe src="./PageFooter.html" style="width: 100%; height: 210px;" scrolling="no" frameborder="0"></iframe>
+    <script src='./js/jquery-3.2.1.min.js'></script>
+    <script src='./lib/jquery.cookie.js'></script>
+		<script src='./js/domainName.js'></script>
+    <script src='./js/workGuideD.js'></script>
+</body>
+
+</html>

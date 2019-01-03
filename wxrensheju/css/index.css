@@ -1,0 +1,181 @@
+.content {
+	max-width: 95%;
+	padding: 0px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.top_log {
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	margin: 10px auto;
+}
+
+.top_log img {
+	width: 100%;
+	height: 100%;
+	padding: 5px;
+}
+
+.bannerslider {
+	position: relative;
+	margin: 10px auto;
+	width: 100%;
+	height: 200px;
+}
+
+.slider_images {
+	width: 100%;
+	height: 100%;
+}
+
+.slider_img1 {
+	background: url(../img/banner_kfft_01.jpg) center 0 no-repeat;
+	left: 0px;
+}
+
+.slider_img2 {
+	background: url(../img/banner_kfft_02.jpg) center 0 no-repeat;
+	left: 500px;
+}
+
+.slider_img3 {
+	background: url(../img/banner_kfft_03.jpg) center 0 no-repeat;
+	left: -500px;
+}
+
+.bannerIteam {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#slider_nav {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 30px;
+	height: 10px;
+}
+
+#slider_nav>ul {
+	display: inline-block;
+}
+
+#slider_nav>ul>li {
+	width: 34px;
+	height: 5px;
+	background-color: #8ebdcf;
+	float: left;
+	cursor: pointer;
+	margin-right: 8px;
+}
+
+#slider_nav>ul>li.active {
+	background-color: #51b6e2;
+}
+
+.main {
+	font-size: 17px;
+	line-height: 21px;
+	display: block;
+}
+
+.main:after {
+	clear: both;
+	content: " ";
+	display: block;
+}
+
+.main li {
+	float: left;
+	margin-left: 2.5%;
+	margin-top: 2.5%;
+	width: 30%;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.main li a {
+	display: block;
+	color: #FFF;
+	text-align: center;
+	text-decoration: none;
+}
+
+.main li a b {
+	display: block;
+	height: 80px;
+	font-weight: 700;
+}
+
+div {
+	display: block;
+}
+
+.icon {
+	margin-top: 5px;
+}
+
+.main li a img {
+	margin: 0px auto;
+	width: 50px;
+	height: 50px;
+	border: 0;
+}
+
+.main li a span {
+	height: 25px;
+	color: white;
+	font-size: 14px;
+	font-weight: 100;
+}
+
+.main li:nth-child(1) {
+	background-color: #ED6942;
+}
+
+.main li:nth-child(2) {
+	background-color: #12B5B0;
+}
+
+.main li:nth-child(3) {
+	background-color: #31C27C;
+}
+
+.main li:nth-child(4) {
+	background-color: #F7A900
+}
+
+.main li:nth-child(5) {
+	background-color: #F68A42;
+}
+
+.main li:nth-child(6) {
+	background-color: #00B8EE;
+}
+
+.main li:nth-child(7) {
+	background-color: #B54F8E;
+}
+
+.main li:nth-child(8) {
+	background-color: #4DB135;
+}
+
+.main li:nth-child(9) {
+	background-color: #E968A1;
+}
+
+.main li:nth-child(10) {
+	background-color: #5F52A1;
+}
+
+.main li:nth-child(11) {
+	background-color: #9b265a;
+}
+
+.main li:nth-child(12) {
+	background-color: #311f8c;
+}

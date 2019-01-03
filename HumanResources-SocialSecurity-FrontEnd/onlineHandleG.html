@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>居民医保门特审批</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/onlineHandle.css">
+</head>
+
+<body>
+    <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" frameborder="0"></iframe>
+    <div class="container">
+        <!-- 事项信息开始 -->
+        <div class="container_top">
+            <div class="container_top_header">
+                <div class="con_top_header_left"></div>
+                <div class="con_top_header_center">事项信息</div>
+                <div class="con_top_header_right"></div>
+            </div>
+            <div class="container_top_main">
+                <table border="0">
+                    <form action="">
+                        <tr>
+                            <td colspan="2">事项名称：<span id="matterNumber">居民医保门特审批</span></td>
+                        </tr>
+                        <tr>
+                            <td>办件类型：<span id="commitment">承诺件</span></td>
+                            <td>受理部门：<span id="department">区人社局</span></td>
+                        </tr>
+                    </form>
+
+                </table>
+            </div>
+        </div>
+        <!-- 事项信息结束 -->
+        <div class="clear"></div>
+        <!-- 经办人信息开始 -->
+        <div class="container_middle">
+            <div class="container_middle_header">
+                <div class="con_middle_header_left"></div>
+                <div class="con_middle_header_center">经办人信息</div>
+                <div class="con_middle_header_right"></div>
+            </div>
+            <div class="container_middle_main">
+                <table border="0">
+                    <form action="">
+                        <tr>
+                            <td>申请人：<span id="applicant"></span></td>
+                            <td>身份证号：<span id="number"></span></td>
+                        </tr>
+                        <tr>
+                            <td>联系电话：<span id="userPhone"></span></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
+        </div>
+        <!-- 经办人信息结束 -->
+        <div class="clear"></div>
+        <!-- 申报材料开始 -->
+        <div class="container_footer">
+            <div class="container_footer_header">
+                <div class="container_footer_header_left"></div>
+                <div class="container_footer_header_center">申报材料</div>
+                <div class="container_footer_header_right"></div>
+            </div>
+            <div class="container_footer_main">
+
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <table id="table3" border="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%;">材料名称</th>
+                                <th style="width: 30%;">材料上传</th>
+                                <th style="width: 20%;">表格下载</th>
+                                <th>是否必须</th>
+                                <!-- <th style="width: 40px;">操作</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </form>
+
+
+            </div>
+        </div>
+        <!-- 申报材料结束 -->
+    </div>
+    <iframe src="PageFooter.html" style="border:none;width:100%;height:210px;" scrolling="no" frameborder="0"></iframe>
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src='./lib/jquery.cookie.js'></script>
+    <script src="./js/domainName.js"></script>
+    <script src="./js/parsingURL.js"></script>
+    <script>
+        // console.log(JSON.parse($.cookie('PHPSESSID')));
+
+        var userInfo = JSON.parse($.cookie('PHPSESSID'));
+        var userPhone = userInfo.userPhone,
+            userIdentity = userInfo.userIdentity;
+        var phone = userPhone.substring(0, 3) + "*****" + userPhone.substring(8, 11);
+        var num = userIdentity.substring(0, 1) + "****************" + userIdentity.substring(17, 18); //身份证加密
+        console.log('userInfo=', userInfo);
+        // if(userInfo.ownerCompany){
+
+        // }
+        $('#applicant').html(userInfo.userName);
+        $('#number').html(num);
+        $('#userPhone').html(phone);
+
+        function checkPhone() {
+            var phone = document.getElementById('phone').value;
+            if (!(/^1[34578]\d{9}$/.test(phone))) {
+                alert('请输入正确的手机号');
+                return false;
+            } else {}
+        }
+
+        var UrlParameter_obj = getJsonFromUrl(true, location.href);
+        var serviceCode = UrlParameter_obj.serviceCode,
+            serviceName = UrlParameter_obj.serviceName,
+            orgName = UrlParameter_obj.orgName;
+
+
+        $(function() {
+            $('#matterNumber').html(serviceName);
+            $('#department').html(orgName);
+        })
+
+        var count = 0;
+
+        function modify(obj) {
+            $(obj).text('取消');
+            $(obj).parent().siblings('td').find('input:eq(0)').css("display", "block");
+            $(obj).parent().siblings('td').find('input:eq(1)').css("display", "none");
+            count++;
+            if (count == 2) {
+                $(obj).text('修改');
+                $(obj).parent().siblings('td').find('input:eq(0)').css("display", "none");
+                $(obj).parent().siblings('td').find('input:eq(1)').css("display", "block");
+                count = 0;
+            }
+        }
+
+        var parameter = {
+            "serviceCode": serviceCode
+        }
+        var arr = [];
+        var res;
+        console.log('parameter=', parameter);
+        $.ajax({
+            type: 'POST',
+            url: ipAddress + '/service/detailProcedure',
+            data: JSON.stringify(parameter),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(result) {
+                res = result;
+                var html = '';
+                $('#table3 thead').next('tbody').remove();
+                console.log('result=', result);
+                console.log('result=', result.serviceAttachModels.length);
+                for (var i = 0; i < result.serviceAttachModels.length; i++) {
+                    arr.push(result.serviceAttachModels[i].attachName);
+                    html += '<tr>' +
+                        '<td style="padding-right: 10px;">' + result.serviceAttachModels[i].attachName +
+                        '</td>' +
+                        '<td><input class="file" type="file" name="key_' + (i + 1) + '" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,image/*,application/pdf,application/msword">' +
+                        '</td>' +
+                        '<td>' + (result.serviceAttachModels[i].attachFrom != null && result.serviceAttachModels[i].attachFrom != '' ? '<a href="./workGuide.html#sheet?serviceCode=' + result.serviceCode + '">' + result.serviceAttachModels[i].attachName + '</a>' : '') +
+                        '</td>' +
+                        '<td>' + (result.serviceAttachModels[i].attachStatus == 1 ? '是' : '否') +
+                        '</td>' +
+                        // '<td><a style="color: blue; text-decoration: none; cursor: pointer;" onclick="modify(this)" id="modify">修改</a>' +
+                        // '</td>' +
+                        '</tr>'
+                }
+                html += '<tr>' +
+                    '<td colspan="4">' +
+                    '<button type="button" class="submit" id="submits" onclick="doUpload()">提交</button>' +
+                    // '<button type="button" class="ts" style="margin-left: 10px;" onclick="temporaryStorage()">暂存</button>' +
+                    '</td>' +
+                    '</tr>';
+                $('#table3').append(html);
+                console.log('arr=', arr);
+                console.log('arr11=', arr.toString());
+            },
+            error: function() {
+                alert('失败')
+            }
+        })
+
+        // 提交
+        function doUpload() {
+            if (res.serviceAttachModels.length == 0) {
+                alert('没有相关材料!');
+                return false
+            }
+            for (var i = 0; i < res.serviceAttachModels.length; i++) {
+                if (res.serviceAttachModels[i].attachStatus == 1) {
+                    if ($(".file").eq(i).val() == '') {
+                        alert('必选材料不能为空!')
+                        return false
+                    }
+                }
+            }
+
+            var parameter = {
+                "serviceCode": serviceCode,
+                "userCode": userInfo.userCode
+            }
+            var formData = new FormData($("#uploadForm")[0]);
+            console.log('formData=', formData);
+            formData.append("masterVO", JSON.stringify(parameter)); // 拼接字符串
+            formData.append("filesMapping", arr.toString()); // 拼接数组
+
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/service/addProcedure',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(result) {
+                    console.log('result=', result);
+                    if (result == 1) {
+                        alert('提交成功');
+                        location.href = './office.html';
+                        document.getElementById('uploadForm').reset();
+                    } else {
+                        alert('提交失败')
+                    }
+                },
+                error: function() {
+                    alert('失败');
+                    document.getElementById('uploadForm').reset();
+                }
+            })
+        }
+
+        // 暂存
+        function temporaryStorage() {
+
+        }
+    </script>
+</body>
+
+</html>

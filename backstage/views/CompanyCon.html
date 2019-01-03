@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> 企业用工情况</title>
+		<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/css/tablecs/bc.grid-1.0.0.min.css" />
+	</head>
+
+	<body style="background-color: #f4f6f8;">
+		<h1 style="text-align: center;">企业用工情况统计</h1>
+
+		<div>
+			<div id="table" style="width: 98%; height: 768px; margin: 0 auto;"></div>
+		</div>
+		<script src="../assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../assets/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../assets/js/domainName.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../assets/js/tablejs/bc.grid-1.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			
+			var item = [];
+			$.ajax({
+				type: "post",
+				url: ipAddress + '/stats/getCorporationEmploy',
+				async: false,
+				success: function(msg) {
+					for(i = 0; i < msg.data.length; i++) {
+
+						msg.data[i].employRate = msg.data[i].employRate + "%"
+
+						item.push(msg.data[i])
+
+					}
+
+				},
+			});
+			
+			var data = item;
+			$(function() {
+				var grid = BCGrid.create("#table", {
+					columns: [{
+							id: 'id',
+							name: 'id',
+							display: 'ID',
+							align: 'center',
+							hide: true
+						},
+
+						{
+							id: 'name',
+							name: 'companyName',
+							display: '姓名'
+						}, {
+							name: 'employTotal',
+							display: '用工人数',
+							enableSort: true
+						}, {
+							name: 'employPart',
+							display: '参保人数',
+							enableSort: true
+						}, {
+							name: 'employRate',
+							display: '参保率',
+							enableSort: true
+						},
+					],
+					dataSource: 'local',
+					localData: data
+				});
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,333 @@
+{
+  "login.html": {
+    "href": "login.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "guide.html": {
+    "href": "guide.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "business.html": {
+    "href": "business.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "guide.html"
+    ],
+    "priority": 0
+  },
+  "unitwork.html": {
+    "href": "unitwork.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "business.html"
+    ],
+    "priority": 0
+  },
+  "personal_guide.html": {
+    "href": "personal_guide.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "personal_business.html": {
+    "href": "personal_business.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "personal_guide.html"
+    ],
+    "priority": 0
+  },
+  "personal_unitwork.html": {
+    "href": "personal_unitwork.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "personal_business.html"
+    ],
+    "priority": 0
+  },
+  "fileQuery.html": {
+    "href": "fileQuery.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "medicalQuery.html": {
+    "href": "medicalQuery.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "insuredQuery.html": {
+    "href": "insuredQuery.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "reimbursementQuery.html": {
+    "href": "reimbursementQuery.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "publicQuery.html": {
+    "href": "publicQuery.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "fileQuery.html",
+      "medicalQuery.html",
+      "insuredQuery.html",
+      "reimbursementQuery.html"
+    ],
+    "priority": 0
+  },
+  "serviceHall.html": {
+    "href": "serviceHall.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "downloadDetail.html": {
+    "href": "downloadDetail.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "downloadCenter.html": {
+    "href": "downloadCenter.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/font-awesome.min.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "downloadDetail.html"
+    ],
+    "priority": 0
+  },
+  "notice_guide.html": {
+    "href": "notice_guide.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "notice.html": {
+    "href": "notice.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "notice_guide.html"
+    ],
+    "priority": 0
+  },
+  "hotissue_guide.html": {
+    "href": "hotissue_guide.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "hotissue.html": {
+    "href": "hotissue.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "hotissue_guide.html"
+    ],
+    "priority": 0
+  },
+  "insurance.html": {
+    "href": "insurance.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "camera_video.html": {
+    "href": "camera_video.html",
+    "resources": [
+      "js/common.js",
+      "css/common.css"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "camera.html": {
+    "href": "camera.html",
+    "resources": [
+      "js/immersed.js",
+      "js/vconsole.min.js",
+      "js/common.js",
+      "css/common.css"
+    ],
+    "refer": [
+      "camera_video.html"
+    ],
+    "priority": 0
+  },
+  "change_password.html": {
+    "href": "change_password.html",
+    "resources": [
+      "css/bootstrap.css",
+      "css/reset.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "personal_setting.html": {
+    "href": "personal_setting.html",
+    "resources": [
+      "css/reset.css",
+      "css/bootstrap.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery-3.2.1.min.js"
+    ],
+    "refer": [
+      "change_password.html"
+    ],
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/mui.js",
+      "css/reset.css",
+      "css/mui.min.css",
+      "css/index.css",
+      "js/jquery-3.2.1.min.js",
+      "js/homePage.js",
+      "img/halogo.png",
+      "img/grdr.png",
+      "img/dwbs.png",
+      "img/grbs.png",
+      "img/ggcx.png",
+      "img/fwdt.png",
+      "img/xzzx.png",
+      "img/tzgg.png",
+      "img/rdwt.png",
+      "img/sbcx.png",
+      "img/wsbs.png",
+      "img/sprz.png",
+      "img/grsz.png"
+    ],
+    "refer": [
+      "login.html",
+      "unitwork.html",
+      "personal_unitwork.html",
+      "publicQuery.html",
+      "serviceHall.html",
+      "downloadCenter.html",
+      "notice.html",
+      "hotissue.html",
+      "insurance.html",
+      "camera.html",
+      "personal_setting.html"
+    ],
+    "priority": 0
+  }
+}

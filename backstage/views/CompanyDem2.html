@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>企业用工需求统计</title>
+    <link rel="stylesheet" href="../assets/less/base.css" type="text/css">
+    <link rel="stylesheet" href="../assets/less/index.css" type="text/css">
+    <link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <style>
+        select {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 3rem;
+            outline: none;
+        }
+        
+        select:disabled {
+            color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .header ul li a {
+            outline: none;
+            cursor: pointer;
+        }
+        
+        iframe {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 左边的侧边栏 -->
+    <div class="aside" id="aside">
+        <!-- 左上部分的用户信息 -->
+        <div class="profile">
+            <div class="avatar" id="aa">
+                <img src="../uploader/1.jpg" alt="" class='img-circle'>
+            </div>
+            <h5 id="usersName"></h5>
+        </div>
+
+        <!--左下部分的导航-->
+        <div class="menu">
+            <ul>
+                <li><a href="./personnel.html">权限管理</a></li>
+                <li><a href="./userControl.html">用户管理</a></li>
+                <li style="display: none;"><a href="./operation.html">业务管理</a></li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">业务管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li><a href="./operation.html">就管中心</a> </li>
+                        <li><a href="./operation.html">社保中心</a> </li>
+                        <li><a href="./operation.html">劳动监察</a> </li>
+                        <li><a href="./operation.html">仲裁院</a> </li>
+                        <li><a href="./operation.html">人事处</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">信息管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li><a href="./notice.html">公告</a> </li>
+                        <li><a href="./commonProblems.html">常见问题</a> </li>
+                        <li><a href="./guide.html">办事指南</a> </li>
+                        <li>
+                            <a href="./query.html">信息录入</a>
+                        </li>
+                        <li>
+                            <a href="./datafill.html">数据录入</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="./DataDisplay2.html">数据报表</a></li>
+                <li><a href="./systemMaintenance.html">系统维护</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右边主体部分 -->
+    <div class="main">
+        <!-- 右边上部分工具部分 -->
+        <div class="header">
+            <!-- 导航条部分 -->
+            <nav class="navbar navbar-default" style="margin-bottom: 0px;">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;"><span class='fa fa-navicon'></span></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a data-toggle="modal" data-target="#personalInformation"> <span class='fa fa-user-circle'></span> 个人中心</a>
+                            </li>
+                            <li><a data-toggle="modal" data-target="#changePassword"><span class='fa fa-key fa-fw'></span>修改密码</a></li>
+                            <li><a data-toggle="modal" data-target="#logOut"><span class='fa fa-sign-out'></span>退出</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+
+        </div>
+        <iframe src="./CompanyDem.html" frameborder="0" scrolling="no" style="width: 100%; height:96%;"></iframe>
+    </div>
+
+    <!-- 个人信息 -->
+    <div class="modal fade" id="personalInformation" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="outline: none;" class="close" data-dismiss="modal" aria-label="Close" onclick="closeWindow()" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="information">
+                        <div class="form-group">
+                            <label class="col-md-2">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userId" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect" disabled>
+                                    <option value="请选择">请选择</option>
+                                    <option value="01">社保中心</option>
+                                    <option value="02">就管中心</option>
+                                    <option value="03">劳动监察</option>
+                                    <option value="04">劳动人事争议仲裁院</option>
+                                    <option value="05">人事处</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect2" disabled>
+                                    <option value="请选择">请选择</option>
+                                    <option value="0">管理员</option>
+                                    <option value="1">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="phone" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="remark" disabled class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button style="outline: none;" type="button" class="btn btn-default" data-dismiss="modal" onclick="restoreSettings()" style="outline: none;">关闭</button>
+                    <button style="outline: none;" type="button" class="btn btn-primary" id="informationEditor" onclick="myEditor()" style="outline: none;">编辑</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="modal fade" id="logOut" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">退出登录</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认退出此次登录？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="exitLogon()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码 -->
+    <div class="modal fade" id="changePassword" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation">
+                        <div class="form-group">
+                            <label class="col-md-2">原密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">新密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">确认密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="changePwd()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src='../assets/lib/bootstrap/dist/js/bootstrap.js'></script>
+    <script src="../assets/js/index.js"></script>
+    <script src="../assets/js/jquery.cookie.js"></script>
+    <script src="../assets/js/sidebarAnimation.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script src="../assets/js/navigationList.js"></script>
+    <script>
+        $(function() {
+            var flag = true;
+            $('.navbar-brand').click(function() {
+                if (flag) {
+                    $("#aside").animate({
+                        marginLeft: '-180px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '0px'
+                    });
+                    // $("#main", parent.document).animate({
+                    //     marginLeft: '0px'
+                    // });
+                    flag = false;
+                } else {
+                    $("#aside").animate({
+                        marginLeft: '0px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '180px'
+                    });
+                    // $("#main", parent.document).animate({
+                    //     marginLeft: '180px'
+                    // });
+                    flag = true;
+                }
+
+            })
+        })
+    </script>
+</body>
+
+</html>

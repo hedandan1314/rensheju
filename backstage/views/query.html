@@ -1,0 +1,2930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>信息录入</title>
+    <link rel="stylesheet" href="../assets/less/base.css" type="text/css">
+    <link rel="stylesheet" href="../assets/less/index.css" type="text/css">
+    <link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../webuploader/webuploader.css">
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+        
+        select {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 3rem;
+            outline: none;
+        }
+        
+        select:disabled {
+            color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .header ul li a {
+            outline: none;
+            cursor: pointer;
+        }
+        /* #picker {
+            width: 100%!important;
+            height: 100%!important;
+        } */
+        
+        .pagination li {
+            cursor: pointer;
+        }
+        
+        .disable {
+            pointer-events: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 左边的侧边栏 -->
+    <div class="aside" id="aside">
+        <!-- 左上部分的用户信息 -->
+        <div class="profile">
+            <div class="avatar" id="aa">
+                <img src="../uploader/1.jpg" alt="" class='img-circle'>
+            </div>
+            <h5 id="usersName">南南</h5>
+        </div>
+
+        <!--左下部分的导航-->
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="./personnel.html">权限管理</a>
+                </li>
+                <li>
+                    <a href="./userControl.html">用户管理</a>
+                </li>
+                <li style="display: none;"><a href="./operation.html">业务管理</a></li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">业务管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li>
+                            <a href="./operation.html">就管中心</a>
+                        </li>
+                        <li>
+                            <a href="./operation.html">社保中心</a>
+                        </li>
+                        <li>
+                            <a href="./operation.html">劳动监察</a>
+                        </li>
+                        <li>
+                            <a href="./operation.html">仲裁院</a>
+                        </li>
+                        <li>
+                            <a href="./operation.html">人事处</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">信息管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li>
+                            <a href="./notice.html">公告</a>
+                        </li>
+                        <li>
+                            <a href="./commonProblems.html">常见问题</a>
+                        </li>
+                        <li>
+                            <a href="./guide.html">办事指南</a>
+                        </li>
+                        <li>
+                            <a href="./query.html">信息录入</a>
+                        </li>
+                        <li>
+                            <a href="./datafill.html">数据录入</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="./DataDisplay2.html">数据报表</a>
+                </li>
+                <li>
+                    <a href="./systemMaintenance.html">系统维护</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右边主体部分 -->
+    <div class="main">
+        <!-- 右边上部分工具部分 -->
+        <div class="header">
+            <!-- 导航条部分 -->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;"><span class='fa fa-navicon'></span></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a data-toggle="modal" data-target="#personalInformation"> <span class='fa fa-user-circle'></span> 个人中心</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#changePassword"><span class='fa fa-key fa-fw'></span>修改密码</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#logOut"><span class='fa fa-sign-out'></span>退出</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+
+        </div>
+
+        <!-- 右边下部分 ，网站的主体页面-->
+        <div class="body">
+            <!-- 面包屑导航 -->
+            <ol class="breadcrumb">
+                <li>信息管理</li>
+                <li>信息录入</li>
+            </ol>
+            <!-- 面板，添加人员-->
+            <div class="panel panel-default">
+                <div class="panel-body ">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label>查询类型：</label>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <select name="" id="mySelect" onchange="show_sub(this.options[this.options.selectedIndex].value)">
+									<!-- <option value="请选择">请选择</option> -->
+									<option value="01">流动人员档案在档查询</option>
+									<option value="02">定点医疗机构查询</option>
+                                    <option value="03">居民医保报销进度查询</option>
+                                    <option value="04">城乡居民个人参保信息查询</option>
+								</select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- 面板，搜索框与表格 -->
+            <div class="panel panel-default" id="panel1">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-6">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>档案查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="档案编号" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="button" style="outline: none;" id="queryFiles">搜索</button>
+                                </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal" style="outline: none;" onclick="myModal()" value="新录档案">
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" onclick="closeTip()" value="导入档案">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>档案编号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>身份证</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination pagination1" style="margin: 40px -240px;">
+                                <li id="fristPage">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style="float: right; margin: 40px;">
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage" style="margin-left: 10px; outline: none;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" id="panel2" style="display: none;">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-8">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>医疗机构查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="医疗机构名称" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="button" id="queryMechanism" style="outline: none;">搜索</button>
+                                </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal2" style="outline: none;" onclick="myModalMedical()" value="新录医疗机构">
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" onclick="closeTip()" value="导入医疗机构">
+                        </form>
+                    </div>
+
+                </div>
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>定点机构编号</th>
+                            <th>名称</th>
+                            <th>类别</th>
+                            <th>医院等级</th>
+                            <th>地址</th>
+                            <th>操作</th>
+
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination pagination2" style="margin: 40px -240px;">
+                                <li id="fristPage2">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous2">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next2">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage2">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style="float: right; margin: 40px;">
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage2" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage2" style="margin-left: 10px; outline: none;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="panel3" style="display: none;">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-8">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>居民医保报销进度查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="个人身份证" class="form-control">
+                                <span class="input-group-btn">
+                                            <button class="btn btn-success" type="button" id="queryReimbursement" style="outline: none;">搜索</button>
+                                        </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal3" style="outline: none;" onclick="myModalReimburse()" value="新录医保报销">
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" onclick="closeTip()" value="导入医保报销">
+                        </form>
+                    </div>
+
+                </div>
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>编号</th>
+                            <th>姓名</th>
+                            <th>身份证</th>
+                            <th>总金额(元)</th>
+                            <th>医院</th>
+                            <th>状态</th>
+                            <th>状态操作</th>
+                            <th>操作</th>
+
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination pagination3" style="margin: 40px -240px;">
+                                <li id="fristPage3">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous3">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next3">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage3">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style="float: right; margin: 40px;">
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage3" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage3" style="margin-left: 10px; outline: none;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" id="panel4" style="display: none;">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-8">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>城乡居民个人参保信息查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="个人身份证" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="button" id="queryInsured" style="outline: none;">搜索</button>
+                                </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal5" onclick="myModal5()" style="outline: none;" value="新录参保信息">
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal4" style="outline: none;" onclick="closeTip()" value="导入参保信息">
+                        </form>
+                    </div>
+
+                </div>
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>编号</th>
+                            <th>姓名</th>
+                            <th>身份证</th>
+                            <th>联系电话</th>
+                            <th>所属村/居委会</th>
+                            <th>年月</th>
+                            <th>养老保险</th>
+                            <th>医疗保险</th>
+                            <th>失业保险</th>
+                            <th>工商保险</th>
+                            <th>生育保险</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination pagination4" style="margin: 40px -240px;">
+                                <li id="fristPage4">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous4">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next4">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage4">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style="float: right; margin: 40px;">
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage4" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage4" style="margin-left: 10px; outline: none;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新录档案 -->
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeArchives()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新录档案</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addArchives">
+                        <div class="form-group">
+                            <label class="col-md-2" for="account">档案编号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="account" name="addTitle" onblur="addFileNumber()" placeholder="档案编号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titlespan"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="userName0">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName0" class="form-control" name="addUserName" onblur="addCheckUserName()" placeholder="姓名">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titleName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="idCard">身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="idCard" name="addIdCard" onblur="addCheckIdCard()" placeholder="身份证">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titleIdCard"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="sex">性别</label>
+                            <div class="col-md-6">
+                                <select name="" id="sex">
+										<option value="0" selected>女</option>
+										<option value="1">男</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="note">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="note" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeArchives()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 导入档案 -->
+    <div class="modal fade" id="myModal4" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" id='modelClose'>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">导入</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- <form class="form-horizontal"> -->
+
+                    <div id="uploader" class="wu-example">
+
+                        <div class="btns">
+                            <div id="picker">选择文件</div>
+
+                        </div>
+                        <!--用来存放文件信息-->
+                        <div id="thelist" class="uploader-list"></div>
+                    </div>
+
+                    <!-- 
+                    </form> -->
+
+                </div>
+                <div class="modal-footer">
+                    <button id="ctlBtn" class="btn btn-default" style="outline: none;">开始上传</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" id='fileClose'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新录医疗机构 -->
+    <div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeMedical()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新录医疗机构</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addMedical">
+                        <div class="form-group">
+                            <label class="col-md-3" for="agencyNumber">定点机构编号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="agencyNumber" name="addNumber" onblur="addMedicalNumber()" placeholder="定点机构编号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTip"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="agencyName">名称</label>
+                            <div class="col-md-6">
+                                <input type="text" id="agencyName" class="form-control" placeholder="名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="category">类别</label>
+                            <div class="col-md-6">
+                                <select name="" id="category">
+										<option value="0" selected>请选择</option>
+										<option value="1">单位卫生所</option>
+										<option value="2">异地医院</option>
+										<option value="3">社会医院</option>
+										<option value="4">社会门诊部(所)</option>
+										<option value="5">单位医院</option>
+										<option value="6">社区卫生服务中心(站)</option>
+										<option value="7">其他</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="level">等级</label>
+                            <div class="col-md-6">
+                                <select name="" id="level">
+										<option value="0" selected>请选择</option>
+										<option value="1">一级医院</option>
+										<option value="2">二级医院</option>
+										<option value="3">三级医院</option>
+										<option value="4">其他</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="address">地址</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="address" placeholder="地址">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeMedical()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory2">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新录医保报销 -->
+    <div class="modal fade" id="myModal3" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeReimburse()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新录医保报销</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addReimburse">
+                        <div class="form-group">
+                            <label class="col-md-3" for="userName3">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName3" class="form-control" name="userName3" onblur="addInsuranceName()" placeholder="姓名">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="idCard3">身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" id="idCard3" class="form-control" name="idCard3" onblur="addInsuranceId()" placeholder="身份证">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="totalAmount">总金额(元)</label>
+                            <div class="col-md-6">
+                                <input type="text" id="totalAmount" class="form-control" name="totalAmount" onblur="addTotalAmount()" placeholder="总金额">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipAmount"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="hospital">医院</label>
+                            <div class="col-md-6">
+                                <input type="text" id="hospital" class="form-control" name="hospital" onblur="addHospital()" placeholder="医院">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipHospital"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeReimburse()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory3">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新录参保信息 -->
+    <div class="modal fade" id="myModal5" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeInsured()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新录参保信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="insuredInformation">
+                        <!-- <div class="form-group">
+                            <label class="col-md-3" for="insuredNumber">个人编号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="insuredNumber" name="addTitle1" onblur="addPersonalNumber3()" placeholder="定点机构编号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTip4"></span>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuredPerson">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuredPerson" class="form-control" name="insuredPerson" onblur="addInsuredPerson()" placeholder="姓名">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipInsuredPerson"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="personIdentity">身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" id="personIdentity" name="addTitle1" onblur="addPersonalNumber3()" class="form-control" placeholder="身份证">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTip4"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="personPhone">联系电话</label>
+                            <div class="col-md-6">
+                                <input type="text" id="personPhone" class="form-control" placeholder="联系电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="memberPlace">所属村/居委会</label>
+                            <div class="col-md-6">
+                                <input type="text" id="memberPlace" class="form-control" placeholder="所属村/居委会">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="releaseTime">年月</label>
+                            <div class="col-md-6">
+                                <input type="text" id="releaseTime" class="form-control laydate-icon" placeholder="年月">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insurancePension">养老保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insurancePension" class="form-control" placeholder="养老保险">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceMedical">医疗保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceMedical" class="form-control" placeholder="医疗保险">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceUnemploy">失业保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceUnemploy" class="form-control" placeholder="失业保险">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceInjury">工商保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceInjury" class="form-control" placeholder="工商保险">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceBirth">生育保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceBirth" class="form-control" placeholder="生育保险">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceRemark">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceRemark" class="form-control" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeInsured()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory5">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑档案 -->
+    <div class="modal fade" id="editor" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closePageTip()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑档案</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2" for="account2">档案编号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="account2" name="editorFile" disabled onblur="editorArchives()" placeholder="档案编号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titlespan3"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="userName2">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName2" name="userName2" onblur="editorCheckUserName()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titleName2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="idCard2">身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="idCard2" name="idCard2" onblur="editorCheckIdCard()" placeholder="身份证">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titleIdCard2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="sex2">性别</label>
+                            <div class="col-md-6">
+                                <select name="" id="sex2">
+										<option value="0" selected>女</option>
+										<option value="1">男</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="note2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="note2" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closePageTip()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="saveFiles">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑医疗机构 -->
+    <div class="modal fade" id="editor2" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑医疗机构</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3" for="agencyNumber2">定点机构编号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="agencyNumber2" name="editorTitle" disabled onblur="editorAgencyTitle()" placeholder="定点机构编号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titlespan2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="agencyName2">名称</label>
+                            <div class="col-md-6">
+                                <input type="text" id="agencyName2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="category2">类别</label>
+                            <div class="col-md-6">
+                                <select name="" id="category2">
+										<option value="0" selected>请选择</option>
+										<option value="1">单位卫生所</option>
+										<option value="2">异地医院</option>
+										<option value="3">社会医院</option>
+										<option value="4">社会门诊部(所)</option>
+										<option value="5">单位医院</option>
+										<option value="6">社区卫生服务中心(站)</option>
+										<option value="7">其他</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="level2">等级</label>
+                            <div class="col-md-6">
+                                <select name="" id="level2">
+										<option value="0" selected>请选择</option>
+										<option value="1">一级医院</option>
+										<option value="2">二级医院</option>
+										<option value="3">三级医院</option>
+										<option value="4">其他</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="address2">地址</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="address2" placeholder="地址">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory4">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑医保报销 -->
+    <div class="modal fade" id="editor3" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeEditorInsurance()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑医保报销</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3" for="userName4">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName4" name="userName4" onblur="editorInsuranceName()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipName2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="idCard4">身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" id="idCard4" name="idCard4" onblur="editorInsuranceId()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipId2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="totalAmount2">总金额(元)</label>
+                            <div class="col-md-6">
+                                <input type="text" id="totalAmount2" name="totalAmount2" onblur="editorInsuranceTotal()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipAmount2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="hospital2">医院</label>
+                            <div class="col-md-6">
+                                <input type="text" id="hospital2" name="hospital2" onblur="editorInsuranceHospital()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipHospital2"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeEditorInsurance()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="editorSaves">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑参保信息 -->
+    <div class="modal fade" id="myModal6" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑参保信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <!-- <div class="form-group">
+                            <label class="col-md-3" for="insuredNumber2">个人编号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="insuredNumber2" name="addTitle1" onblur="addPersonalNumber3()" placeholder="个人编号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTip4"></span>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuredPerson2">姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuredPerson2" name="insuredPerson2" onblur="editorInsuredPerson()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipInsuredPerson2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="personIdentity2">身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" id="personIdentity2" name="personIdentity2" onblur="editorInsuredId()" class="form-control">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="spanTipPersonIdentity"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="personPhone2">联系电话</label>
+                            <div class="col-md-6">
+                                <input type="text" id="personPhone2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="memberPlace2">所属村/居委会</label>
+                            <div class="col-md-6">
+                                <input type="text" id="memberPlace2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="releaseTime2">年月</label>
+                            <div class="col-md-6">
+                                <input type="text" id="releaseTime2" class="form-control laydate-icon">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insurancePension2">养老保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insurancePension2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceMedical2">医疗保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceMedical2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceUnemploy2">失业保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceUnemploy2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceInjury2">工商保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceInjury2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceBirth2">生育保险</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceBirth2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="insuranceRemark2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="insuranceRemark2" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="saveEditorInsured">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 受理 -->
+    <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否受理？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认受理该报销申请？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 审核 -->
+    <div class="modal fade" id="audit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">材料审核？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认审核该报销申请？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureMaterialAudit()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 完成 -->
+    <div class="modal fade" id="complete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">报销完成？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认完成该报销申请？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureCompleted()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete  档案 -->
+    <div class="modal fade" id="delete0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureDelete1()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- delete  医疗机构 -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureDelete2()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- delete  医保报销 -->
+    <div class="modal fade" id="delete2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureDelete3()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete  参保信息 -->
+    <div class="modal fade" id="delete3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureDelete4()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人信息 -->
+    <div class="modal fade" id="personalInformation" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="outline: none;" class="close" data-dismiss="modal" aria-label="Close" onclick="closeWindow()" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="information">
+                        <div class="form-group">
+                            <label class="col-md-2">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userId" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect" disabled>
+										<option value="请选择">请选择</option>
+										<option value="01">社保中心</option>
+										<option value="02">就管中心</option>
+										<option value="03">劳动监察</option>
+										<option value="04">劳动人事争议仲裁院</option>
+										<option value="05">人事处</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect2" disabled>
+										<option value="请选择">请选择</option>
+										<option value="0">管理员</option>
+										<option value="1">普通用户</option>
+									</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="phone" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="remark" disabled class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button style="outline: none;" type="button" class="btn btn-default" data-dismiss="modal" onclick="restoreSettings()" style="outline: none;">关闭</button>
+                    <button style="outline: none;" type="button" class="btn btn-primary" id="informationEditor" onclick="myEditor()" style="outline: none;">编辑</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="modal fade" id="logOut" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">退出登录</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认退出此次登录？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="exitLogon()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码 -->
+    <div class="modal fade" id="changePassword" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation">
+                        <div class="form-group">
+                            <label class="col-md-2">原密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">新密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">确认密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="changePwd()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src='../assets/lib/bootstrap/dist/js/bootstrap.js'></script>
+    <script src="../assets/js/index.js"></script>
+    <script src="../assets/js/laydate.js"></script>
+    <script src="../assets/js/sidebarAnimation.js"></script>
+    <script src='../webuploader/webuploader.js'></script>
+    <script src="../assets/js/jquery.cookie.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/domainName.js"></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script src="../assets/js/navigationList.js"></script>
+    <script>
+        ! function() {
+            laydate.skin('molv'); //切换皮肤，请查看skins下面皮肤库
+        }();
+        laydate({
+            elem: '#releaseTime',
+            istime: true,
+            format: 'YYYY-MM'
+        });
+
+        laydate({
+            elem: '#releaseTime2',
+            istime: true,
+            format: 'YYYY-MM',
+        });
+
+
+        var selectVal = $('#mySelect option:selected').val();
+        var imptype;
+        if (selectVal == 01) {
+            imptype = 12;
+        } else if (selectVal == 02) {
+            imptype = 8;
+        } else if (selectVal == 03) {
+            imptype = 9;
+        } else if (selectVal == 04) {
+            imptype = 11;
+        }
+
+        // 点击导入时清除提示
+        function closeTip() {
+            $('#thelist').html("");
+        }
+
+        // 批量导入
+        $('#myModal4').on('shown.bs.modal', function() { //提示框显示时候触发
+            uploader.refresh(); //刷新当前webUploder
+        });
+        var uploader = WebUploader.create({
+            // 文件接收服务端。
+            server: ipAddress + '/datasrv/importData',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#picker',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            chunked: true, // 是否分片
+            duplicate: true, //去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
+
+        });
+        //点击关闭，存放文件全部清空
+        $('#fileClose').click(function() {
+            $('#thelist').html("");
+            if (imptype == 12) {
+                initAjax();
+            } else if (imptype == 8) {
+                initAjax2();
+            } else if (imptype == 9) {
+                initAjax3();
+            } else if (imptype == 11) {
+                initAjax4();
+            }
+        })
+        $('.fileClose').click(function() {
+            $('#thelist').html("")
+        })
+        uploader.on('fileQueued', function(file) {
+            $("#thelist").append('<div id="' + file.id + '" class="item" style="position:relative">' +
+
+                '<div class="am-badge" style="float:left;">' + file.name + '</div>' + '<div class="fa fa-close fileRemove" style="float:right;    cursor: pointer"></div>' + '</br>' +
+
+                '<p class="state">等待导入...</p>' +
+
+                '</div>');
+            //点击删除按钮此行删除
+            $('.fileRemove').click(function() {
+                    $(this).parent().remove()
+                })
+                //追加导入数据类型    
+            uploader.on('uploadBeforeSend', function(obj, data) {
+                //传入表单参数
+                data = $.extend(data, {
+                    "imptype": imptype
+                });
+            });
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function(file, percentage) {
+                var $li = $('#' + file.id),
+                    $percent = $li.find('.progress .progress-bar');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<div class="progress progress-striped active">' +
+                        '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                        '</div>' +
+                        '</div>').appendTo($li).find('.progress-bar');
+                }
+
+                $li.find('p.state').text('导入中');
+
+                $percent.css('width', percentage * 100 + '%');
+            });
+        });
+        uploader.on('uploadSuccess', function(file, result) {
+            if (result.code == 4004) {
+                $('#' + file.id).find('p.state').text('导入成功');
+                $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">' + result.message + '</div>');
+            } else if (result.code == 1000) {
+                $('#' + file.id).find('p.state').text('导入出错');
+                $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">数据异常</div>');
+            } else {
+                $('#' + file.id).find('p.state').text('导入出错');
+                $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">' + result.message + '</div>');
+            }
+        });
+
+        uploader.on('uploadError', function(file, result) {
+            $('#' + file.id).find('p.state').text('导入出错');
+            $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">' + result.message + '</div>');
+        });
+
+        uploader.on('uploadComplete', function(file) {
+            $('#' + file.id).find('.progress').fadeOut();
+        })
+
+        //点击开始导入，进行导入
+        $("#ctlBtn").click(function() {
+            uploader.upload();
+        });
+
+        function closePageTip() {
+            $('#titleName2').html('');
+            $('#titleIdCard2').html('');
+        }
+
+
+        var businessName;
+
+        var pageIndex3 = 1,
+            addCount3 = 0,
+            totalPage3 = 0,
+            lastPage3 = 0;
+        var queryReimbursement;
+
+        // 分页(医保报销进度)
+        function page3() {
+            if (totalPage3 <= 6) {
+                while (totalPage3 > 0) {
+                    $('#previous3').after('<li><a href="javascript:;" class="pageNos3 pageNo' + totalPage3 + '">' + totalPage3 + '</a></li>');
+                    totalPage3--
+                }
+            } else {
+                if (pageIndex3 > 3 && totalPage3 - 2 >= pageIndex3) {
+                    $('#previous3').after('<li><a href="javascript:;" class="pageNos3 pageNo' + (pageIndex3 - 2) + '">' + (pageIndex3 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (pageIndex3 - 1) + '">' + (pageIndex3 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (pageIndex3) + '">' + pageIndex3 +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (pageIndex3 + 1) + '">' + (pageIndex3 + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (pageIndex3 + 2) + '">' + (pageIndex3 + 2) +
+                        '</a></li>');
+                } else if (pageIndex3 > 3 && totalPage3 - 2 < pageIndex3) {
+                    $('#previous3').after('<li><a href="javascript:;" class="pageNos3 pageNo' + (totalPage3 - 4) + '">' + (totalPage3 - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (totalPage3 - 3) + '">' + (totalPage3 - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (totalPage3 - 2) + '">' + (totalPage3 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (totalPage3 - 1) + '">' + (totalPage3 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo' + (totalPage3) + '">' + totalPage3 +
+                        '</a></li>');
+                } else {
+                    $('#previous3').after('<li><a href="javascript:;" class="pageNos3 pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNos3 pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination3 .pageNo' + pageIndex3).css('background-color', '#ddd');
+            if (pageIndex3 <= 0) {
+                $('.pagination3 .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination3 .pageNos3').click(function() {
+                pageIndex3 = parseInt($(this).text());
+                addCount3 = pageIndex3 * 5 - 5;
+                initAjax3();
+            })
+
+        }
+
+        function initAjax3() {
+            var parameter = {
+                "pageIndex": pageIndex3,
+                "recordCount": 5,
+                "criteria": {
+                    "insuranceIdentity": queryReimbursement
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/queryProgress',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table:eq(2) thead').siblings().remove();
+                    lastPage3 = result.totalPage;
+                    totalPage3 = lastPage3;
+                    $('.pageNos3').remove();
+                    page3();
+                    if (lastPage3 != 0) {
+                        if (pageIndex3 > lastPage3) {
+                            pageIndex3 = lastPage3;
+                            addCount3 -= 5;
+                            initAjax3();
+                        }
+                    }
+                    var html = '';
+                    for (var i = 0; i < result.data.length; i++) {
+                        if (result.data[i].materialStatus == 0) {
+                            html += '<tr>' +
+                                '<td>' + (i + 1 + addCount3) +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceName +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceIdentity +
+                                '</td>' +
+                                '<td>' + result.data[i].insurancePrice +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceHospital +
+                                '</td>' +
+                                '<td>材料受理' +
+                                '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#accept" style="outline: none; pointer-events: none;" disabled>材料受理</a>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#audit" style="outline: none; margin-left: 5px;" onclick="materialAudit(' + result.data[i].id + ')">材料审核</a>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#complete" style="outline: none; margin-left: 5px;" onclick="completed(' + result.data[i].id + ')">完成</a>' +
+                                '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#editor3" style="outline: none;" onclick="editorReimbursement(' + result.data[i].id + ')">编辑</a>' +
+                                '<a class="btn btn-warning" data-toggle="modal" data-target="#delete2" style="outline: none; margin-left: 5px;" onclick="deleteMechanism(this,' + result.data[i].id + ')">删除</a>' +
+                                '</td>' +
+                                '</tr>'
+                        } else if (result.data[i].materialStatus == 1) {
+                            html += '<tr>' +
+                                '<td>' + result.data[i].insuranceCode +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceName +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceIdentity +
+                                '</td>' +
+                                '<td>' + result.data[i].insurancePrice +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceHospital +
+                                '</td>' +
+                                '<td>材料审核' +
+                                '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#accept" style="outline: none; pointer-events: none;" disabled>材料受理</a>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#audit" style="outline: none; margin-left: 5px; pointer-events: none;" disabled>材料审核</a>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#complete" style="outline: none; margin-left: 5px;" onclick="completed(' + result.data[i].id + ')">完成</a>' +
+                                '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#editor3" style="outline: none;" onclick="editorReimbursement(' + result.data[i].id + ')">编辑</a>' +
+                                '<a class="btn btn-warning" data-toggle="modal" data-target="#delete2" style="outline: none; margin-left: 5px;" onclick="deleteMechanism(this,' + result.data[i].id + ')">删除</a>' +
+                                '</td>' +
+                                '</tr>'
+                        } else if (result.data[i].materialStatus == 2) {
+                            html += '<tr>' +
+                                '<td>' + result.data[i].insuranceCode +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceName +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceIdentity +
+                                '</td>' +
+                                '<td>' + result.data[i].insurancePrice +
+                                '</td>' +
+                                '<td>' + result.data[i].insuranceHospital +
+                                '</td>' +
+                                '<td>完成' +
+                                '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#accept" style="outline: none; pointer-events: none;" disabled>材料受理</a>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#audit" style="outline: none; margin-left: 5px; pointer-events: none;" disabled>材料审核</a>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#complete" style="outline: none; margin-left: 5px; pointer-events: none;" disabled>完成</a>' +
+                                '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-default" data-toggle="modal" data-target="#editor3" style="outline: none;" onclick="editorReimbursement(' + result.data[i].id + ')">编辑</a>' +
+                                '<a class="btn btn-warning" data-toggle="modal" data-target="#delete2" style="outline: none; margin-left: 5px;" onclick="deleteMechanism(this,' + result.data[i].id + ')">删除</a>' +
+                                '</td>' +
+                                '</tr>'
+                        }
+
+                    }
+                    $('table:eq(2)').append(html);
+
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索 医保报销)
+        $('#jumpPage3').click(function() {
+            var jumPage = $("#toPage3").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+
+                if (jumPage <= lastPage3) {
+                    pageIndex3 = jumPage;
+                    addCount = pageIndex3 * 5 - 5;
+                    initAjax3();
+                } else {
+                    $("#toPage3").val(lastPage3);
+                    pageIndex3 = lastPage3;
+                    addCount3 = pageIndex3 * 5 - 5;
+                    initAjax3();
+                }
+            } else {
+                $("#toPage3").val('1');
+                pageIndex3 = 1;
+                addCount3 = 0;
+                initAjax3();
+            }
+        })
+
+        // 首页(医保报销)
+        $('#fristPage3').click(function() {
+            pageIndex3 = 1;
+            addCount3 = 0;
+            initAjax3();
+        })
+
+        // 尾页(医保报销)
+        $('#lastPage3').click(function() {
+            pageIndex3 = lastPage3;
+            addCount3 = pageIndex3 * 5 - 5;
+            initAjax3();
+        })
+
+        // 上一页(医保报销)
+        $('#previous3').click(function() {
+            if (pageIndex3 < 2) {
+                alert('已经是第一页');
+                addCount3 = 0;
+                return
+            } else {
+                $('table:eq(2) thead').siblings().remove();
+            }
+            if (--pageIndex3 < 2) {
+                pageIndex3 = 1;
+
+            }
+            addCount3 -= 5;
+            initAjax3();
+        })
+
+        // 下一页(医保报销)
+        $('#next3').click(function() {
+            if (pageIndex3 == lastPage3) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:eq(2) thead').siblings().remove();
+                addCount3 += 5;
+            }
+            ++pageIndex3;
+            initAjax3();
+        })
+
+        var pageIndex4 = 1,
+            addCount4 = 0,
+            totalPage4 = 0,
+            lastPage4 = 0;
+        var queryInsured;
+
+        // 分页(城乡居民个人参保信息)
+        function page4() {
+            if (totalPage4 <= 6) {
+                while (totalPage4 > 0) {
+                    $('#previous4').after('<li><a href="javascript:;" class="pageNos4 pageNo' + totalPage4 + '">' + totalPage4 + '</a></li>');
+                    totalPage4--
+                }
+            } else {
+                if (pageIndex > 3 && totalPage - 2 >= pageIndex4) {
+                    $('#previous3').after('<li><a href="javascript:;" class="pageNos4 pageNo' + (pageIndex4 - 2) + '">' + (pageIndex4 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (pageIndex4 - 1) + '">' + (pageIndex4 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (pageIndex4) + '">' + pageIndex4 +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (pageIndex4 + 1) + '">' + (pageIndex4 + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (pageIndex4 + 2) + '">' + (pageIndex4 + 2) +
+                        '</a></li>');
+                } else if (pageIndex4 > 3 && totalPage4 - 2 < pageIndex4) {
+                    $('#previous4').after('<li><a href="javascript:;" class="pageNos4 pageNo' + (totalPage4 - 4) + '">' + (totalPage4 - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (totalPage4 - 3) + '">' + (totalPage4 - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (totalPage4 - 2) + '">' + (totalPage4 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (totalPage4 - 1) + '">' + (totalPage4 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo' + (totalPage4) + '">' + totalPage4 +
+                        '</a></li>');
+                } else {
+                    $('#previous4').after('<li><a href="javascript:;" class="pageNos4 pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNos4 pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination4 .pageNo' + pageIndex4).css('background-color', '#ddd');
+            if (pageIndex4 <= 0) {
+                $('.pagination4 .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination4 .pageNos4').click(function() {
+                pageIndex4 = parseInt($(this).text());
+                addCount4 = pageIndex4 * 5 - 5;
+                initAjax4();
+            })
+        }
+
+        // 初始化城乡居民个人参保信息列表
+        function initAjax4() {
+            var parameter = {
+                "pageIndex": pageIndex4,
+                "recordCount": 5,
+                "criteria": {
+                    "personIdentity": queryInsured
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/queryInsurance',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table:eq(3) thead').siblings().remove();
+                    lastPage4 = result.totalPage;
+                    totalPage4 = lastPage4;
+                    $('.pageNos4').remove();
+                    page4();
+                    var html = '';
+                    if (lastPage4 != 0) {
+                        if (lastPage4 > 2) {
+                            if (pageIndex4 > lastPage4) {
+                                pageIndex4 = lastPage4;
+                                addCount4 -= 5;
+                                initAjax4();
+                            }
+                        }
+
+                    }
+
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + (i + 1 + addCount4) +
+                            '</td>' +
+                            '<td>' + result.data[i].insuredPerson +
+                            '</td>' +
+                            '<td>' + result.data[i].personIdentity +
+                            '</td>' +
+                            '<td>' + (result.data[i].personPhone == null ? '' : result.data[i].personPhone) +
+                            '</td>' +
+                            '<td>' + (result.data[i].memberPlace == null ? '' : result.data[i].memberPlace) +
+                            '</td>' +
+                            '<td>' + (result.data[i].paymentMonth == null ? '' : result.data[i].paymentMonth) +
+                            '</td>' +
+                            '<td>' + (result.data[i].insurancePension == null ? '' : result.data[i].insurancePension) +
+                            '</td>' +
+                            '<td>' + (result.data[i].insuranceMedical == null ? '' : result.data[i].insuranceMedical) +
+                            '</td>' +
+                            '<td>' + (result.data[i].insuranceUnemploy == null ? '' : result.data[i].insuranceUnemploy) +
+                            '</td>' +
+                            '<td>' + (result.data[i].insuranceInjury == null ? '' : result.data[i].insuranceInjury) +
+                            '</td>' +
+                            '<td>' + (result.data[i].insuranceBirth == null ? '' : result.data[i].insuranceBirth) +
+                            '</td>' +
+                            '<td style="width: 50px;">' + (result.data[i].insuranceRemark == null ? '' : result.data[i].insuranceRemark) +
+                            '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-default" data-toggle="modal" data-target="#myModal6" style="outline: none;" onclick="editorInsured(' + result.data[i].id + ')">编辑</a>' +
+                            '<a class="btn btn-warning" data-toggle="modal" data-target="#delete3" style="outline: none; margin-left: 5px;" onclick="deleteMechanism(this,' + result.data[i].id + ')">删除</a>' +
+                            '</td>' +
+                            '</tr>'
+                    }
+                    $('table:eq(3)').append(html);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索 参保信息查询)
+        $('#jumpPage4').click(function() {
+            var jumPage = $("#toPage4").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+
+                if (jumPage <= lastPage4) {
+                    pageIndex4 = jumPage;
+                    addCount4 = pageIndex4 * 5 - 5;
+                    initAjax4();
+                } else {
+                    $("#toPage4").val(lastPage);
+                    pageIndex4 = lastPage4;
+                    addCount4 = pageIndex4 * 5 - 5;
+                    initAjax4();
+                }
+            } else {
+                $("#toPage4").val('1');
+                pageIndex4 = 1;
+                addCount4 = 0;
+                initAjax4();
+            }
+        })
+
+        // 首页(参保信息查询)
+        $('#fristPage4').click(function() {
+            pageIndex4 = 1;
+            addCount4 = 0;
+            initAjax4();
+        })
+
+        // 尾页(参保信息查询)
+        $('#lastPage4').click(function() {
+            pageIndex4 = lastPage4;
+            addCount4 = pageIndex4 * 5 - 5;
+            initAjax4();
+        })
+
+        // 上一页(参保信息查询)
+        $('#previous4').click(function() {
+            if (pageIndex4 < 2) {
+                alert('已经是第一页');
+                addCount4 = 0;
+                return
+            } else {
+                $('table:eq(3) thead').siblings().remove();
+            }
+            if (--pageIndex4 < 2) {
+                pageIndex4 = 1;
+
+            }
+            addCount4 -= 5;
+            initAjax4();
+        })
+
+        // 下一页(参保信息查询)
+        $('#next4').click(function() {
+            if (pageIndex4 == lastPage4) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:eq(3) thead').siblings().remove();
+                addCount4 += 5;
+            }
+            ++pageIndex4;
+            initAjax4();
+        })
+
+        // 材料审核
+        var materialAuditId = 0;
+
+        function materialAudit(id) {
+            materialAuditId = id;
+        }
+
+        // 确认审核
+        function sureMaterialAudit() {
+            var parameter = {
+                "materialStatus": 1,
+                "id": materialAuditId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/modifyProgress',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax3();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 报销完成
+        var completedId = 0;
+
+        function completed(id) {
+            completedId = id;
+        }
+
+        // 确认报销完成
+        function sureCompleted() {
+            var parameter = {
+                "materialStatus": 2,
+                "id": completedId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/modifyProgress',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax3();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        function show_sub(v) {
+            businessName = v;
+            if (v == '01') {
+                document.getElementById('panel1').style.display = 'block';
+                document.getElementById('panel2').style.display = 'none';
+                document.getElementById('panel3').style.display = 'none';
+                document.getElementById('panel4').style.display = 'none';
+                imptype = 12;
+                pageIndex = 1;
+                initAjax()
+            } else if (v == '02') {
+                document.getElementById('panel2').style.display = 'block';
+                document.getElementById('panel1').style.display = 'none';
+                document.getElementById('panel3').style.display = 'none';
+                document.getElementById('panel4').style.display = 'none';
+                imptype = 8;
+                pageIndex2 = 1;
+                initAjax2()
+            } else if (v == '03') {
+                document.getElementById('panel1').style.display = 'none';
+                document.getElementById('panel2').style.display = 'none';
+                document.getElementById('panel4').style.display = 'none';
+                document.getElementById('panel3').style.display = 'block';
+                imptype = 9;
+                pageIndex3 = 1;
+                initAjax3()
+            } else if (v == '04') {
+                document.getElementById('panel1').style.display = 'none';
+                document.getElementById('panel2').style.display = 'none';
+                document.getElementById('panel3').style.display = 'none';
+                document.getElementById('panel4').style.display = 'block';
+                imptype = 11;
+                pageIndex4 = 1;
+                initAjax4()
+            }
+
+        }
+
+        var pageIndex2 = 1,
+            addCount2 = 0,
+            totalPage2 = 0,
+            lastPage2 = 0;
+
+        var queryMechanism;
+
+        // 分页
+        function page2() {
+            if (totalPage2 <= 6) {
+                while (totalPage2 > 0) {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo' + totalPage2 + '">' + totalPage2 + '</a></li>');
+                    totalPage2--
+                }
+            } else {
+                if (pageIndex2 > 3 && totalPage2 - 2 >= pageIndex2) {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 - 2) + '">' + (pageIndex2 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 - 1) + '">' + (pageIndex2 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2) + '">' + pageIndex2 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 + 1) + '">' + (pageIndex2 + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 + 2) + '">' + (pageIndex2 + 2) +
+                        '</a></li>');
+                } else if (pageIndex2 > 3 && totalPage2 - 2 < pageIndex2) {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 4) + '">' + (totalPage2 - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 3) + '">' + (totalPage2 - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 2) + '">' + (totalPage2 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 1) + '">' + (totalPage2 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2) + '">' + totalPage2 +
+                        '</a></li>');
+                } else {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination2 .pageNo' + pageIndex2).css('background-color', '#ddd');
+            if (pageIndex2 <= 0) {
+                $('.pagination2 .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination2 .pageNos').click(function() {
+                pageIndex2 = parseInt($(this).text());
+                addCount2 = pageIndex2 * 5 - 5;
+                initAjax2();
+            })
+
+        }
+
+        // 初始化医疗机构信息
+        function initAjax2() {
+            var parameter = {
+                "pageIndex": pageIndex2,
+                "recordCount": 5,
+                "criteria": {
+                    "doctorName": queryMechanism
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/queryHospital',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table:eq(1) thead').siblings().remove();
+                    lastPage2 = result.totalPage;
+                    totalPage2 = lastPage2;
+                    $('.pageNos').remove();
+                    page2();
+                    var html = '';
+                    if (lastPage2 != 0) {
+                        if (pageIndex2 > lastPage2) {
+                            pageIndex2 = lastPage2;
+                            addCount2 -= 5;
+                            initAjax2();
+                        }
+                    }
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + result.data[i].doctorCode +
+                            '</td>' +
+                            '<td>' + (result.data[i].doctorName == null ? '' : result.data[i].doctorName) +
+                            '</td>' +
+                            '<td>' + (result.data[i].typeValue == null ? '' : result.data[i].typeValue) +
+                            '</td>' +
+                            '<td>' + (result.data[i].levelValue == null ? '' : result.data[i].levelValue) +
+                            '</td>' +
+                            '<td>' + (result.data[i].doctorAddress == null ? '' : result.data[i].doctorAddress) +
+                            '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-default" data-toggle="modal" data-target="#editor2" style="outline: none;" onclick="editorMechanism(' + result.data[i].id + ')">编辑</a>' +
+                            '<a class="btn btn-warning" data-toggle="modal" data-target="#delete" style="outline: none; margin-left: 5px;" onclick="deleteMechanism(this,' + result.data[i].id + ')">删除</a>' +
+                            '</td>' +
+                            '</tr>'
+                    }
+                    $('table:eq(1)').append(html);
+
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索 医疗机构)
+        $('#jumpPage2').click(function() {
+            var jumPage = $("#toPage2").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+                if (jumPage <= lastPage2) {
+                    addCount2 = jumPage * 5 - 5;
+                    pageIndex2 = jumPage;
+                    initAjax2();
+                } else {
+                    $("#toPage2").val(lastPage2);
+                    pageIndex2 = lastPage2;
+                    addCount2 = pageIndex2 * 5 - 5;
+                    initAjax2();
+                }
+            } else {
+                $("#toPage2").val('1');
+                pageIndex2 = 1;
+                addCount2 = 0;
+                initAjax2();
+            }
+        })
+
+        // 首页(医疗机构)
+        $('#fristPage2').click(function() {
+            pageIndex2 = 1;
+            addCount2 = 0;
+            initAjax2();
+        })
+
+        // 尾页(医疗机构)
+        $('#lastPage2').click(function() {
+            pageIndex2 = lastPage2;
+            addCount2 = pageIndex2 * 5 - 5;
+            initAjax2();
+        })
+
+        // 上一页(医疗机构)
+        $('#previous2').click(function() {
+            if (pageIndex2 < 2) {
+                alert('已经是第一页');
+                addCount2 = 0;
+                return
+            } else {
+                $('table:eq(1) thead').siblings().remove();
+            }
+            if (--pageIndex2 < 2) {
+                pageIndex2 = 1;
+
+            }
+            addCount2 -= 5;
+            initAjax2();
+        })
+
+        // 下一页(医疗机构)
+        $('#next2').click(function() {
+            if (pageIndex2 == lastPage2) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:eq(1) thead').siblings().remove();
+                addCount2 += 5;
+            }
+            ++pageIndex2;
+            initAjax2();
+        })
+
+
+        var pageIndex = 1,
+            addCount = 0,
+            totalPage = 0,
+            lastPage = 0;
+
+        var queryFile;
+
+        // 分页(档案查询)
+        function page() {
+            if (totalPage <= 6) {
+                while (totalPage > 0) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + totalPage + '">' + totalPage + '</a></li>');
+                    totalPage--
+                }
+            } else {
+                if (pageIndex > 3 && totalPage - 2 >= pageIndex) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + (pageIndex - 2) + '">' + (pageIndex - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex - 1) + '">' + (pageIndex - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex) + '">' + pageIndex +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex + 1) + '">' + (pageIndex + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex + 2) + '">' + (pageIndex + 2) +
+                        '</a></li>');
+                } else if (pageIndex > 3 && totalPage - 2 < pageIndex) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 4) + '">' + (totalPage - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 3) + '">' + (totalPage - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 2) + '">' + (totalPage - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 1) + '">' + (totalPage - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage) + '">' + totalPage +
+                        '</a></li>');
+                } else {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination1 .pageNo' + pageIndex).css('background-color', '#ddd');
+            if (pageIndex <= 0) {
+                $('.pagination1 .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination1 .pageNo').click(function() {
+                pageIndex = parseInt($(this).text());
+                addCount = pageIndex * 5 - 5;
+                initAjax();
+            })
+
+        }
+
+        // 初始化档案列表
+        function initAjax() {
+            var parameter = {
+                "pageIndex": pageIndex,
+                "recordCount": 5,
+                "criteria": {
+                    "mobileCode": queryFile
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/queryArchive',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table:first thead').siblings().remove();
+                    lastPage = result.totalPage;
+                    totalPage = lastPage;
+                    $('.pageNo').remove();
+                    page();
+                    var html = '';
+                    if (lastPage != 0) {
+                        if (pageIndex > lastPage) {
+                            pageIndex = lastPage;
+                            addCount -= 5;
+                            initAjax();
+                        }
+                    }
+
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + result.data[i].mobileCode +
+                            '</td>' +
+                            '<td>' + result.data[i].mobileName +
+                            '</td>' +
+                            '<td>' + (result.data[i].mobileSex == 0 ? '女' : '男') +
+                            '</td>' +
+                            '<td>' + result.data[i].mobileIdentity +
+                            '</td>' +
+                            '<td>' + (result.data[i].mobileRemark == null ? '' : result.data[i].mobileRemark) +
+                            '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-default" data-toggle="modal" data-target="#editor" style="outline: none;" onclick="editorFiles(' + result.data[i].id + ')">编辑</a>' +
+                            '<a class="btn btn-warning" data-toggle="modal" data-target="#delete0" style="outline: none; margin-left: 5px;" onclick="deleteMechanism(this,' + result.data[i].id + ')">删除</a>' +
+                            '</td>' +
+                            '</tr>'
+                    }
+                    $('table:eq(0)').append(html);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索 档案查询)
+        $('#jumpPage').click(function() {
+            var jumPage = $("#toPage").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+
+                if (jumPage <= lastPage) {
+                    pageIndex = jumPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                } else {
+                    $("#toPage").val(lastPage);
+                    pageIndex = lastPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                }
+            } else {
+                $("#toPage").val('1');
+                pageIndex = 1;
+                addCount = 0;
+                initAjax();
+            }
+        })
+
+        // 首页(档案查询)
+        $('#fristPage').click(function() {
+            pageIndex = 1;
+            addCount = 0;
+            initAjax();
+        })
+
+        // 尾页(档案查询)
+        $('#lastPage').click(function() {
+            pageIndex = lastPage;
+            addCount = pageIndex * 5 - 5;
+            initAjax();
+        })
+
+        // 上一页(档案查询)
+        $('#previous').click(function() {
+            if (pageIndex < 2) {
+                alert('已经是第一页');
+                addCount = 0;
+                return
+            } else {
+                $('table:first thead').siblings().remove();
+            }
+            if (--pageIndex < 2) {
+                pageIndex = 1;
+
+            }
+            addCount -= 5;
+            initAjax();
+        })
+
+        // 下一页(档案查询)
+        $('#next').click(function() {
+            if (pageIndex == lastPage) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:first thead').siblings().remove();
+                addCount += 5;
+            }
+            ++pageIndex;
+            initAjax();
+        })
+
+        $(function() {
+            var flag = true;
+            $('.navbar-brand').click(function() {
+                if (flag) {
+                    $("#aside").animate({
+                        marginLeft: '-180px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '0px'
+                    });
+                    flag = false;
+                } else {
+                    $("#aside").animate({
+                        marginLeft: '0px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '180px'
+                    });
+                    flag = true;
+                }
+
+            })
+
+            // 新录档案
+            $('#addAccessory').click(function() {
+                var account = $('#account').val(),
+                    userName = $('#userName0').val(),
+                    sex = $('#sex option:selected').val(),
+                    idCard = $('#idCard').val(),
+                    note = $('#note').val();
+                var parameter = {
+                    "mobileCode": account,
+                    "mobileName": userName,
+                    "mobileSex": sex,
+                    "mobileIdentity": idCard,
+                    "mobileRemark": note
+                }
+                if (account == '' || userName == '' || idCard == '') {
+                    document.getElementById('addAccessory').setAttribute('disabled', 'disabled');
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: ipAddress + '/inquiry/addArchive',
+                        data: JSON.stringify(parameter),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+                            if (result.code) {
+                                alert(result.message);
+                            }
+                            $('#account').val('');
+                            $('#userName0').val('');
+                            $('#sex').val('请选择');
+                            $('#idCard').val('');
+                            $('#note').val('');
+                            $('#titlespan').html('');
+                            $('#titleName').html('');
+                            $('#titleIdCard').html('');
+                            initAjax();
+                        },
+                        error: function() {
+                            alert('录入失败')
+                        }
+                    })
+                }
+            })
+
+            // 新录医疗机构
+            $('#addAccessory2').click(function() {
+                var agencyNumber = $('#agencyNumber').val(),
+                    agencyName = $('#agencyName').val(),
+                    category = $('#category option:selected').val(),
+                    level = $('#level option:selected').val(),
+                    address = $('#address').val();
+                var parameter = {
+                    "doctorCode": agencyNumber,
+                    "doctorName": agencyName,
+                    "doctorType": category,
+                    "doctorLevel": level,
+                    "doctorAddress": address
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/inquiry/addHospital',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        if (result.code) {
+                            alert(result.message);
+                        }
+                        $('#agencyNumber').val('');
+                        $('#agencyName').val('');
+                        $('#category').val('请选择');
+                        $('#level').val('请选择');
+                        $('#address').val('')
+                        $('#spanTip').html('');
+                        initAjax2();
+                    },
+                    error: function() {
+                        alert('录入失败')
+                    }
+                })
+            })
+
+            // 新录医保报销
+            $('#addAccessory3').click(function() {
+                var userName3 = $('#userName3').val(),
+                    idCard3 = $('#idCard3').val(),
+                    totalAmount = $('#totalAmount').val(),
+                    hospital = $('#hospital').val();
+                var parameter = {
+                    "insuranceName": userName3,
+                    "insuranceIdentity": idCard3,
+                    "insurancePrice": totalAmount,
+                    "insuranceHospital": hospital
+                }
+                var html = '';
+                if ($('#userName3').val() == '' || $('#idCard3').val() == '' || $('#totalAmount').val() == '' || $('#hospital').val() == '') {
+                    document.getElementById('addAccessory3').setAttribute('disabled', 'disabled');
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: ipAddress + '/inquiry/addProgress',
+                        data: JSON.stringify(parameter),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+                            if (result.code == 3021) {
+                                alert(result.message);
+                                document.getElementById('addReimburse').reset();
+                                $('#spanTipName').html('');
+                                $('#spanTipId').html('');
+                                $('#spanTipAmount').html('');
+                                $('#spanTipHospital').html('');
+                            } else {
+                                $('#spanTipName').html('');
+                                $('#spanTipId').html('');
+                                $('#spanTipAmount').html('');
+                                $('#spanTipHospital').html('');
+                                initAjax3();
+                            }
+                        },
+                        error: function() {
+                            alert('失败')
+                        }
+                    })
+                }
+            })
+
+            // 新录参保信息
+            $('#addAccessory5').click(function() {
+                var insuredPerson = $('#insuredPerson').val(),
+                    personIdentity = $('#personIdentity').val(),
+                    personPhone = $('#personPhone').val(),
+                    memberPlace = $('#memberPlace').val(),
+                    paymentMonth = $('#releaseTime').val(),
+                    insurancePension = $('#insurancePension').val(),
+                    insuranceMedical = $('#insuranceMedical').val(),
+                    insuranceUnemploy = $('#insuranceUnemploy').val(),
+                    insuranceInjury = $('#insuranceInjury').val(),
+                    insuranceBirth = $('#insuranceBirth').val(),
+                    insuranceRemark = $('#insuranceRemark').val();
+
+                var parameter = {
+                    'insuredPerson': insuredPerson,
+                    'personIdentity': personIdentity,
+                    'personPhone': personPhone,
+                    'memberPlace': memberPlace,
+                    'paymentMonth': paymentMonth,
+                    'insurancePension': insurancePension,
+                    'insuranceMedical': insuranceMedical,
+                    'insuranceUnemploy': insuranceUnemploy,
+                    'insuranceInjury': insuranceInjury,
+                    'insuranceBirth': insuranceBirth,
+                    'insuranceRemark': insuranceRemark
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/inquiry/addInsurance',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        if (result.code == 3020) {
+                            document.getElementById('insuredInformation').reset();
+                            $('#spanTip4').html('');
+                            initAjax4();
+                        }
+
+                    },
+                    error: function() {
+                        alert('失败')
+                    }
+                })
+            })
+
+
+            // 根据医疗机构名称查询
+            $('#queryMechanism').click(function() {
+                queryMechanism = $('#queryMechanism').parent().siblings('input').val();
+                pageIndex2 = 1;
+                initAjax2();
+            })
+
+            // 根据身份证查询(医保报销)
+
+            $('#queryReimbursement').click(function() {
+                queryReimbursement = $('#queryReimbursement').parent().siblings('input').val();
+                pageIndex3 = 1;
+                addCount3 = 0;
+                initAjax3();
+            })
+
+            // 根据用户的的所属部门进行不同业务的显示
+            // var userInfo = JSON.parse($.cookie('userInfo'));
+            ownerDepart = userInfo.ownerDepart;
+            if (ownerDepart == '01') {
+                $('select:eq(0)').val('02');
+                $('select:eq(0) option:eq(0)').css("display", "none");
+                $('#panel1').css("display", "none");
+                $('#panel2').css("display", "block");
+
+                initAjax2();
+
+            } else if (ownerDepart == '05') {
+                $('select:eq(0) option:eq(1)').css("display", "none");
+                $('select:eq(0) option:eq(2)').css("display", "none");
+                $('select:eq(0) option:eq(3)').css("display", "none");
+                initAjax();
+            } else {
+                initAjax();
+            }
+        })
+
+        // 关闭新录档案窗口
+        function closeArchives() {
+            document.getElementById('addArchives').reset();
+            $('#titlespan').html('');
+            $('#titleName').html('');
+            $('#titleIdCard').html('');
+        }
+
+        // 关闭添加医疗机构窗口
+        function closeMedical() {
+            document.getElementById('addMedical').reset();
+            $('#spanTip').html('');
+        }
+
+        // 关闭添加医保报销窗口
+        function closeReimburse() {
+            document.getElementById('addReimburse').reset();
+            $('#spanTip2').html('');
+        }
+
+        // 关闭添加参保信息窗口
+        function closeInsured() {
+            document.getElementById('insuredInformation').reset();
+            $('#spanTip4').html('');
+        }
+
+        // 根据档案编号查询
+        $('#queryFiles').click(function() {
+            queryFile = $('#queryFiles').parent().siblings('input').val();
+            pageIndex = 1;
+            initAjax();
+        })
+
+        // 根据身份证号查询(参保信息)
+        $('#queryInsured').click(function() {
+            queryInsured = $('#queryInsured').parent().siblings('input').val();
+            pageIndex4 = 1;
+            addCount4 = 0;
+            initAjax4();
+        })
+
+        var trId,
+            trObj,
+            removeId;
+
+        // 删除
+        function deleteMechanism(obj, id) {
+            removeId = id;
+            trId = obj.parentNode.parentNode;
+            trObj = trId.parentNode;
+        }
+
+
+        // 确认删除(档案查询)
+        function sureDelete1() {
+            var parameter = {
+                "id": removeId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/deleteArchive',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax();
+                },
+                error: function() {
+                    alert('删除失败')
+                }
+            })
+        }
+
+        // 编辑档案查询
+        var editorFilesId;
+
+        function editorFiles(obj) {
+            editorFilesId = obj;
+            var parameter = {
+                "id": obj
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/detailArchive',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('#account2').val(result.mobileCode);
+                    $('#userName2').val(result.mobileName);
+                    $('#sex2').val(result.mobileSex);
+                    $('#idCard2').val(result.mobileIdentity);
+                    $('#note2').val(result.mobileRemark);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 修改档案
+        $('#saveFiles').click(function() {
+            var title = $('#agencyNumber2').val();
+            var parameter = {
+                "mobileCode": $('#account2').val(),
+                "mobileName": $('#userName2').val(),
+                "mobileSex": $('#sex2 option:selected').val(),
+                "mobileIdentity": $('#idCard2').val(),
+                "mobileRemark": $('#note2').val(),
+                "id": editorFilesId
+            }
+            var mobileIdentity = $('#idCard2').val();
+            if ($('#account2').val() == '' || $('#userName2').val() == '' || $('#idCard2').val() == '') {
+                document.getElementById('saveFiles').setAttribute('disabled', 'disabled');
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/inquiry/modifyArchive',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        initAjax();
+                        $('#titleName2').html('');
+                        $('#titleIdCard2').html('');
+                    },
+                    error: function() {
+                        alert('修改失败')
+                    }
+                })
+            }
+        })
+
+
+        // 确认删除(医疗机构)
+        function sureDelete2() {
+            var parameter = {
+                "id": removeId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/deleteHospital',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax2();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 编辑医疗机构
+        var editorMechanismId;
+
+        function editorMechanism(obj) {
+            editorMechanismId = obj;
+            var parameter = {
+                "id": obj
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/detailHospital',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('#agencyNumber2').val(result.doctorCode);
+                    $('#agencyName2').val(result.doctorName);
+                    $('#category2').val(result.doctorType);
+                    $('#level2').val(result.doctorLevel);
+                    $('#address2').val(result.doctorAddress);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 修改医疗机构
+        $('#addAccessory4').click(function() {
+            var title = $('#agencyNumber2').val();
+            var parameter = {
+                "doctorCode": $('#agencyNumber2').val(),
+                "doctorName": $('#agencyName2').val(),
+                "doctorType": $('#category2 option:selected').val(),
+                "doctorLevel": $('#level2 option:selected').val(),
+                "doctorAddress": $('#address2').val(),
+                "id": editorMechanismId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/modifyHospital',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax2();
+                },
+                error: function() {
+                    alert('修改失败')
+                }
+            })
+        })
+
+
+        // 确认删除(医保报销)
+        function sureDelete3() {
+            var parameter = {
+                "id": removeId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/deleteProgress',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax3();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 编辑医保报销
+        var editorReimbursementId;
+
+        function editorReimbursement(obj) {
+            editorReimbursementId = obj;
+            var parameter = {
+                "id": obj
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/detailProgress',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('#personalNumber2').val(result.insuranceCode);
+                    $('#userName4').val(result.insuranceName);
+                    $('#idCard4').val(result.insuranceIdentity);
+                    $('#totalAmount2').val(result.insurancePrice);
+                    $('#hospital2').val(result.insuranceHospital);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+
+        // 保存修改(医保报销)
+        $('#editorSaves').click(function() {
+            var title = $('#personalNumber2').val();
+            var parameter = {
+                "insuranceCode": $('#personalNumber2').val(),
+                "insuranceName": $('#userName4').val(),
+                "insuranceIdentity": $('#idCard4').val(),
+                "insurancePrice": $('#totalAmount2').val(),
+                "insuranceHospital": $('#hospital2').val(),
+                "id": editorReimbursementId
+            }
+            if (title != '' || title != null) {
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/inquiry/modifyProgress',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        $('#spanTipName2').html('');
+                        $('#spanTipId2').html('');
+                        $('#spanTipAmount2').html('');
+                        $('#spanTipHospital2').html('');
+                        initAjax3();
+                    },
+                    error: function() {
+                        alert('失败')
+                    }
+                })
+            } else {
+                alert('编号不能为空')
+            }
+
+        })
+
+        // 清除编辑医保报销提示
+        function closeEditorInsurance() {
+            $('#spanTipName2').html('');
+            $('#spanTipId2').html('');
+            $('#spanTipAmount2').html('');
+            $('#spanTipHospital2').html('');
+        }
+
+        // 编辑参保信息
+        var insuredId;
+
+        function editorInsured(obj) {
+            insuredId = obj;
+            var parameter = {
+                'id': obj
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/detailInsurance',
+                data: parameter,
+                // contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('#insuredPerson2').val(result.insuredPerson);
+                    $('#personIdentity2').val(result.personIdentity);
+                    $('#personPhone2').val(result.personPhone);
+                    $('#memberPlace2').val(result.memberPlace);
+                    $('#releaseTime2').val(result.paymentMonth);
+                    $('#insurancePension2').val(result.insurancePension);
+                    $('#insuranceMedical2').val(result.insuranceMedical);
+                    $('#insuranceUnemploy2').val(result.insuranceUnemploy);
+                    $('#insuranceInjury2').val(result.insuranceInjury);
+                    $('#insuranceBirth2').val(result.insuranceBirth);
+                    $('#insuranceRemark2').val(result.insuranceRemark);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 保存修改(参保信息)
+        $('#saveEditorInsured').click(function() {
+            var parameter = {
+                'insuredPerson': $('#insuredPerson2').val(),
+                'personIdentity': $('#personIdentity2').val(),
+                'personPhone': $('#personPhone2').val(),
+                'memberPlace': $('#memberPlace2').val(),
+                'paymentMonth': $('#releaseTime2').val(),
+                'insurancePension': $('#insurancePension2').val(),
+                'insuranceMedical': $('#insuranceMedical2').val(),
+                'insuranceUnemploy': $('#insuranceUnemploy2').val(),
+                'insuranceInjury': $('#insuranceInjury2').val(),
+                'insuranceBirth': $('#insuranceBirth2').val(),
+                'insuranceRemark': $('#insuranceRemark2').val(),
+                'id': insuredId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/modifyInsurance',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    initAjax4();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        })
+
+        // 确认删除(参保信息)
+        function sureDelete4() {
+            var parameter = {
+                "id": removeId
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/inquiry/deleteInsurance',
+                data: parameter,
+                success: function(result) {
+                    if (result.code != 3040) {
+                        alert('删除失败!')
+                    } else {
+                        initAjax4();
+                    }
+                },
+                error: function() {
+                    alert('删除失败')
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<!--
+	作者：kongfc
+	时间：2018-07-17
+	描述：人社公众号注册
+-->
+
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>个人注册</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+	</head>
+	<style type="text/css">
+		.container {
+			max-width: 95%;
+			padding: 0px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="" id="form-container" style="margin-top: 40px;">
+				<h1 class="text-center">
+            用 户 注 册
+        </h1>
+
+				<div class="form-group" style="padding-bottom: 8px;">
+					<label class="col-xs-12 " for="userName">
+                    姓名 :
+                </label>
+					<div class="col-xs-12">
+						<input class="form-control" id="userName" name="userName" onblur="checkname()" required="true" type="text" placeholder="请输入真实姓名" />
+						<p id="nameError" style="margin-bottom: -2px;color: red;">
+						</p>
+					</div>
+				</div>
+				<div class="form-group" style="padding-bottom: 8px;">
+					<label class="col-xs-12 " for="nameNumber">
+                    身份证号 :
+                </label>
+					<div class="col-xs-12">
+						<input class="form-control" id="nameNumber" name="nameNumber" onblur="checkName()" required="true" type="text" placeholder="请输入真实身份证号" />
+						<p id="numberError" style="margin-bottom: -2px;color: red;">
+						</p>
+					</div>
+				</div>
+
+				<div class="form-group" style="padding-bottom: 8px;">
+					<label class="col-xs-12 " for="telephone">
+                    手 机 号 :
+                </label>
+					<div class="col-xs-12">
+						<input class="form-control" id="telephone" name="telephone" onblur="checkPhone()" required="true" type="text" placeholder="请输入手机号" />
+						<p id="telephoneError" style="margin-bottom: -2px;color: red;">
+						</p>
+					</div>
+				</div>
+				<div class="form-group" style="padding-bottom: 8px;">
+					<label class="col-xs-12 " for="password">
+                    密      码 :
+                </label>
+					<div class="col-xs-12">
+						<input class="form-control" id="password" name="password" onblur="checkPassword()" required="true" type="password" placeholder="请输入密码" />
+						<p id="passwordError" style="margin-bottom: -2px;color: red;">
+						</p>
+					</div>
+				</div>
+				<div class="form-group" style="padding-bottom: 8px;">
+					<label class="col-xs-12 " for="rePassword">
+                    重复密码:
+                </label>
+					<div class="col-xs-12">
+						<input class="form-control" id="rePassword" name="rePassword" onblur="checkrePassword()" required="true" type="password" placeholder="请再次输入密码" />
+						<p id="rePasswordError" style="margin-bottom: -2px;color: red;">
+						</p>
+					</div>
+				</div>
+
+				<div class="col-xs-4">
+					<input class="btn btn-primary btn-block" id="registerBtn" type="submit" value="注册" />
+
+				</div>
+				<div class="col-xs-4">
+					<a class="btn btn-primary btn-block " href="login.html" style="color: #ffffff;">
+						已有账号
+					</a>
+				</div>
+
+			</div>
+		</div>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/commo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		$('#registerBtn').click(function() {
+			//收集数据
+			var userName = $('#userName').val();
+			var nameNumber = $('#nameNumber').val();
+			var telephone = $('#telephone').val();
+			var userPwd = $('#password').val();
+			var rePassword = $('#rePassword').val();
+			if(userName == '') {
+				alert('注册失败,用户名不能为空');
+				return false;
+			}
+			if(telephone == '') {
+				alert('注册失败,手机号码不能为空');
+				return false;
+			}
+			if(nameNumber == '') {
+				alert('注册失败,身份证号码不能为空');
+				return false;
+			}
+			if(userPwd == '') {
+				alert('注册失败,密码不能为空');
+				return false;
+			}
+			if(userPwd !== rePassword) {
+				alert('注册失败,密码不一致');
+				return false;
+			}
+
+			//发送ajax请
+			var tt = {
+				"userName": userName,
+				"userCode": telephone,
+				"userIdentity": nameNumber,
+				"userPwd": userPwd,
+				"userType": "04"
+			};
+			$.ajax({
+				url: ipAddress + '/usrmgr/addUser',
+				type: 'post',
+				async: true,
+				contentType: 'application/json',
+				data: JSON.stringify(tt),
+				success: function(data) {
+					if(data.code == 1002) {
+						alert('注册失败，用户已存在！')
+
+					} else  if (data.code == 2001){
+						alert('注册失败，请重新输入！')
+
+					} else {
+						alert('注册成功！')
+						window.location.href = 'login.html';
+					}
+
+				},
+				error: function() {
+					alert('注册失败，请重新注册')
+				}
+			})
+		})
+	</script>
+
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+	<!--
+    	作者：kongfc
+    	时间：2018-07-18
+    	描述：人社公众号公告指南业务详情
+    -->
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+	</head>
+	<style type="text/css">
+		.guidepage {
+			margin: 2%;
+		}
+		
+		.content {
+			width: 100%;
+		}
+		
+		.content_title {
+			width: 96%;
+			height: 40px;
+			font-size: 18px;
+			line-height: 25px;
+			font-weight: bold;
+			padding-left: 2%;
+			padding-right: 2%;
+			text-align: center;
+			color: #737373;
+			margin-top: 20px;
+		}
+		
+		.content_time {
+			width: 96%;
+			font-size: 12px;
+			line-height: 30px;
+			height: 30px;
+			padding-left: 2%;
+			padding-right: 2%;
+			text-align: center;
+			color: #999999;
+			border-bottom: #999999 1px solid;
+		}
+		
+		.content_section {
+			margin-top: 10px;
+			font-size: 16px;
+		}
+	</style>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<div class="guidepage">
+			<div class="content">
+				<div class="content_title">
+					<span class="glyphicon glyphicon-chevron-left" style="color: rgb(0,0,0);float: left; margin-top:3px ;" onclick="javascript:history.back(-1);"></span>
+				</div>
+				<div class="content_time " id="time">
+					2018-03-05
+				</div>
+				<div class="content_section">
+				
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+
+
+		function getUrlParam(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
+			var r = window.location.search.substr(1).match(reg); // 匹配目标参数
+			if(r != null) return unescape(r[2]);
+			return null; // 返回参数值
+		}
+		var id = getUrlParam('id');
+		$(document).ready(function() {
+			parameter = {
+				"id": id
+			}
+			$.ajax({
+				type: "post",
+				url: ipAddress + '/content/detailNotice',
+				async: false,
+				data: JSON.stringify(parameter),
+				contentType: 'application/json',
+				success: function(msg) {
+					var annoTime = msg.annoTime;
+					var time = annoTime.substring(0, 4) + "-" + annoTime.substring(4, 6) + "-" + annoTime.substring(6, 8);
+					$(".content_title").append(msg.annoTitle);
+					$(".content_section").html('<p>'+msg.annoContent+'</p>')
+					$("#time").text(time);
+				}
+			});
+		})
+	</script>
+
+</html>

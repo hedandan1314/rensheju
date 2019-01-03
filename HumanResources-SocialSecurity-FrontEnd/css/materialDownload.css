@@ -1,0 +1,83 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    /* width: 1098px; */
+    width: 1022px;
+    margin: 0 auto;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+}
+
+.container::after {
+    content: ' ';
+    height: 0px;
+    display: block;
+    clear: both;
+}
+
+.container_top {
+    margin: 15px 0px 15px 20px;
+}
+
+.container_top p {
+    /* width: 1052px; */
+    width: 98%;
+    border-bottom: 1px dotted #999;
+    padding-bottom: 10px;
+}
+
+.container_top p a {
+    text-decoration: underline;
+    color: #00b8ee;
+}
+
+.container_middle {
+    text-align: center;
+}
+
+.container_middle>span {
+    color: #666;
+}
+
+.container_middle>span>a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.container_middle .context {
+    margin: 15px;
+    text-indent: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    /* 换行后对齐显示 */
+    TEXT-JUSTIFY: inter-ideograph;
+    TEXT-ALIGN: justify;
+}
+
+.container_middle>span>a:hover {
+    color: #00b8ee;
+}
+
+.container_middle .enclosure p {
+    margin-left: 20px;
+}
+
+.container_middle .enclosure p a:hover {
+    text-decoration: underline;
+    color: #00b8ee;
+}
+
+.enclosure {
+    float: left;
+    margin-bottom: 15px;
+}
+
+.enclosure>p:last-child {
+    margin-left: 25px;
+}

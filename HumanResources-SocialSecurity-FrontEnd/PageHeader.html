@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/PageHeader.css" />
+	</head>
+
+	<style type="text/css">
+
+	</style>
+
+	<body>
+		<header>
+			<div class="top">
+				<div class="top_wap">
+					<ul class="top_left">
+						欢迎您到访国家级淮安经济技术开发区！
+					</ul>
+					<!--页头功能表-->
+					<ul class="top_right">
+						<a href="personalCenter.html" target="_parent" title="个人姓名" style="color:#FFFFFF; display: none; margin-right:30px ;" id="userName"></a>
+						<a href="./office.html" target="_parent" title="查询办件" id="myservice" style="display: none;">我的办件<b>-</b></a>
+						<a href="login.html" target="_parent" title="请登录" id="login">登录</a>
+						<a  href="jacascript::void(0)" target="_parent" title="退出登录" id="loginOut" onclick="readyOut();" style="display: none;">退出登录</a>
+						<!-- <a>手机版</a> -->
+					</ul>
+				</div>
+			</div>
+			<div id="" style="height: 240px;position: relative;margin: 0 auto;">
+
+			</div>
+			<!--导航栏-->
+			<div id="menu2" class="menu">
+
+				<ul>
+
+					<li>
+						<a href="./homePage.html" target="_parent">大厅首页</a>
+					</li>
+
+					<li>
+						<a target="_parent" id="company" onClick="company();">单位办事</a>
+					</li>
+
+					<li>
+						<a target="_parent" id="personal" onClick="personal();">个人办事</a>
+					</li>
+
+					<li>
+						<a href="./fileInquiries.html" target="_parent">公共查询</a>
+					</li>
+
+					<li>
+						<a target="_parent" id="service" onClick="service();">我的服务大厅</a>
+					</li>
+
+					<li>
+						<a href="./download.html" target="_parent">下载中心</a>
+					</li>
+
+					<li class="time" style="  left: 50px;font-size: 12px;color: #FFFFFF;">
+						2018年5月22日 星期三
+					</li>
+
+				</ul>
+			</div>
+			<!--通知公告-->
+			<div style="background-color: #EBF3FA; width: 1024px; height: 30px; margin: 0 auto; border-radius: 10px; ">
+				<div style="float: left; font-size: 12px; color: #EEA236; margin: 7px 50px;cursor: Default;">
+					<p>欢迎访问淮安经济开发区服务大厅！</p>
+				</div>
+				<div id="marquee2">
+
+					<ul id="comment">
+					</ul>
+
+				</div>
+			</div>
+
+			</div>
+
+			<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+			<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/jquery.kxbdMarquee.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				//登录个人信息	
+
+				$(document).ready(function() {
+
+					if($.cookie('PHPSESSID') == null) {
+
+						$("#userName").css('display', 'none');
+						$("#myservice").css("display", "none");
+					} else {
+						$("#myservice").css("display", "inline-block");
+						$("#userName").css('display', 'inline-block');
+						$("#loginOut").css('display', 'inline-block');
+						$("#login").css('display', 'none');
+						var mycookie = $.cookie('PHPSESSID');
+						var myobject = JSON.parse(mycookie);
+						$("#userName").append(myobject.userName);
+
+					}
+				});
+
+				function readyOut() {
+					var ready = confirm("是否确认退出？");
+					if(ready == true) {
+							clearAllCookie();
+							$("#loginOut").attr("href" , "./login.html");
+					} 
+				}
+
+				//退出登录
+				function clearAllCookie() {
+
+					var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+					if(keys) {
+						for(var i = keys.length; i--;)
+							document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+					}
+				}
+				//单位办事判断
+				function company() {
+
+					if($.cookie('PHPSESSID') == null) {
+						alert("请先登入！")
+					} else {
+						var mycookie = $.cookie('PHPSESSID');
+						var myobject = JSON.parse(mycookie);
+						if(myobject.userType == "03") {
+							$("#company").attr("href", "./company.html");
+
+						} else {
+							alert("请先登入单位用户！")
+
+						}
+					}
+				}
+				//个人办事判断
+				function personal() {
+					if($.cookie('PHPSESSID') == null) {
+						alert("请先登入！")
+					} else {
+						var mycookie = $.cookie('PHPSESSID');
+						var myobject = JSON.parse(mycookie);
+						if(myobject.userType == "04") {
+							$("#personal").attr("href", "./personal.html");
+						} else {
+							alert("请先登入个人用户！")
+						}
+					}
+				}
+				//服务大厅判断
+				function service() {
+					if($.cookie('PHPSESSID') == null) {
+						alert("请先登入！")
+					} else {
+						$("#service").attr("href", "./service.html");
+					}
+				}
+				//信息公告
+				$.ajax({
+					async: false,
+					type: "POST",
+					url: ipAddress + '/content/queryAllNotice',
+					dataType: "json",
+					success: function(msg) { //请求成功后的回调函数
+						$(msg).each(function(index, ele) {
+							var id = ele.id;
+							var annoTitle = ele.annoTitle;
+							var item = '<li><a href="./noticeInfo.html?id=' + id + '" target="_parent" >' + annoTitle + '</a></li>';
+							$("#comment").append(item);
+						});
+					},
+					error: function() { //请求失败时调用此函数
+
+					}
+				})
+				//导航栏动画
+				$(document).ready(function() {
+					$("#menu2 li a").wrapInner('<span class="out"></span>');
+					$("#menu2 li a").each(function() {
+						$('<span class="over">' + $(this).text() + '</span>').appendTo(this);
+					});
+					$("#menu2 li a").hover(function() {
+						$(".out", this).stop().animate({
+							'top': '48px'
+						}, 300); // move down - hide
+						$(".over", this).stop().animate({
+							'top': '0px'
+						}, 300); // move down - show
+					}, function() {
+						$(".out", this).stop().animate({
+							'top': '0px'
+						}, 300); // move up - show
+						$(".over", this).stop().animate({
+							'top': '-48px'
+						}, 300); // move up - hide
+					});
+				});
+				//通知栏	
+				(function() {
+					$("#marquee2").kxbdMarquee({
+						isEqual: false
+					});
+
+				})();
+				//获取时间
+				$(function() {
+					var mydata = new Date();
+					var year = mydata.getFullYear();
+					var month = mydata.getMonth() + 1;
+					var data = mydata.getDate();
+					var day = mydata.getDay();
+					switch(day) {
+						case 0:
+							today = "星期日";
+							break;
+						case 1:
+							today = "星期一";
+							break;
+						case 2:
+							today = "星期二";
+							break;
+						case 3:
+							today = "星期三";
+							break;
+						case 4:
+							today = "星期四";
+							break;
+						case 5:
+							today = "星期五";
+							break;
+						case 6:
+							today = "星期一";
+							break;
+					}
+
+					var now = year + '年' + month + '月' + data + '日' + today
+					$(".time").text(now);
+				});
+			</script>
+
+		</header>
+
+	</body>

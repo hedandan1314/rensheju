@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+	<!--
+	作者：kongfc
+	时间：2018-07-19
+	描述：人社公众号个人中心
+-->
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.container {
+			max-width: 100%;
+			padding: 0px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		
+		.header {
+			width: 100%;
+			text-align: center;
+			height: 50px;
+			background-color: #2298d8;
+			padding: 15px 16px;
+			font-size: 20px;
+			color: #fff;
+		}
+		
+		#content {
+			width: 95%;
+			margin-top: 30px;
+		}
+		
+		.item {
+			width: 100%;
+			font-size: 16px;
+			line-height: 30px;
+			margin-bottom: 5px;
+			position: relative;
+			display: block;
+		}
+		
+		.labe {
+			float: left;
+			width: 80px;
+			text-align: right;
+			white-space: nowrap;
+			color: #808080;
+		}
+		
+		.con {
+			margin-left: 80px;
+			padding: 0 10px;
+		}
+		
+		.con a,
+		#con_phone {
+			color: #0a8cd2;
+			margin-left: 10px;
+			text-decoration: none;
+		}
+	</style>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<div class="container">
+			<div class="title text-center">
+				<div class="header">
+					<span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);float: left;" onclick="javascript:history.back(-1);"></span>
+					<span class="title">个人中心</span>
+				</div>
+			</div>
+			<div id="content" class="col-xs-12">
+				<div class="item" style="display: inline-block;">
+					<p style="border-bottom: 1px solid #cccccc; width: 100%;font-size: 18px;color: #000000;">基本信息</p>
+					<div class="item">
+						<div class="labe">
+							姓名：
+						</div>
+						<div class="con">
+							<span  id="userName"></span>	
+							<a href="change_password.html">修改密码</a>
+						</div>
+					</div>
+					<div class="item">
+						<div class="labe">
+							身份证号：
+						</div>
+						<div class="con" id="nameNumber">
+
+						</div>
+					</div>
+					<div class="item">
+						<div class="labe">
+							手机号：
+						</div>
+						<div class="con">
+							<span id="txtid"></span>
+							<span id="con_phone">修改号码</span>
+						</div>
+					</div>
+				</div>
+				<div class="input-group" style="display: none;" id="tele">
+					<input type="text" name="keyword" id="keyword" maxlength="11" class="form-control" placeholder="请输入手机号">
+					<p id="telephoneError" style="margin-bottom: -2px;color: red;"></p>
+					<span class="input-group-btn">
+            <button class="btn btn-success" id="search_submit" type="button" onclick="change();" style=" margin:10px 20px;border-radius: 3px;border-radius: 3px;">确认</button>
+               <button class="btn btn-group" type="button" onclick="back();" style=" margin:10px 20px;border-radius: 3px;border-radius: 3px;">取消</button>
+        </span>
+				</div>
+
+			</div>
+		</div>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		var mycookie = $.cookie('cookieData');
+		var myobject = JSON.parse(mycookie);
+		var oldTel = $.cookie('userPhone'); //获取旧手机号
+		$("#userName").text(myobject.userName); //获取cookie中的姓名
+		$("#txtid").text(oldTel); //获取cookie中的手机号
+		var nameNumber = myobject.userIdentity //获取身份证号		
+		$(document).ready(function() {
+			var phone = oldTel.substring(0, 3) + "*****" + oldTel.substring(8, 11);
+			var num = nameNumber.substring(0, 1) + "****************" + nameNumber.substring(17, 18); //身份证加密
+			$("#nameNumber").text(num);
+			$("#txtid").text(phone);
+			$("#con_phone").on("click", function() {
+				$("#tele").css("display", "block");
+			})
+
+		})
+		//手机验证
+		function isPhoneNo(phone) {
+			var pattern = /^1[34578]\d{9}$/;
+			return pattern.test(phone);
+		}
+
+		function change() {
+			if($.trim($('#keyword').val()).length == 0) {
+				$('#telephoneError').html('请输入手机号码');
+				return false;
+			} else {
+				$('#telephoneError').html('');
+				if(isPhoneNo($('#keyword').val()) == false) {
+					$('#telephoneError').html('请输入正确的手机号码');
+					return false;
+				} else {
+					var tel = $("#keyword").val(); //获取新手机号
+					$.ajax({
+						type: "post",
+						url: ipAddress + '/usrmgr/modifyPhone',
+						async: false,
+						data: {
+							"newPhone": tel,
+							"oldPhone": oldTel,
+						},
+						success: function(msg) {
+							var telNum = tel.substring(0, 3) + "*****" + tel.substring(8, 11);
+							$.cookie('userPhone', null);
+							$.cookie("userPhone", tel);
+							$('#txtid').html(telNum);
+							$('#tele').css("display", "none");
+						}
+					});
+					return true;
+				}
+			}
+
+		}
+
+		function back() {
+			$('#tele').css("display", "none");
+		}
+	</script>
+
+</html>

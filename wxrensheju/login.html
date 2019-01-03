@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<!--
+    	作者：kongfc
+    	时间：2018-07-17
+    	描述：人社公众号个人登入
+    -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>个人登入</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+</head>
+<style type="text/css">
+    .container {
+        max-width: 95%;
+        padding: 0px;
+        margin: 10px auto;
+        overflow: hidden;
+    }
+    
+    .top_log {
+        width: 80%;
+        text-align: center;
+        height: 60px;
+        margin: 50px auto;
+    }
+    
+    .top_log img {
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+    }
+    
+    #form-container {
+        margin-top: 100px;
+    }
+    /*
+ * 标签
+ */
+    
+    label {
+        font-size: 16px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <a href="index.html"><span >< 返回首页</span></a>
+        <div class="col-xs-12 " id="form-container" style="margin-top: 40px ;">
+            <h1 class="text-center" style="margin-bottom: 100px;">
+                用 户 登 录
+            </h1>
+            <!--<form id="loginform" class="form-inline" method="post" role="form" onsubmit="return checkRegister()">-->
+            <div class="form-group" style="padding-bottom: 8px;">
+                <label class="col-md-4" for="telephone">
+                    账号：
+                </label>
+                <div class="">
+                    <input class="form-control" id="telephone" name="telephone" onblur="checkphone()" required="true" type="text" placeholder="请输入身份证号/手机号" />
+                    <p id="telephoneerror" style="margin-bottom: -2px;color: red;">
+                    </p>
+                </div>
+            </div>
+            <div class="form-group" style="padding-bottom: 8px;">
+                <label class="col-md-4" for="password">
+                    密   码:
+                </label>
+                <div class="">
+                    <input class="form-control" id="password" name="password" onblur="checkpassword()" required="true" type="password" placeholder="请输入密码" />
+                    <p id="passworderror" style="margin-bottom: -2px;color: red;">
+                    </p>
+                </div>
+            </div>
+            <div class="form-group " style="margin-bottom: 15px;">
+                <div class="col-xs-3 ">
+                    <button class="btn btn-primary " type="submit" id="loginBtn">登录</button>
+                </div>
+                <div class="col-xs-3 ">
+                    <a class="btn btn-primary  " href="register.html " style="color: #ffffff;">注册</a>
+
+                </div>
+                <div class="col-xs-5 text-center">
+                    <a href="forget_password.html" style="font-size: 14px;text-decoration: none;color: #C9302C;line-height: 35px;">忘记密码？</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        function checkpassword() {
+            if ($.trim($('#password').val()).length == 0) {
+                $('#passworderror').html('密码没有输入');
+                $('#password').focus();
+                return false;
+            } else {
+                $('#passworderror').html('');
+                return true;
+            }
+        }
+
+        function checkphone() {
+            if ($.trim($('#telephone').val()).length == 0) {
+                $('#telephoneerror').html('请输入账号');
+                $('#telephone').focus();
+                return false;
+            } else {
+                $('#telephoneerror').html('');
+                return true;
+            }
+        }
+
+        function checkRegister() {
+            if (checkphone() == false) {
+                return false;
+            }
+            if (checkpassword() == false) {
+                return false;
+            }
+
+        }
+    </script>
+    <script src="js/jquery-3.2.1.min.js " type="text/javascript " charset="utf-8 "></script>
+    <script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js " type="text/javascript " charset="utf-8 "></script>
+    <script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+</body>
+<script type="text/javascript">
+    $('#loginBtn').click(function() {
+        //1.收集数据
+        var userCode = $("#telephone").val();
+        var userPwd = $("#password").val();
+        if (userCode == '') {
+            alert('登录失败,账号不能为空');
+            return false;
+        }
+        if (userPwd == '') {
+            alert('登录失败，密码不能为空');
+            return false;
+        }
+
+
+        $.ajax({
+            url: ipAddress + '/login',
+            type: 'post',
+            data: {
+                "userCode": userCode,
+                "userPwd": userPwd
+            },
+            success: function(msg) {
+                var result = msg;
+                var userPhone = msg.userPhone;
+                $.cookie("userPhone", userPhone);
+                $.cookie('cookieData', JSON.stringify(result));
+                console.log(result);
+                if (result.userType == 04 || result.userType == 03) {
+                    alert("登录成功！")
+                    window.location.href = 'index.html';
+                }
+                if (result.code == 1003) {
+                    alert(result.message);
+                    $("#password").val("");
+                } else if (result.code == 1001) {
+                    alert("该用户不存在!");
+                    $("#password").val("");
+                }
+            },
+            error: function() {
+                alert("登录失败，请输入正确的账号与密码")
+            }
+        });
+    });
+</script>
+
+</html>

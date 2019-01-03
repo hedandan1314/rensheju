@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>淮安经济开发区--服务大厅</title>
+	</head>
+	<link rel="stylesheet" href="./css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/homePage.css" />
+
+	<body>
+		<header>
+			<iframe src="PageHeader.html" style="border:none;width:100%;height:375px;" scrolling="no" frameborder="0" id='iframeHead'></iframe>
+		</header>
+		<section>
+			<div class="content">
+				<div class="light">
+					<div class="closeWindow">
+						关闭
+					</div>
+					<div class="picture">
+						<img src="img/code.jpg" alt="" style="width: 400px; height: 400px;">
+					</div>
+				</div>
+				<div class="black_overlay"></div>
+				<div class="bannerslider">
+					<div class="slider_images">
+						<div class="slider_img1 bannerIteam"></div>
+						<div class="slider_img2 bannerIteam"></div>
+						<div class="slider_img3 bannerIteam"></div>
+						<div id="slider_nav">
+							<ul>
+								<li class="active"></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="main_center">
+					<div class="main_center_left">
+						<div class="main_left_tr">
+							<div class="personage main_work">
+								<h5>个人办事</h5>
+							</div>
+							<ul class="personal">
+								<li>
+									<a  onClick="personal1();" target="_self">公共就业</a>
+								</li>
+								<li>
+									<a href="http://www.hasrcsc.com/" target="_blank">人事人才</a>
+								</li>
+								<li>
+									<a  onClick="personal1();" target="_self">社会保险</a>
+								</li>
+								<li>
+									<a  onClick="personal1();" target="_self">劳动关系</a>
+								</li>
+								<li>
+									<a href="http://jshrss.jiangsu.gov.cn/col/col45367/" target="_blank">社保卡服务</a>
+								</li>
+								<li>
+									<a  onClick="personal1();" target="_self">司法公正</a>
+								</li>
+								<li>
+									<a href="http://ha.jszwfw.gov.cn/jszwfw/bscx/itemlist/gr_index.do?webId=12&themid=B104&deptid=" target="_blank">教育科研</a>
+								</li>
+								<li>
+									<a href="http://ha.jszwfw.gov.cn/jszwfw/bscx/itemlist/gr_index.do?webId=12&themid=B119&deptid=" target="_blank">出境入境</a>
+								</li>
+								<li>
+									<a href="http://ha.jszwfw.gov.cn/jszwfw/bscx/itemlist/gr_index.do?webId=12&themid=B124&deptid=" target="_blank">环保绿化</a>
+								</li>
+								<li>
+									<a  target="_self" onClick="personal1();">更多>></a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="main_left_tr">
+							<div class="company main_work">
+								<h5>单位办事</h5>
+							</div>
+							<ul class="companys">
+								<li>
+									<a onClick="company1();" target="_self">公共就业</a>
+								</li>
+								<li>
+									<a href="http://www.hasrcsc.com/" target="_blank">人事人才</a>
+								</li>
+								<li>
+									<a onClick="company1();" target="_self">社会保险</a>
+								</li>
+								<li>
+									<a onClick="company1();" target="_self">劳动关系</a>
+								</li>
+								<li>
+									<a href="http://jshrss.jiangsu.gov.cn/col/col45367/" target="_blank">社保卡服务</a>
+								</li>
+								<li>
+									<a onClick="company1();" target="_self">司法公正</a>
+								</li>
+								<li>
+									<a onClick="company1();" target="_self">医疗机构</a>
+								</li>
+								<li>
+									<a onClick="company1();" target="_self">业务审批</a>
+								</li>
+								<li>
+									<a href="http://ha.jszwfw.gov.cn/jszwfw/bscx/itemlist/fr_index.do?webId=12&themid=B228&deptid=" target="_blank">公安消防</a>
+								</li>
+								<li>
+									<a target="_self" onClick="company1();">更多>></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="main_center_right">
+
+						<div class="main__banner" style="background-color: #F7930D;">
+							<a href="./commonProblems.html" >
+								<p>
+									网上办事服务事项
+								</p><img src="img/icon_line.png" alt="" /></a>
+						</div>
+						<div class="main__banner" style="background-color: #95CE4D;">
+							<a href="http://ha.jszwfw.gov.cn/" target="_blank">
+								<p>
+									江苏人社服务旗舰店
+								</p><img src="img/icon_qjd.png" alt="" /></a>
+						</div>
+						<div class="main__banner" style="background-color: #4AAFF5;">
+							<a style="cursor: pointer;" id="mobileTerminal">
+								<p>
+									淮安人社微信公众号
+								</p><img src="img/icon_move.png" alt="" /></a>
+
+						</div>
+
+					</div>
+					<div class="main_res">
+						<div class="main_res_title">
+							<h2>信息查询</h2>
+							<div class="main_res_content">
+								<div class="main_res_left">
+									<div class="demand_search" style="text-align:center">
+										<a class="btn btn-default" id="serviceSerch" onclick="serviceSerch();" target="_self"> 办件查询</a>
+									</div>
+									<div class="tablebox">
+										<!-- 表头容器 -->
+										<div class="tbl-header">
+											<table border="0" cellspacing="0" cellpadding="0">
+												<thead>
+													<tr>
+														<th>办件编号</th>
+														<th>时间</th>
+														<th>状态</th>
+
+													</tr>
+												</thead>
+
+											</table>
+										</div>
+										<!-- 表格内容容器-->
+										<div class="tbl-body">
+											<table border="0" cellspacing="0" cellpadding="0">
+												<thead>
+													<tr>
+														<th>办件编号</th>
+														<th>时间</th>
+														<th>状态</th>
+
+													</tr>
+												</thead>
+												<tbody class="datatd demo" id="service">
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="main_res_right">
+									<ul>
+										<li>
+											<a href="http://www.jshrss.gov.cn/bsdt/xxcx/mbzypx/" id="img1" target="_blank">
+											</a>
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/UnifiedPublicServicePlatform/navigation.action?to=home_info_techschoolgradcert" id="img2" target="_blank">
+											</a>
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/bsdt/xxcx/jgxxcx/" id="img3" target="_blank">
+											</a>
+										</li>
+										<li>
+											<a href="http://jshrss.jiangsu.gov.cn/col/col59204/index.html" id="img4" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/UnifiedPublicServicePlatform/navigation.action?to=business_tjzc_index" id="img5" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/UnifiedPublicServicePlatform/navigation.action?to=home_info_jobintroorg" id="img6" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/UnifiedPublicServicePlatform/navigation.action?to=home_info_techexp" id="img7" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/UnifiedPublicServicePlatform/navigation.action?to=home_info_techteacher" id="img8" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://jshrss.jiangsu.gov.cn/col/col45367/" id="img9" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://jshrss.jiangsu.gov.cn/col/col45367/" id="img10" target="_blank"></a>
+
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/UnifiedPublicServicePlatform/business/cjcx/toSearchzxcj.action" id="img11" target="_blank">
+											</a>
+										</li>
+										<li>
+											<a href="http://www.jshrss.gov.cn/bsdt/xxcx/" id="img12" target="_blank"></a>
+
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer><iframe src="PageFooter.html" style="border:none;width:100%;height:210px;" scrolling="no" frameborder="0"></iframe></footer>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/homePage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/textRoll.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script type="text/javascript" src='js/cookie.js'>
+			
+		</script>-->
+		<script>
+			
+			
+			$(function() {
+	
+				$('#mobileTerminal').on('click', function() {
+					$('.light').css('display', 'block');
+					$('.black_overlay').css('display', 'block');
+				})
+				$('.closeWindow').on('click', function() {
+					$('.light').css('display', 'none');
+					$('.black_overlay').css('display', 'none');
+				})
+				
+
+			});
+
+			function serviceSerch() {
+				if($.cookie('PHPSESSID') == null) {
+					alert("请先登入！")
+				} else {
+					$("#serviceSerch").attr("href", "./service.html");
+				}
+			}
+			//单位办事判断
+			function company1() {
+				if($.cookie('PHPSESSID') == null) {
+					alert("请先登入！")
+				} else {
+					var mycookie = $.cookie('PHPSESSID');
+					var myobject = JSON.parse(mycookie);
+					if(myobject.userType == "03") {
+						$(".companys li a:eq(0)").attr("href", "./company.html?id=2");
+						$(".companys li a:eq(2)").attr("href", "./company.html?id=1");
+						$(".companys li a:eq(3)").attr("href", "./company.html?id=2");
+						$(".companys li a:eq(5)").attr("href", "./company.html?id=3");
+						$(".companys li a:eq(6)").attr("href", "./company.html?id=4");
+						$(".companys li a:eq(7)").attr("href", "./company.html?id=5");
+						$(".companys li a:eq(9)").attr("href", "./company.html?id=1");
+					} else {
+						alert("请先登入单位用户！")
+					}
+				}
+			}
+			//个人办事判断
+			function personal1() {
+				if($.cookie('PHPSESSID') == null) {
+					alert("请先登入！")
+				} else {
+					var mycookie = $.cookie('PHPSESSID');
+					var myobject = JSON.parse(mycookie);
+					if(myobject.userType == "04") {
+						$(".personal li a:eq(0)").attr("href", "./personal.html?id=2");
+						$(".personal li a:eq(2)").attr("href", "./personal.html?id=1");
+						$(".personal li a:eq(3)").attr("href", "./personal.html?id=2");
+						$(".personal li a:eq(5)").attr("href", "./personal.html?id=3");
+						$(".personal li a:eq(9)").attr("href", "./personal.html?id=1");
+					} else {
+						alert("请先登入个人用户！")
+					}
+				}
+			}
+
+		</script>
+
+	</body>
+
+</html>

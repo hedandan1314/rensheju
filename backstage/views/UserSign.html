@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户业务办理统计</title>
+		<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../assets/css/tablecs/bc.grid-1.0.0.min.css" />
+	</head>
+
+	<body style="background-color: #f4f6f8;">
+		<h1 style="text-align: center;">用户业务办理统计</h1>
+		<div>
+			<div id="table" style="width: 98%; height: 768px; margin: 0 auto;"></div>
+		</div>
+		<script src="../assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../assets/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../assets/js/domainName.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../assets/js/tablejs/bc.grid-1.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		
+			var item = [];
+			$.ajax({
+				type: "post",
+				url: ipAddress + '/stats/getProcedureTotal',
+				async: false,
+				success: function(msg) {
+					for(i = 0; i < msg.length; i++) {
+			
+						item.push(msg[i])
+					}
+				},
+			});
+			var data = item;
+			$(function() {
+				var grid = BCGrid.create("#table", {
+					columns: [
+
+						{
+							id: 'name',
+							name: 'orgName',
+							display: '部门'
+						},
+
+						{
+							name: 'totalCount',
+							display: '办理总量',
+							enableSort: true
+						}, {
+							name: 'handleCount',
+							display: '办理完成量',
+							enableSort: true
+						}, {
+							name: 'transactCount',
+							display: '待办理量',
+							enableSort: true
+						},
+					],
+					dataSource: 'local',
+					localData: data
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<style type="text/css">
+			.container {
+				max-width: 100%;
+				padding: 0px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			
+			.header {
+				width: 100%;
+				text-align: center;
+				height: 50px;
+				background-color: #2298d8;
+				padding: 15px 16px;
+				font-size: 20px;
+				color: #fff;
+			}
+			
+			.main_menu {
+				width: 90%;
+				min-height: 408px;
+				vertical-align: baseline;
+				overflow: hidden;
+				padding: 0 10px 0 10px;
+				margin: 30px auto;
+			}
+			
+			.item {
+				opacity: 1;
+				margin-bottom: 40px;
+			}
+			
+			.detailed a {
+				display: block;
+				padding: 7px 10px;
+				background: #8ccf68;
+				color: #fff;
+				font-size: 16px;
+				border-radius: 28px;
+				text-decoration: none;
+			}
+			
+			.icon {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				border: 3px solid #fff;
+				text-align: center;
+				line-height: 24px;
+				border-radius: 22px;
+				margin-right: 20px;
+				font-weight: bold;
+				vertical-align: middle;
+				font-family: "黑体";
+			}
+		</style>
+		<div class="container">
+			<div class="header">
+				<span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);float: left;" onclick="javascript:history.back(-1);"></span>
+				<span class="title">公共查询</span>
+			</div>
+			<div class="main_menu">
+				<ul class="detailed">
+					<li class="item">
+						<a href="fileQuery.html"><span class="icon">1</span>流动人员档案查询</a>
+					</li>
+					<li class="item">
+						<a href="medicalQuery.html"><span class="icon">2</span>定点医疗机构查询</a>
+					</li>
+					<li class="item">
+						<a href="insuredQuery.html"><span class="icon">3</span>城乡居民个人参保信息查询</a>
+					</li>
+					<li class="item">
+						<a href="reimbursementQuery.html"><span class="icon">4</span>居民医保报销进度查询</a>
+					</li>
+					<!--<li class="item">
+						<a href=""><span class="icon">5</span>社保卡服务网点查询</a>
+					</li>-->
+				</ul>
+			</div>
+
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,183 @@
+.loginBox {
+    font-family: "黑体";
+    width: 600px;
+    height: 436px;
+    background: #F7FBFE;
+    color: #333;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    font-size: 16px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 1px #ccc;
+    /*  padding: 15px 60px; */
+    /*禁止复制粘贴*/
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.login_info {
+    color: #1FA3E3;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    margin: 15px 0;
+    font-size: 24px;
+}
+
+.loginForm {
+    background-color: #ffffff;
+    margin: 0 22px;
+}
+
+form {
+    padding: 28px 0px;
+}
+
+.reg-box {
+    padding-left: 30px;
+}
+
+.reg-box li {
+    line-height: 44px;
+    width: auto;
+    overflow: hidden;
+}
+
+.reg-box li label {
+    width: 68px;
+    height: 50px;
+    float: left;
+    line-height: 50px;
+    text-align: right;
+    padding-right: 20px;
+    color: #1FA3E3;
+}
+
+.reg-box li input,
+.reg-box li select {
+    outline: none;
+    padding: 6px 0;
+    font-size: 14px;
+    width: 410px;
+    height: 45px;
+    line-height: 28px;
+    border: 1px solid #1FA3E3;
+    text-indent: 0.5em;
+    float: left;
+}
+
+input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+    color: #aab2bd;
+    /* placeholder字体大小  */
+    font-size: 13px;
+}
+
+.reg-box li select option {
+    font-size: 16px;
+}
+
+.reg-box li input.checkedN,
+.checkedN {
+    border: 1px solid #1ece6d;
+}
+
+
+/*验证码*/
+
+.add {
+    width: 176px;
+    height: 44px;
+    float: left;
+    _display: inline;
+    cursor: pointer;
+    margin-left: 23px;
+}
+
+.reg-box li .sradd {
+    width: 210px;
+    text-indent: 4px;
+    font-size: 14px;
+}
+
+.reg-box li .input-code {
+    width: 106px;
+    padding: 10px;
+    font-family: Arial;
+    font-style: italic;
+    color: red;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-align: center;
+    text-indent: 0;
+}
+
+.phoKey {
+    background: #1FA3E3;
+    text-align: center;
+    line-height: 44px;
+    color: #fff;
+    letter-spacing: 8px;
+    font-size: 18px;
+}
+
+.error {
+    clear: both;
+    display: block;
+    color: red;
+    padding-left: 90px;
+    padding-bottom: 5px;
+    height: 20px;
+    float: left;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.reg-box li input.errorC,
+.errorC {
+    border: 1px solid red;
+}
+
+.loginBtn {
+    text-align: center
+}
+
+.loginBtn input {
+    display: inline-block;
+    width: 300px;
+    background-color: #1FA3E3;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-family: 黑体;
+    outline: none;
+    border: none;
+    margin: auto;
+}
+
+.loginMore {
+    padding-top: 20px;
+    padding-left: 270px;
+}
+
+.loginMore a {
+    color: #1FA3E3;
+}
+
+.loginMore a#forgetBtn {
+    color: red;
+}
+
+.loginMore a#registerBtn {
+    margin-left: 40px;
+}
+
+.loginMore a:last-child {
+    margin-left: 40px;
+}

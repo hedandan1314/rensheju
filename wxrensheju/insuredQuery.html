@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .container {
+            max-width: 100%;
+            padding: 0px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .header {
+            width: 100%;
+            text-align: center;
+            height: 50px;
+            background-color: #2298d8;
+            padding: 15px 16px;
+            font-size: 20px;
+            color: #fff;
+        }
+        
+        .main {
+            margin-top: 10%;
+        }
+        
+        .form-group label {
+            margin-top: 10px;
+        }
+        
+        table tr th {
+            text-align: center;
+        }
+        
+        table tr td {
+            text-align: center;
+            vertical-align: middle!important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);float: left;" onclick="javascript:history.back(-1);"></span>
+            <span class="title">城乡居民个人参保信息查询</span>
+        </div>
+        <div class="main">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">姓名</label>
+                            <div class="col-xs-9">
+                                <input type="text" name="" class="form-control" id="personName" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">身份证</label>
+                            <div class="col-xs-9">
+                                <input type="text" name="" class="form-control" id="iDNumber" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">验证码</label>
+                            <div class="col-xs-5">
+                                <input type="text" name="" class="form-control" id="input" value="" />
+                            </div>
+                            <div class="col-xs-4">
+                                <input style="height: 40px; width: 60px; line-height: 31px; margin-left: -20px; border: none; background-color: #DDDDDD; color: blue; font-weight: bold; font-size: 16px; padding: 5px 0px 0px 0px;" type="button" name="" id="checkCode" onclick="createCode()"
+                                    value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-3 col-xs-offset-3">
+                                <button type="button" class="btn btn-default" onclick="validate()" style="outline: none;">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="margin: 20px 0px 0px 0px;">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <form>
+                        <table id="table">
+                            <!-- <thead>
+                                <th style="width: 10%;">所属村/居委会</th>
+                                <th style="width: 15%;">年月</th>
+                                <th style="width: 15%;">养老保险</th>
+                                <th style="width: 15%;">医疗保险</th>
+                                <th style="width: 15%;">失业保险</th>
+                                <th style="width: 15%;">工商保险</th>
+                                <th style="width: 15%;">生育保险</th>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody> -->
+                        </table>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        mui.init()
+    </script>
+    <script type="text/javascript">
+        var code; //在全局定义验证码      
+        //产生验证码     
+        window.onload = function() {
+            createCode();
+        }
+
+        function createCode() {
+            code = "";
+            var codeLength = 4; //验证码的长度     
+            var checkCode = document.getElementById("checkCode");
+            var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数     
+            for (var i = 0; i < codeLength; i++) { //循环操作     
+                var charIndex = Math.floor(Math.random() * 36); //取得随机数的索引     
+                code += random[charIndex]; //根据索引取得随机数加到code上     
+            }
+            checkCode.value = code; //把code值赋给验证码     
+        }
+
+        function formReset() {
+            var form1 = document.getElementById('form1').reset();
+            createCode();
+        }
+
+        // 初始化数据
+        function validate() {
+            var personName = $.trim($('#personName').val());
+            var iDNumber = $.trim($('#iDNumber').val());
+
+            var parameter = {
+                'pageIndex': 1,
+                'criteria': {
+                    'insuredPerson': personName,
+                    'personIdentity': iDNumber
+                }
+            }
+
+            var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; // 验证身份证
+            if (personName != '' && iDNumber != '') {
+                if (!reg.test(iDNumber)) {
+                    alert('身份证输入不合法!');
+                    return false;
+                }
+
+                // 校验验证码 
+                var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写           
+                if (inputCode.length <= 0) { //若输入的验证码长度为0     
+                    alert("请输入验证码！"); //则弹出请输入验证码     
+                } else if (inputCode != code) { //若输入的验证码与产生的验证码不一致时     
+                    alert("验证码输入错误！"); //则弹出验证码输入错误     
+                    createCode(); //刷新验证码     
+                } else { //输入正确时     
+                    console.log('parameter=', parameter);
+                    $.ajax({
+                        type: 'POST',
+                        url: ipAddress + '/inquiry/queryInsurance',
+                        data: JSON.stringify(parameter),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+                            console.log('result=', result);
+                            // $('table:last thead').siblings().remove();
+                            if (result.data.length != 0) {
+                                var html = '';
+                                $('#tbody').html('');
+                                for (var i = 0; i < result.data.length; i++) {
+                                    // html += '<tr>' +
+                                    //     '<td style="width: 10%;">' + result.data[i].memberPlace +
+                                    //     '</td>' +
+                                    //     '<td style="width: 15%;">' + result.data[i].paymentMonth +
+                                    //     '</td>' +
+                                    //     '<td style="width: 15%;">' + result.data[i].insurancePension +
+                                    //     '</td>' +
+                                    //     '<td style="width: 15%;">' + result.data[i].insuranceMedical +
+                                    //     '</td>' +
+                                    //     '<td style="width: 15%;">' + result.data[i].insuranceUnemploy +
+                                    //     '</td>' +
+                                    //     '<td style="width: 15%;">' + result.data[i].insuranceInjury +
+                                    //     '</td>' +
+                                    //     '<td style="width: 15%;">' + result.data[i].insuranceBirth +
+                                    //     '</td>' +
+                                    //     '</tr>'
+                                    html += '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">所属村/居委会' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].memberPlace +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">年月' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].paymentMonth +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">养老保险' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].insurancePension +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">医疗保险' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].insuranceMedical +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">失业保险' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].insuranceUnemploy +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">工商保险' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].insuranceInjury +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr style="height: 30px;">' +
+                                        '<td style="font-weight: 900;">生育保险' +
+                                        '</td>' +
+                                        '<td>' + result.data[i].insuranceBirth +
+                                        '</td>' +
+                                        '</tr>'
+                                }
+                                $('#table').append(html);
+                            } else {
+                                alert('没有该信息!')
+                            }
+                        },
+                        error: function() {
+                            alert('失败')
+                        }
+                    })
+                }
+            } else {
+                alert('姓名或身份证号不能为空');
+            }
+        }
+    </script>
+</body>
+
+</html>

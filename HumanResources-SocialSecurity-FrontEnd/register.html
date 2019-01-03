@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/register.css">
+</head>
+
+<body>
+    <!-- <input type="hidden" name="BASEPATH" value="http://bsdt.huaian.gov.cn:80/">
+    <input type="hidden" name="smsyzmTime" value="60"> -->
+    <div class="content register">
+        <div class="ipgsPanel">
+            <!-- 个人用户及法人用户部分 -->
+            <div class="retTop">
+                <ul class="topNav clearf">
+                    <li data-val="geRen" class=" geRenTab active">新用户注册</li>
+                    <li><a href="./login.html" id="mainBtn">返回</a></li>
+                </ul>
+            </div>
+            <div class="regBottom">
+                <!-- 个人用户 -->
+                <div class="geRen active">
+                    <form id="geRenYH">
+                        <input type="hidden" name="CSRFToken" value="4d1c527f-6de2-4914-894f-a49a20b4fdd6">
+                        <table class="reggRTab">
+                            <colgroup>
+                                <col style="width: 168px">
+                                <col style="width: 30%;">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <input type="hidden" id='userType'>
+                                <tr class="sty" data-type="userName">
+                                    <th style='top:-3px'>姓名：</th>
+                                    <td class='sty4'>
+                                        <input class="txt tabIpt" autofocus style="float: none;" name="userName" id='userName' type="text" placeholder="请输入姓名" data-validate="true" autocomplete="off">
+                                        <span class="error "></span>
+                                    </td>
+                                    <td>
+                                        <div class="tips">
+                                            <span class="redStar"> *</span>
+                                            <label>姓名必填</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="sty3" data-type="userName">
+                                    <th>手机：</th>
+                                    <td class='sty4'>
+                                        <input class="txt tabIpt" name="userCode" data-type="phone" id='userCode' type="text" placeholder="请输入手机号码" data-validate="true" autocomplete="off" maxlength="11">
+                                        <span class="error "></span>
+                                    </td>
+                                    <td>
+                                        <div class="tips">
+                                            <span class="redStar"> *</span>
+                                            <label>手机号必填</label>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- 身份证 -->
+                                <tr class="sty" data-type="userName">
+                                    <th>身份证：</th>
+                                    <td class='sty4'>
+                                        <input class="txt tabIpt" name="userIdentity" id='userIdentity' data-type="userName" type="text" placeholder="请输入身份证号码" data-validate="true" autocomplete="off">
+                                        <span class="error "></span>
+                                    </td>
+                                    <td>
+                                        <div class="tips">
+                                            <span class="redStar"> *</span>
+                                            <label>身份证号必填</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- 设置密码 -->
+                                <tr class="sty2">
+                                    <th>请设置密码：</th>
+                                    <td class='sty4'>
+                                        <input class="txt tabIpt" name="userPwd" type="password" id='userPwd' placeholder="请输入密码" maxlength="12" data-validate="true" autocomplete="off">
+                                        <span class="error "></span>
+                                    </td>
+                                    <td>
+                                        <div class="tips">
+                                            <span class="redStar"> *</span>
+                                            <label>请输入6-12位密码，包含数字，字母或特殊字符</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- 确认密码 -->
+                                <tr class="sty2">
+                                    <th>请确认密码：</th>
+                                    <td class='sty4'><input class="txt tabIpt" name="surePwd" id='surePwd' type="password" placeholder="请再次输入密码" maxlength="12" data-validate="true" autocomplete="off">
+                                        <span class="error "></span></td>
+                                    <td>
+                                        <div class="tips">
+                                            <span class="redStar"> *</span>
+                                            <label>请输入6-12位密码，包含数字，字母或特殊字符</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- 验证码 -->
+                                <tr class="sty">
+                                    <th>验证码：</th>
+                                    <td class='sty4'>
+                                        <input class="txt tabIpt" type="text" name="tpyzm" id="tpyzm" placeholder="请输入验证码" data-validate="true" autocomplete="off">
+                                        <span class="error "></span>
+                                    </td>
+                                    <td class="add phoKey" id="phoKyeImg">
+                                        <!-- <img class="transparent yzm" name="patchca" src="http://bsdt.huaian.gov.cn:80/ipgs/getPatchca.do" title="看不清换一张"> -->
+                                    </td>
+                                </tr>
+                                <!-- 协议部分-->
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td>
+                                        <div style="margin:39px 0 48px -35px;">
+                                            <label class="radio-lab">
+                                                    <input type="checkbox" name="userprotocol" id='agreeBtn'>我已阅读同意<a href="http://bsdt.huaian.gov.cn:80/ipgs/gotoregistPro.do" target="IPGS_HA_REGISTPRO">《淮安市网上办事大厅用户协议》</a>
+                                                </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- 确认按钮 -->
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td>
+                                        <input type="button" class="btn-mid regBtn" id='regBtn' data-type="geRen" value="确认" disabled="disabled">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='./js/jquery-1.10.2.min.js'></script>
+    <script src="lib/jquery.cookie.js"></script>
+    <script src='./js/domainName.js'></script>
+    <script src='./js/register.js'></script>
+</body>
+
+</html>

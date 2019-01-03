@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/less/base.css" type="text/css">
+    <link rel="stylesheet" href="../assets/css/index.css" type="text/css">
+    <link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <style>
+        .body .panel-default .panel-body button {
+            outline: none;
+        }
+        
+        .images:hover {
+            transform: scale(1.05, 1.05);
+            opacity: 0.5;
+        }
+        
+        .grayness {
+            pointer-events: none;
+            opacity: 0.3;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 右边主体部分 -->
+    <div class="main">
+        <!-- 右边下部分 ，网站的主体页面-->
+        <div class="body">
+            <!-- 面包屑导航 -->
+            <ol class="breadcrumb">
+                <li>业务管理</li>
+            </ol>
+
+            <!-- 面板，搜索框与表格 -->
+            <div class="panel panel-default">
+                <div class="row" style="margin-left: 1%;">
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./guidance.html" target="_parent" class="gray"><img src="../assets/images/guide.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./guidance.html" target="_parent" role="button">办事指南</a></p>
+                    </div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./transaction.html" target="_parent" class="gray"><img src="../assets/images/handle.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./transaction.html" target="_parent" role="button">在线办理<span class="badge" id="handleSum"></span></a></p>
+                    </div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./medicalInstitution.html" target="_parent" class="gray"><img src="../assets/images/medicalInstitution.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./medicalInstitution.html" target="_parent" role="button">医疗机构<span class="badge" id="medicalSum"></span></a></p>
+                    </div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./uploadMaterial.html" target="_parent" class="gray"><img src="../assets/images/download.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./uploadMaterial.html" target="_parent" role="button">材料上传</a></p>
+                    </div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./businessHandling.html" target="_parent" class="gray"><img src="../assets/images/business.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./businessHandling.html" target="_parent" role="button">添加业务</a></p>
+                    </div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./videoAuthentication.html" target="_parent" class="gray"><img src="../assets/images/video.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./videoAuthentication.html" target="_parent" role="button">视频认证<span class="badge" id="videoSum"></span></a></p>
+                    </div>
+                    <!-- 三目录查询 -->
+                    <div class="col-md-4" style="text-align: center;">
+                        <h2>
+                            <a href="./threeList.html" target="_parent" class="gray"><img src="../assets/images/search.png" class="images" style="width: 100px;" alt=""></a>
+                        </h2>
+                        <p><a class="btn btn-default ban" href="./threeList.html" target="_parent" role="button">三目录查询</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src='../assets/lib/bootstrap/dist/js/bootstrap.js'></script>
+    <script src="../assets/js/jquery.cookie.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/domainName.js"></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script>
+        $(function() {
+            var ownerDepart = userInfo.ownerDepart;
+            if (ownerDepart == 01) {
+                // $('.gray').addClass('grayness');
+                // $('.ban').attr('disabled', 'disabled');
+                // $('.ban').attr('href', 'javascript:;');
+                // $('.ban').click(function() {
+                //      alert('您暂时没有该权限')
+                // })
+            } else if (ownerDepart == 02) {
+                $('.gray').not('.gray:eq(0),.gray:eq(1),.gray:eq(3),.gray:eq(4)').addClass('grayness');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').attr('disabled', 'disabled');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').attr('href', 'javascript:;');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').click(function() {
+                    alert('您暂时没有该权限')
+                })
+            } else if (ownerDepart == 03) {
+                $('.gray').not('.gray:eq(0),.gray:eq(1),.gray:eq(3),.gray:eq(4)').addClass('grayness');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').attr('disabled', 'disabled');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').attr('href', 'javascript:;');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').click(function() {
+                    alert('您暂时没有该权限')
+                })
+            } else if (ownerDepart == 04) {
+                $('.gray').not('.gray:eq(0),.gray:eq(1),.gray:eq(3),.gray:eq(4)').addClass('grayness');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').attr('disabled', 'disabled');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').attr('href', 'javascript:;');
+                $('.ban').not('.ban:eq(0),.ban:eq(1),.ban:eq(3),.ban:eq(4)').click(function() {
+                    alert('您暂时没有该权限')
+                })
+            } else if (ownerDepart == 05) {
+                $('.gray').not('.gray:eq(3)').addClass('grayness');
+                $('.ban').not('.ban:eq(3)').attr('disabled', 'disabled');
+                $('.ban').not('.ban:eq(3)').attr('href', 'javascript:;');
+                $('.ban').not('.ban:eq(3)').click(function() {
+                    alert('您暂时没有该权限')
+                })
+            }
+
+        })
+
+        // 在线办理
+        var parameter1 = {
+            "type": 1,
+            "ownerDepart": userInfo.ownerDepart
+        }
+        $.ajax({
+            type: 'POST',
+            url: ipAddress + '/service/untreatedSum',
+            data: parameter1,
+            success: function(result) {
+               // console.log('result=', result);
+                if (result > 99) {
+                    $('#handleSum').html('99+')
+                } else if (result == 0) {
+                    $('#handleSum').hide();
+                } else {
+                    $('#handleSum').html(result);
+                }
+            },
+            error: function() {
+                alert('失败')
+            }
+        })
+
+        // 医疗机构
+        var parameter2 = {
+            "type": 2,
+            "serviceType": '04'
+        }
+        $.ajax({
+            type: 'POST',
+            url: ipAddress + '/service/untreatedSum',
+            data: parameter2,
+            success: function(result) {
+                //console.log('result=', result);
+                if (result > 99) {
+                    $('#medicalSum').html('99+')
+                } else if (result == 0) {
+                    $('#medicalSum').hide();
+                } else {
+                    $('#medicalSum').html(result);
+                }
+            },
+            error: function() {
+                alert('失败')
+            }
+        })
+
+        // 视频认证
+        var parameter3 = {
+            "type": 3
+        }
+        $.ajax({
+            type: 'POST',
+            url: ipAddress + '/service/untreatedSum',
+            data: parameter3,
+            success: function(result) {
+                //console.log('result=', result);
+                if (result > 99) {
+                    $('#videoSum').html('99+')
+                } else if (result == 0) {
+                    $('#videoSum').hide();
+                } else {
+                    $('#videoSum').html(result);
+                }
+            },
+            error: function() {
+                alert('失败')
+            }
+        })
+    </script>
+
+</body>
+
+</html>

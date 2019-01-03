@@ -1,0 +1,92 @@
+  @import './base';
+
+
+
+  //左边栏
+.aside{
+    width:180px;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    background-color: #2f4050;
+    //用户信息
+    .profile{
+        background-color: #243443;
+        padding-bottom: 15px;
+        .avatar{
+            text-align: center;
+            padding: 30px 0 10px;
+        }
+        img{
+            width:80px;
+            height:80px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            border:2px solid rgba(255, 255, 255, .5)
+        }
+       h4{
+           color:#a9b0c2;
+           text-align: center;
+       }
+    }
+    //导航菜单
+    .menu{
+        margin-top: 20px;
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+            padding: 2px 0;
+            a{
+                display: block;
+                line-height: 1;
+                padding: 10px 20px;
+                color: #a9b0c2;
+                text-decoration: none;
+                font-weight:bolder;
+            }
+            a:hover{
+                color: #f6f6f6;
+                background-color: #243443;
+            }
+            li a{
+                padding-left: 40px;
+            }
+        }
+        ul ul .hide{
+            display: none;
+        }
+    }
+}
+//右边栏
+.main{
+    background-color: #f4f6f8;
+    height:100%;
+    margin-left: 180px;
+    .header .navbar{
+        background-color: #fff;
+        a{
+            color:#337AB7;
+        }
+    }
+    .body{
+        padding: 0 20px;
+        .breadcrumb, .panel{
+            background-color: #fff;
+            border:1px solid #E7E7E7;
+        }
+        .panel-body {
+            padding: 6px;
+           
+        }
+        table th, table td{
+            font-weight:normal;
+            text-align: center;
+        }
+    }
+    
+}

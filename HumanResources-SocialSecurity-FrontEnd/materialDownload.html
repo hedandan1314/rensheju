@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>材料下载</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/materialDownload.css">
+</head>
+
+<body>
+    <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" scrolling="no" frameborder="0"></iframe>
+    <div class="container">
+        <div class="container_top">
+            <p>您当前的位置：<a href="./homePage.html">大厅首页</a>>><a href="./download.html">下载中心</a>>>材料下载</p>
+        </div>
+        <div class="container_middle">
+            <h2 style="margin-bottom: 5px;"></h2>
+            <span>发布时间：<span></span><a onclick="window.history.back()">【返回】</a></span>
+            <!-- <br><br><br><br><br><br><br><br> -->
+            <div class="context"></div>
+            <div class="enclosure">
+                <p>附件下载：</p>
+                <p>
+                    <a style="cursor: pointer;"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <iframe src="PageFooter.html" style="border:none;width:100%;height:210px;" scrolling="no" frameborder="0"></iframe>
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/domainName.js"></script>
+    <script>
+        //解析url后面的参数
+        function getJsonFromUrl(hashBased, url) {
+            var query;
+            if (hashBased) {
+                var pos = url.indexOf("?");
+                if (pos == -1) return [];
+                query = url.substr(pos + 1);
+            } else {
+                query = url.substr(1);
+            }
+            var result = {};
+            query.split("&").forEach(function(part) {
+                if (!part) return;
+                part = part.split("+").join(" "); // replace every + with space, regexp-free version
+                var eq = part.indexOf("=");
+                var key = eq > -1 ? part.substr(0, eq) : part;
+                var val = eq > -1 ? decodeURIComponent(part.substr(eq + 1)) : "";
+                var from = key.indexOf("[");
+                if (from == -1) result[decodeURIComponent(key)] = val;
+                else {
+                    var to = key.indexOf("]");
+                    var index = decodeURIComponent(key.substring(from + 1, to));
+                    key = decodeURIComponent(key.substring(0, from));
+                    if (!result[key]) result[key] = [];
+                    if (!index) result[key].push(val);
+                    else result[key][index] = val;
+                }
+            });
+            return result;
+        }
+
+        var UrlParameter_obj = getJsonFromUrl(true, location.href);
+        var id = UrlParameter_obj.id;
+        console.log('id=', id);
+        var parameter = {
+            "id": id
+        }
+        $.ajax({
+            type: 'POST',
+            url: ipAddress + '/download/detailAttachment',
+            data: JSON.stringify(parameter),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(result) {
+                console.log('result=', result);
+                var fileUrl = result.attachFrom.substring(result.attachFrom.lastIndexOf('/') + 1);
+                var links = ipAddress + result.attachFrom;
+                console.log('links=', links);
+                $('h2').html(result.attachName);
+                $('span span').html(formatDateStr(result.attachTime));
+                $('.enclosure p a').html(fileUrl);
+                $('.enclosure p:last a').attr('href', links);
+                $('.enclosure p:last a').attr('download', fileUrl);
+                $('.context').html(result.attachContext);
+            },
+            error: function() {
+                alert('失败')
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>公告信息</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/materialDownload.css">
+</head>
+
+<body>
+    <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" frameborder="0"></iframe>
+    <div class="container">
+        <div class="container_top">
+            <p>您当前的位置：
+                <a href="./homePage.html">大厅首页</a>>> 公告信息
+            </p>
+        </div>
+        <div class="container_middle">
+            <h2 class="content_title" style="margin-bottom: 5px;"></h2>
+            <!-- <span>发布时间：</span><span id="time"></span><a onclick="window.history.back()">【返回】</a> -->
+            <span>发布时间：<span id="time"></span><a onclick="window.history.back()">【返回】</a></span>
+            <div class="content_section" style="margin-top: 20px;">
+
+            </div>
+
+        </div>
+    </div>
+    <iframe src="PageFooter.html" style="border:none;width:100%;height:210px;" scrolling="no" frameborder="0"></iframe></body>
+<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); // 匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; // 返回参数值
+    }
+    var id = getUrlParam('id');
+    $(document).ready(function() {
+        parameter = {
+            "id": id
+        }
+        $.ajax({
+            type: "post",
+            url: ipAddress + '/content/detailNotice',
+            async: false,
+            data: JSON.stringify(parameter),
+            contentType: 'application/json',
+            success: function(msg) {
+                var annoTime = msg.annoTime;
+                var time = annoTime.substring(0, 4) + "-" + annoTime.substring(4, 6) + "-" + annoTime.substring(6, 8);
+                $(".content_title").append(msg.annoTitle);
+                $(".content_section").html('<p>' + msg.annoContent + '</p>')
+                $("#time").text(time);
+            }
+        });
+    })
+</script>
+
+</html>

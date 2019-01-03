@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+	<!--
+    	作者：kongfc
+    	时间：2018-07-18
+    	描述：人社公众号单位业务详情
+    -->
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+	</head>
+	<style type="text/css">
+		.guidepage {
+			margin: 2%;
+		}
+		
+		.content {
+			width: 100%;
+		}
+		
+		.content_title {
+			width: 96%;
+			height: 50px;
+			border-bottom: 1px solid #999999;
+			font-size: 18px;
+			line-height: 25px;
+			font-weight: bold;
+			padding-left: 2%;
+			padding-right: 2%;
+			text-align: center;
+			color: #737373;
+			margin-top: 20px;
+		}
+		
+		.content_section {
+			margin-top: 10px;
+			font-size: 16px;
+		}
+		
+		.section_title {
+			margin-bottom: 10px;
+		}
+		
+		.section_menu li {
+			margin-bottom: 10px;
+		}
+		
+		ul>li {
+			font-weight: bold;
+		}
+		
+		span,
+		p {
+			font-size: 14px;
+			color: #666666;
+			font-weight: normal;
+		}
+	</style>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<div class="guidepage">
+			<div class="content">
+				<div class="content_title ">
+
+					<span class="glyphicon glyphicon-chevron-left" style="color: rgb(0,0,0);float: left; margin-top:3px ;" onclick="javascript:history.back(-1);"></span>
+				</div>
+				<div class="content_section">
+					<div class="section_title">
+						事项名称：<span></span>
+					</div>
+					<div class="section_menu">
+						<ul>
+							<li>所属机构：<span></span></li>
+							<li>下属单位：<span></span></li>
+							<li>咨询电话：<span></span></li>
+							<li>收费标准：<span></span></li>
+							<li>承诺期限：<span></span></li>
+							<li>办理时间：<span></span></li>
+							<li>办理地点：<span></span></li>
+							<li>受理条件：
+								<p></p>
+							</li>
+							<li>办理所需材料：
+								<p id="attach"> </p>
+							</li>
+							<li style="color: #C9302C;">注：<span style="color: #C9302C;">需网上办理，请登入淮安经济技术开发区管委会服务大厅电脑网页，下载表格进行办理。</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function getUrlParam(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
+			var r = window.location.search.substr(1).match(reg); // 匹配目标参数
+			if(r != null) return unescape(r[2]);
+			return null; // 返回参数值
+		}
+		var serviceCode = getUrlParam('serviceCode');
+		$(document).ready(function() {
+			parameter = {
+				"serviceCode": serviceCode
+			}
+			$.ajax({
+				type: "post",
+				url: ipAddress + '/service/detailProcedureGuide',
+				async: false,
+				data: JSON.stringify(parameter),
+				contentType: 'application/json',
+				success: function(msg) {
+					$(".content_title").text('《' + msg.serviceName + '》');
+					$(".section_title span").text(msg.serviceName);
+					$(".section_menu li:eq(0) span").text(msg.categoryInstitution);
+					$(".section_menu li:eq(1) span").text(msg.orgName);
+					$(".section_menu li:eq(2) span").text(msg.consultPhone);
+					$(".section_menu li:eq(3) span").text(msg.proceedPrice);
+					$(".section_menu li:eq(4) span").text(msg.promisePeriod);
+					$(".section_menu li:eq(5) span").text(msg.proceedPeriod);
+					$(".section_menu li:eq(6) span").text(msg.proceedPlace);
+					$(".section_menu li:eq(7) p").html(msg.proceedCondition);
+					$("#attach").html(msg.proceedMaterial);
+				}
+			});
+		})
+	</script>
+
+</html>

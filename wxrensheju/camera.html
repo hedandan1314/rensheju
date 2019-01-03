@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+	<!--
+    	作者：kongfc
+    	时间：2018-07-18
+    	描述：视频认证
+    -->
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>Hello H5+</title>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vconsole.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/mui.min.css"/>-->
+		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css">
+			.b {
+				width: 90%;
+				position: relative;
+				display: inline-block;
+				overflow: hidden;
+				s
+			}
+			
+			#camera {
+				width: 95%;
+				height: 45px;
+				position: absolute;
+				left: 13px;
+				top: 10px;
+				opacity: 0;
+				-ms-filter: 'alpha(opacity=0)';
+			}
+			
+			input[type="file" i]::-webkit-file-upload-button {
+				-webkit-appearance: push-button;
+				white-space: nowrap;
+				font-size: inherit;
+				-webkit-user-modify: read-only;
+				margin: 0px;
+				display: none; //主要是这个
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header">
+			<div class="nvbt iback" onclick="javascript:history.back(-1);"></div>
+			<div class="nvtt">视频认证</div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<div class="b">
+				<form id="input">
+					<input type="file" accept="video/*" capture="camcorder" id="camera" name="videoFile" />
+					<div class="button" style="width: 95%;">录像</div>
+				</form>
+				<input type="button" name="" id="upload" value="提交" class="btn btn-lg btn-primary" />
+
+			</div>
+			<br/>
+			<div style="width:100%;height:50%;display:table; " onclick="javascript:history.back();">
+				<div style="display:table-cell;vertical-align:middle;" class="videoCon" style="height: 50%;">
+					<!--添加视频-->
+				</div>
+			</div>
+			<div class="button button-waring" onclick="cleanHistory()">清空历史记录</div>
+		</div>
+		<script>
+			$("#camera").change(function(e) {
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+				reader.onload = function() {
+					var span = "<span class='myVideo' ><video controls='controls' style='width:50%; height:50%;'src='" + this.result + "'></video></span>"
+					$(".videoCon").html(span);
+				}
+				reader.readAsDataURL(files[0]); //项目中只限定上传单张图片。
+
+				selImgPath = this.value; //this.value是图片储存在本地的base64编码。
+				this.result; //是图片在本地的路径
+			});
+
+			function cleanHistory() {
+				$(".myVideo").remove();
+			}
+		</script>
+		<script type="text/javascript" src="js/immersed.js"></script>
+		<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/domainName.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		var mycookie = $.cookie('cookieData');
+		var myobject = JSON.parse(mycookie);
+		var userCode = myobject.userCode;
+
+	
+		$("#upload").click(function() {
+			master = {
+				"userCode": userCode,
+			}
+			var videoFiles = new FormData($("#input")[0]);
+			videoFiles.append("masterVo", JSON.stringify(master));
+			$.ajax({
+				type: "post",
+				url: ipAddress + '/service/addVideo',
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: videoFiles,
+				success: function(msg) {
+					cleanHistory()
+				}
+			});
+		})
+	</script>
+
+</html>

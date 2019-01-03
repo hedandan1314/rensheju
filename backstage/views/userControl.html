@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="../assets/less/base.css" type="text/css">
+
+    <link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/less/index.css" type="text/css">
+    <link rel="stylesheet" href="../webuploader/webuploader.css">
+
+    <style>
+        select {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 3rem;
+            outline: none;
+        }
+        
+        select:disabled {
+            color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .header ul li a {
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .pagination li {
+            cursor: pointer;
+        }
+        
+        .disable {
+            pointer-events: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 左边的侧边栏 -->
+    <div class="aside" id="aside">
+        <!-- 左上部分的用户信息 -->
+        <div class="profile">
+            <div class="avatar" id="aa">
+                <img src="../uploader/1.jpg" alt="" class='img-circle'>
+            </div>
+            <h5 id="usersName">南南</h5>
+        </div>
+
+        <!--左下部分的导航-->
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="./personnel.html">权限管理</a>
+                </li>
+                <li>
+                    <a href="./userControl.html">用户管理</a>
+                </li>
+                <li style="display: none;"><a href="./operation.html">业务管理</a></li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">业务管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz ownerDepart">
+                        <li data-id='02'>
+                            <a href="./operation.html">就管中心</a>
+                        </li>
+                        <li data-id='01'>
+                            <a href="./operation.html">社保中心</a>
+                        </li>
+                        <li data-id='03'>
+                            <a href="./operation.html">劳动监察</a>
+                        </li>
+                        <li data-id='04'>
+                            <a href="./operation.html">仲裁院</a>
+                        </li>
+                        <li data-id='05'>
+                            <a href="./operation.html">人事处</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">信息管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li>
+                            <a href="./notice.html">公告</a>
+                        </li>
+                        <li>
+                            <a href="./commonProblems.html">常见问题</a>
+                        </li>
+                        <li>
+                            <a href="./guide.html">办事指南</a>
+                        </li>
+                        <li>
+                            <a href="./query.html">信息录入</a>
+                        </li>
+                        <li>
+                            <a href="./datafill.html">数据录入</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="./DataDisplay2.html">数据报表</a>
+                </li>
+                <li>
+                    <a href="./systemMaintenance.html">系统维护</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右边主体部分 -->
+    <div class="main">
+        <!-- 右边上部分工具部分 -->
+        <div class="header">
+            <!-- 导航条部分 -->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;"><span class='fa fa-navicon'></span></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a data-toggle="modal" data-target="#personalInformation"> <span class='fa fa-user-circle'></span> 个人中心</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#changePassword"><span class='fa fa-key fa-fw'></span>修改密码</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" data-target="#logOut"><span class='fa fa-sign-out'></span>退出</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+
+        </div>
+
+        <!-- 右边下部分 ，网站的主体页面-->
+        <div class="body">
+            <!-- 面包屑导航 -->
+            <ol class="breadcrumb">
+                <li>用户管理</li>
+            </ol>
+            <!-- 面板，搜索框与表格 -->
+            <div class="panel panel-default">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+                        <li role="presentation" class="active">
+                            <a href="#personalUser" data-toggle="tab" onclick="initPersonalUser()">个人用户</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#unitUser" data-toggle="tab" onclick="initUnitUser()">单位用户</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <!-- 个人用户 -->
+                        <div class="tab-pane fade in active" id="personalUser">
+                            <!-- 搜索框 -->
+                            <div class="col-md-4" style="margin-bottom: 30px;">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label>个人用户查询：</label>
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" placeholder="身份证" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="button" id="queryUsers" style="outline: none;">搜索</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- 表格 -->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th>编号</th>
+                                    <th>姓名</th>
+                                    <!-- <th>性别</th>
+                                    <th>年龄</th> -->
+                                    <th>身份证</th>
+                                    <th>手机号码</th>
+                                    <!-- <th>是否参保</th>
+                                    <th>参保时间</th> -->
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                                    <ul class="pagination pagination1" style="margin: 40px -240px;">
+                                        <li id="fristPage">
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">首页</span>
+                                            </a>
+                                        </li>
+                                        <li id="previous">
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">上一页</span>
+                                            </a>
+                                        </li>
+                                        <li id="next">
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">下一页</span>
+                                            </a>
+                                        </li>
+                                        <li id="lastPage">
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">尾页</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div id="" style="float: right; margin: 40px;">
+                                        <span>跳转到</span>
+                                        <input type="number" name="" id="toPage" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                        <span>页</span>
+                                        <button class="btn btn-primary btn-sm" id="jumpPage" style="margin-left: 10px; outline: none;">确定</button>
+                                    </div>
+                                </nav>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- 单位用户 -->
+                        <div class="tab-pane fade in" id="unitUser">
+                            <!-- 搜索框 -->
+                            <div class="col-md-6" style="margin-bottom: 30px;">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label>单位用户查询：</label>
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" placeholder="企业名称" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="button" id="queryUsers2" style="outline: none;">搜索</button>
+                                        </span>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" onclick="myModal()" style="outline: none; margin-left:5px">新增法人</button>
+                                    <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#import" style="outline: none; margin-left:5px" value="导入法人">
+                                </form>
+                            </div>
+                            <!-- 表格 -->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th>编号</th>
+                                    <th>工商注册号</th>
+                                    <th>法人代表</th>
+                                    <th>企业名称</th>
+                                    <th>社保代码</th>
+                                    <th>法人身份证</th>
+                                    <th>联络人姓名</th>
+                                    <th>联络人电话</th>
+                                    <th>备注</th>
+                                    <!-- <th>是否参保</th>
+                                    <th>参保时间</th> -->
+                                    <th>操作</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                                    <ul class="pagination pagination2" style="margin: 40px -240px;">
+                                        <li id="fristPage2">
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">首页</span>
+                                            </a>
+                                        </li>
+                                        <li id="previous2">
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">上一页</span>
+                                            </a>
+                                        </li>
+                                        <li id="next2">
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">下一页</span>
+                                            </a>
+                                        </li>
+                                        <li id="lastPage2">
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">尾页</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div id="" style="float: right; margin: 40px;">
+                                        <span>跳转到</span>
+                                        <input type="number" name="" id="toPage2" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                        <span>页</span>
+                                        <button class="btn btn-primary btn-sm" id="jumpPage2" style="margin-left: 10px; outline: none;">确定</button>
+                                    </div>
+                                </nav>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增法人 -->
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeCorporate()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增法人</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addCorporate">
+                        <div class="form-group">
+                            <label class="col-md-3" for="registrationNumber">工商注册号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="registrationNumber" name="addTitle" onblur="addCheckTitle()" placeholder="工商注册号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titlespan"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="companyName">公司名称</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="companyName" name="addCompanyName" onblur="addCheckName()" placeholder="公司名称">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titlespan2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="legalPerson">法人姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="legalPerson" placeholder="法人姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="idNumber">法人身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="idNumber" placeholder="法人身份证">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="socialSecurity">社保代码</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="socialSecurity" placeholder="社保代码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="typeOfEnterprise">企业类型</label>
+                            <div class="col-md-6">
+                                <select name="" id="typeOfEnterprise">
+									<option value="0">请选择</option>
+									<option value="1">企业、农专社、个体工商户</option>
+									<option value="2">事业单位</option>
+									<option value="3">行政单位</option>
+									<option value="4">社会团体</option>
+									<option value="5">其它</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="contactName">联络人姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="contactName" placeholder="联络人姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="contactId">联络人身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="contactId" placeholder="联络人身份证">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="contactPhone">联络人手机号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="contactPhone" placeholder="联络人手机号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="note">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="note" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeCorporate()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑 -->
+    <div class="modal fade" id="companyEditor" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeEditor()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑法人</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3" for="registrationNumber2">工商注册号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="registrationNumber2" name="editorTitle" onblur="editorCheckTitle()" disabled placeholder="工商注册号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="editorTitleSpan"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="companyName2">公司名称</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="companyName2" name="companyName2" onblur="editorCheckName()" placeholder="公司名称">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="editorNameSpan"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="legalPerson2">法人姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="legalPerson2" placeholder="法人姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="idNumber2">法人身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="idNumber2" placeholder="法人身份证">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="socialSecurity2">社保代码</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="socialSecurity2" placeholder="社保代码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="typeOfEnterprise2">企业类型</label>
+                            <div class="col-md-6">
+                                <select name="" id="typeOfEnterprise2">
+									<option value="请选择">请选择</option>
+									<option value="1">企业、农专社、个体工商户</option>
+									<option value="2">事业单位</option>
+									<option value="3">行政单位</option>
+									<option value="4">社会团体</option>
+									<option value="5">其它</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="contactName2">联络人姓名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="contactName2" placeholder="联络人姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="contactId2">联络人身份证</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="contactId2" placeholder="联络人身份证">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="contactPhone2">联络人手机号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="contactPhone2" placeholder="联络人手机号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3" for="note2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="note2" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeEditor()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory2">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入法人 -->
+    <div class="modal fade" id="import" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;" id="closeWindow"><span aria-hidden="true" id='modelClose' class='fileClose'>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">导入</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="uploader" class="wu-example">
+
+                        <div class="btns">
+                            <div id="picker">选择文件</div>
+                        </div>
+                        <!--用来存放文件信息-->
+                        <div id="thelist" class="uploader-list"></div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button id="ctlBtn" class="btn btn-default" style="outline: none;">开始导入</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" id='fileClose'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureDelete()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人信息 -->
+    <div class="modal fade" id="personalInformation" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="outline: none;" class="close" data-dismiss="modal" aria-label="Close" onclick="closeWindow()" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="information">
+                        <div class="form-group">
+                            <label class="col-md-2">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userId" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect" disabled>
+									<option value="请选择">请选择</option>
+									<option value="01">社保中心</option>
+									<option value="02">就管中心</option>
+									<option value="03">劳动监察</option>
+									<option value="04">劳动人事争议仲裁院</option>
+									<option value="05">人事处</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect2" disabled>
+									<option value="请选择">请选择</option>
+									<option value="0">管理员</option>
+									<option value="1">普通用户</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="phone" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="remark" disabled class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button style="outline: none;" type="button" class="btn btn-default" data-dismiss="modal" onclick="restoreSettings()" style="outline: none;">关闭</button>
+                    <button style="outline: none;" type="button" class="btn btn-primary" id="informationEditor" onclick="myEditor()" style="outline: none;">编辑</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="modal fade" id="logOut" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">退出登录</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认退出此次登录？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="exitLogon()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码 -->
+    <div class="modal fade" id="changePassword" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation">
+                        <div class="form-group">
+                            <label class="col-md-2">原密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">新密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">确认密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="changePwd()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src='../assets/lib/bootstrap/dist/js/bootstrap.js'></script>
+    <script src='../webuploader/webuploader.js'></script>
+    <script src="../assets/js/index.js"></script>
+    <script src="../assets/js/sidebarAnimation.js"></script>
+    <script src="../assets/js/jquery.cookie.js"></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/domainName.js"></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script src="../assets/js/navigationList.js"></script>
+    <script>
+        $(function() {
+            $('#import').on('shown.bs.modal', function() { // 提示框显示时候触发
+                uploader.refresh(); // 刷新当前webUploder
+            });
+            var uploader = WebUploader.create({
+                // 文件接收服务端。
+                server: ipAddress + '/datasrv/importData',
+
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                chunked: true, // 是否分片
+                duplicate: true, // 去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
+
+            });
+
+            // 点击关闭，存放文件全部清空
+            $('#fileClose').click(function() {
+                initAjax2();
+                $('#thelist').html("");
+            })
+
+            // 关闭窗口
+            $('#closeWindow').click(function() {
+                initAjax2();
+            })
+            uploader.on('fileQueued', function(file) {
+                $("#thelist").append('<div id="' + file.id + '" class="item" style="position:relative">' +
+
+                    '<div class="am-badge" style="float:left;">' + file.name + '</div>' + '<div class="fa fa-close fileRemove" style="float:right;    cursor: pointer"></div>' + '</br>' +
+
+                    '<p class="state">等待导入...</p>' +
+
+                    '</div>');
+                // 点击删除按钮此行删除
+                $('.fileRemove').click(function() {
+                        $(this).parent().remove()
+                    })
+                    // 追加导入数据类型    
+                uploader.on('uploadBeforeSend', function(obj, data) {
+                    // 传入表单参数
+                    data = $.extend(data, {
+                        "imptype": 1
+                    });
+                });
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on('uploadProgress', function(file, percentage) {
+                    var $li = $('#' + file.id),
+                        $percent = $li.find('.progress .progress-bar');
+
+                    // 避免重复创建
+                    if (!$percent.length) {
+                        $percent = $('<div class="progress progress-striped active">' +
+                            '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                            '</div>' +
+                            '</div>').appendTo($li).find('.progress-bar');
+                    }
+
+                    $li.find('p.state').text('导入中');
+
+                    $percent.css('width', percentage * 100 + '%');
+                });
+            });
+            uploader.on('uploadSuccess', function(file, result) {
+                // console.log('result success=', result);
+                if (result.code == 4004) {
+                    $('#' + file.id).find('p.state').text('导入成功');
+                    $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">' + result.message + '</div>');
+                } else if (result.code == 1000) {
+                    $('#' + file.id).find('p.state').text('导入出错');
+                    $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">数据异常</div>');
+                } else {
+                    $('#' + file.id).find('p.state').text('导入出错');
+                    $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">' + result.message + '</div>');
+                }
+            });
+
+            uploader.on('uploadError', function(file, result) {
+                // console.log('result=', result);
+                $('#' + file.id).find('p.state').text('导入出错');
+                $('#' + file.id).find('p.state').append('<div style="color:red ;font-size:13px">' + result.message + '</div>');
+            });
+
+            uploader.on('uploadComplete', function(file) {
+                $('#' + file.id).find('.progress').fadeOut();
+            })
+
+            //点击开始导入，进行导入
+            $("#ctlBtn").click(function() {
+                uploader.upload();
+            });
+        })
+    </script>
+    <script>
+        $(function() {
+            $('ul.ownerDepart').find('li').click(function() {
+                var a = $(this).data('id')
+                    //alert(a)
+                    //sessionStorage.clear();
+                sessionStorage.Value = a
+
+            })
+            var flag = true;
+            $('.navbar-brand').click(function() {
+                if (flag) {
+                    $("#aside").animate({
+                        marginLeft: '-180px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '0px'
+                    });
+                    // $("#main", parent.document).animate({
+                    //     marginLeft: '0px'
+                    // });
+                    flag = false;
+                } else {
+                    $("#aside").animate({
+                        marginLeft: '0px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '180px'
+                    });
+                    // $("#main", parent.document).animate({
+                    //     marginLeft: '180px'
+                    // });
+                    flag = true;
+                }
+
+            })
+
+        })
+        window.onload = function() {
+            initAjax();
+        }
+
+        var pageIndex = 1,
+            addCount = 0,
+            totalPage = 0,
+            lastPage = 0;
+
+
+        // 分页1
+        function page() {
+            if (totalPage <= 6) {
+                while (totalPage > 0) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + totalPage + '">' + totalPage + '</a></li>');
+                    totalPage--
+                }
+            } else {
+                if (pageIndex > 3 && totalPage - 2 >= pageIndex) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + (pageIndex - 2) + '">' + (pageIndex - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex - 1) + '">' + (pageIndex - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex) + '">' + pageIndex +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex + 1) + '">' + (pageIndex + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex + 2) + '">' + (pageIndex + 2) +
+                        '</a></li>');
+                } else if (pageIndex > 3 && totalPage - 2 < pageIndex) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 4) + '">' + (totalPage - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 3) + '">' + (totalPage - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 2) + '">' + (totalPage - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 1) + '">' + (totalPage - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage) + '">' + totalPage +
+                        '</a></li>');
+                } else {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination1 .pageNo' + pageIndex).css('background-color', '#ddd');
+            if (pageIndex <= 0) {
+                $('.pagination1 .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination1 .pageNo').click(function() {
+                pageIndex = parseInt($(this).text());
+                addCount = pageIndex * 5 - 5;
+                initAjax();
+            })
+
+        }
+
+        function initPersonalUser() {
+            pageIndex = 1;
+            addCount = pageIndex * 5 - 5;
+            initAjax();
+        }
+
+        // 初始化数据
+        function initAjax() {
+            var parameter = {
+                "pageIndex": pageIndex,
+                "recordCount": 5,
+                "criteria": {
+                    "userIdentity": userIdentity,
+                    "userType": '04'
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/queryUser',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table thead').siblings().remove();
+                    var html = '';
+                    // console.log(result);
+                    lastPage = result.totalPage;
+                    totalPage = lastPage;
+                    $('.pageNo').remove();
+                    page();
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + (i + 1 + addCount) +
+                            '</td>' +
+                            '<td>' + result.data[i].userName +
+                            '</td>' +
+                            // '<td>男' +
+                            // '</td>' +
+                            // '<td>22' +
+                            // '</td>' +
+                            '<td>' + result.data[i].userIdentity +
+                            '</td>' +
+                            '<td>' + (result.data[i].userPhone == null ? '' : result.data[i].userPhone) +
+                            '</td>' +
+                            // '<td>1111' +
+                            // '</td>' +
+                            // '<td>22222' +
+                            // '</td>' +
+                            '</tr>'
+                    }
+                    $('table:first').append(html);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索)
+        $('#jumpPage').click(function() {
+            var jumPage = $("#toPage").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+                if (jumPage <= lastPage) {
+                    pageIndex = jumPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                } else {
+                    $("#toPage").val(lastPage);
+                    pageIndex = lastPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                }
+            } else {
+                $("#toPage").val('1');
+                pageIndex = 1;
+                addCount = 0;
+                initAjax();
+            }
+        })
+
+        // 首页
+        $('#fristPage').click(function() {
+            pageIndex = 1;
+            addCount = 0;
+            initAjax();
+        })
+
+        // 尾页
+        $('#lastPage').click(function() {
+            pageIndex = lastPage;
+            addCount = pageIndex * 5 - 5;
+            initAjax();
+        })
+
+        // 上一页
+        $('#previous').click(function() {
+            if (pageIndex < 2) {
+                alert('已经是第一页');
+                addCount = 0;
+                return
+            } else {
+                $('table:first thead').siblings().remove();
+            }
+            if (--pageIndex < 2) {
+                pageIndex = 1;
+
+            }
+            addCount -= 5;
+            initAjax();
+        })
+
+        // 下一页
+        $('#next').click(function() {
+            if (pageIndex == lastPage) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:first thead').siblings().remove();
+                addCount += 5;
+            }
+            ++pageIndex;
+            initAjax();
+        })
+
+        // 根据身份证号查询(个人用户)
+        var userIdentity;
+        $('#queryUsers').click(function() {
+            userIdentity = $('#queryUsers').parent().siblings('input').val();
+            pageIndex = 1;
+            addCount = 0;
+            initAjax();
+        })
+
+        // 根据企业名称查询(单位用户)
+        $('#queryUsers2').click(function() {
+            companyName = $('#queryUsers2').parent().siblings('input').val();
+            // console.log('companyName=', companyName);
+            pageIndex2 = 1;
+            addCount2 = 0;
+            initAjax2();
+        })
+
+        // 新增法人
+        $('#addAccessory').click(function() {
+            var commerceNumber = $('#registrationNumber').val(),
+                companyName = $('#companyName').val(),
+                masterName = $('#legalPerson').val(),
+                masterId = $('#idNumber').val(),
+                securityNumber = $('#socialSecurity').val(),
+                companyType = $('#typeOfEnterprise option:selected').val(),
+                contactName = $('#contactName').val(),
+                contactId = $('#contactId').val(),
+                contactPhone = $('#contactPhone').val(),
+                remark = $('#note').val();
+
+            var parameter = {
+                    "userType": '03',
+                    "commerceNumber": commerceNumber,
+                    "companyName": companyName,
+                    "masterName": masterName,
+                    "masterId": masterId,
+                    "securityNumber": securityNumber,
+                    "companyType": companyType,
+                    "contactName": contactName,
+                    "contactId": contactId,
+                    "contactPhone": contactPhone,
+                    "remark": remark
+                }
+                // console.log('parameter add=', parameter);
+            if (companyName == '' || commerceNumber == '') {
+                document.getElementById('addAccessory').setAttribute('disabled', 'disabled');
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/usrmgr/addCompany',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(reuslt) {
+                        // console.log('reuslt=', reuslt);
+                        if (reuslt.code) {
+                            alert(reuslt.message);
+                        }
+                        document.getElementById('addCorporate').reset();
+                        $('#titlespan').html('');
+                        $('#titlespan2').html('');
+                        initAjax2();
+                    },
+                    error: function() {
+                        alert('失败');
+                    }
+                })
+            }
+
+        })
+
+        // 关闭新增法人窗口
+        function closeCorporate() {
+            document.getElementById('addCorporate').reset();
+            $('#titlespan').html('');
+            $('#titlespan2').html('');
+        }
+
+        var pageIndex2 = 1,
+            addCount2 = 0,
+            totalPage2 = 0,
+            lastPage2 = 0,
+            companyName;
+
+        // 分页
+        function page2() {
+            if (totalPage2 <= 6) {
+                while (totalPage2 > 0) {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo' + totalPage2 + '">' + totalPage2 + '</a></li>');
+                    totalPage2--
+                }
+            } else {
+                if (pageIndex2 > 3 && totalPage2 - 2 >= pageIndex2) {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 - 2) + '">' + (pageIndex2 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 - 1) + '">' + (pageIndex2 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2) + '">' + pageIndex2 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 + 1) + '">' + (pageIndex2 + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (pageIndex2 + 2) + '">' + (pageIndex2 + 2) +
+                        '</a></li>');
+                } else if (pageIndex2 > 3 && totalPage2 - 2 < pageIndex2) {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 4) + '">' + (totalPage2 - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 3) + '">' + (totalPage2 - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 2) + '">' + (totalPage2 - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2 - 1) + '">' + (totalPage2 - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo' + (totalPage2) + '">' + totalPage2 +
+                        '</a></li>');
+                } else {
+                    $('#previous2').after('<li><a href="javascript:;" class="pageNos pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNos pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination2 .pageNo' + pageIndex2).css('background-color', '#ddd');
+            if (pageIndex2 <= 0) {
+                $('.pagination2 .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination2 .pageNos').click(function() {
+                pageIndex2 = parseInt($(this).text());
+                addCount2 = pageIndex2 * 5 - 5;
+                initAjax2();
+            })
+
+        }
+
+        // 初始化单位用户
+        function initAjax2() {
+            var parameter = {
+                    "pageIndex": pageIndex2,
+                    "recordCount": 5,
+                    "criteria": {
+                        "companyName": companyName,
+                        "userType": '03'
+                    }
+                }
+                // console.log('parameter=', parameter);
+            var html;
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/queryCompany',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table:eq(1) thead').siblings().remove();
+                    // console.log(result);
+                    lastPage2 = result.totalPage;
+                    totalPage2 = lastPage2;
+                    $('.pageNos').remove();
+                    page2();
+                    if (pageIndex2 > lastPage2) {
+                        pageIndex2 = lastPage2;
+                        addCount2 -= 5;
+                        initAjax2();
+                    }
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + (i + 1 + addCount2) +
+                            '</td>' +
+                            '<td>' + (result.data[i].commerceNumber == null ? '' : result.data[i].commerceNumber) +
+                            '</td>' +
+                            '<td>' + result.data[i].masterName +
+                            '</td>' +
+                            '<td>' + result.data[i].companyName +
+                            '</td>' +
+                            '<td>' + (result.data[i].securityNumber == null ? '' : result.data[i].securityNumber) +
+                            '</td>' +
+                            '<td>' + (result.data[i].masterId == null || result.data[i].masterId == '' ? '' : result.data[i].masterId) +
+                            '</td>' +
+                            '<td>' + (result.data[i].contactName == null || result.data[i].contactName == '' ? '' : result.data[i].contactName) +
+                            '</td>' +
+                            '<td>' + (result.data[i].contactPhone == null || result.data[i].contactPhone == '' ? '' : result.data[i].contactPhone) +
+                            '</td>' +
+                            '<td>' + (result.data[i].remark == null || result.data[i].remark == '' ? '' : result.data[i].remark) +
+                            '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-default" data-toggle="modal" data-target="#companyEditor" style="outline: none;" onclick="myEditorUser(' + result.data[i].id + ')">编辑</a>' +
+                            '<a class="btn btn-warning" data-toggle="modal" data-target="#delete" style="outline: none; margin-left: 5px;" onclick="myDelete(this,' + result.data[i].id + ')">删除</a>' +
+                            '</td>' +
+                            '</tr>'
+                    }
+                    $('table:eq(1)').append(html);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        function initUnitUser() {
+            pageIndex2 = 1;
+            addCount2 = pageIndex2 * 5 - 5;
+            initAjax2();
+        }
+
+        // 跳转页数(搜索)2
+        $('#jumpPage2').click(function() {
+            var jumPage = $("#toPage2").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+                if (jumPage <= lastPage2) {
+                    pageIndex2 = jumPage;
+                    addCount2 = pageIndex2 * 5 - 5;
+                    initAjax2();
+                } else {
+                    $("#toPage2").val(lastPage2);
+                    pageIndex2 = lastPage2;
+                    addCount2 = pageIndex2 * 5 - 5;
+                    initAjax2();
+                }
+            } else {
+                $("#toPage2").val('1');
+                pageIndex2 = 1;
+                addCount2 = 0;
+                initAjax2();
+            }
+        })
+
+        // 首页2
+        $('#fristPage2').click(function() {
+            pageIndex2 = 1;
+            addCount2 = 0;
+            initAjax2();
+        })
+
+        // 尾页2
+        $('#lastPage2').click(function() {
+            pageIndex2 = lastPage2;
+            addCount2 = pageIndex2 * 5 - 5;
+            initAjax2();
+        })
+
+        // 上一页2
+        $('#previous2').click(function() {
+            if (pageIndex2 < 2) {
+                alert('已经是第一页');
+                addCount2 = 0;
+                return
+            } else {
+                $('table:eq(1) thead').siblings().remove();
+            }
+            if (--pageIndex2 < 2) {
+                pageIndex2 = 1;
+
+            }
+            addCount2 -= 5;
+            initAjax();
+        })
+
+        // 下一页2
+        $('#next2').click(function() {
+            if (pageIndex2 == lastPage2) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:eq(1) thead').siblings().remove();
+                addCount2 += 5;
+            }
+            ++pageIndex2;
+            initAjax();
+        })
+
+        // 单位用户编辑
+        var editorId;
+
+        function myEditorUser(str) {
+            editorId = str;
+            var parameter = {
+                "id": str
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/detailCompany',
+                data: parameter,
+                success: function(result) {
+                    $('#registrationNumber2').val(result.commerceNumber);
+                    $('#companyName2').val(result.companyName);
+                    $('#legalPerson2').val(result.masterName);
+                    $('#idNumber2').val(result.masterId);
+                    $('#socialSecurity2').val(result.securityNumber);
+                    $('#typeOfEnterprise2').val(result.companyType);
+                    $('#note2').val(result.remark);
+                    $('#contactName2').val(result.contactName);
+                    $('#contactId2').val(result.contactId);
+                    $('#contactPhone2').val(result.contactPhone);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 单位用户修改
+        $('#addAccessory2').click(function() {
+            var parameter = {
+                    "commerceNumber": $('#registrationNumber2').val(),
+                    "companyName": $('#companyName2').val(),
+                    "masterName": $('#legalPerson2').val(),
+                    "masterId": $('#idNumber2').val(),
+                    "securityNumber": $('#socialSecurity2').val(),
+                    "companyType": $('#typeOfEnterprise2 option:selected').val(),
+                    "contactName": $('#contactName2').val(),
+                    "contactId": $('#contactId2').val(),
+                    "contactPhone": $('#contactPhone2').val(),
+                    "remark": $('#note2').val(),
+                    "id": editorId
+                }
+                // console.log('parameter=', parameter);
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/modifyCompany',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    // console.log('result=', result);
+                    $('#editorTitleSpan').html('');
+                    initAjax2();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        })
+
+        // 关闭编辑法人用户
+        function closeEditor() {
+            $('#editorTitleSpan').html('');
+        }
+
+        var trId,
+            trObj,
+            removeId;
+
+        // 删除
+        function myDelete(obj, id) {
+            removeId = id;
+            trId = obj.parentNode.parentNode;
+            trObj = trId.parentNode;
+        }
+
+        // 确认删除
+        function sureDelete() {
+            var parameter = {
+                    "id": removeId
+                }
+                // console.log('myDelete parameter=', parameter);
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/deleteCompany',
+                data: parameter,
+                success: function(result) {
+                    // console.log('result=', result);
+                    initAjax2();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
+
+</html>

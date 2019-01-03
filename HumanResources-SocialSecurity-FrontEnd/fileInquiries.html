@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>流动人员档案查询</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/fileInquiries.css">
+
+</head>
+
+<body>
+    <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" frameborder="0"></iframe>
+    <div class="container">
+        <!-- 查询列表开始 -->
+        <div class="container_left">
+            <aside>
+                <ul>
+                    <!-- <a href="./publicQuery.html" target="_blank">
+                        <li>岗位查询</li>
+                    </a> -->
+                    <a href="./fileInquiries.html" class="active">
+                        <li>流动人员档案查询</li>
+                    </a>
+                    <a href="./medicalInstitution.html">
+                        <li>定点医疗机构查询</li>
+                    </a>
+                    <a href="./ginseng.html">
+                        <li>城乡居民个人参保信息查询</li>
+                    </a>
+                    <a href="./progress.html">
+                        <li>居民医保报销进度查询</li>
+                    </a>
+                    <!-- <a href="#" target="_blank">
+                        <li>社保卡服务网点查询</li>
+                    </a>
+                    <a href="#">
+                        <li>岗位查询</li>
+                    </a>
+                    <a href="#">
+                        <li>岗位查询</li>
+                    </a>
+                    <a href="#">
+                        <li>岗位查询</li>
+                    </a>
+                    <a href="#">
+                        <li>岗位查询</li>
+                    </a>
+                    <a href="#">
+                        <li>岗位查询</li>
+                    </a> -->
+                </ul>
+            </aside>
+        </div>
+        <!-- 查询列表技结束 -->
+
+        <!-- 信息查询开始 -->
+        <div class="container_right">
+            <div class="con_right_top">
+                <p>您当前的位置：<a href="#">大厅首页</a> >> 公共查询>>流动人员档案查询</p>
+            </div>
+            <div class="con_right_middle">
+                <p><img src="./img/postQuery.png" />流动人员档案查询</p>
+                <div class="search">
+                    <div class="instructions">
+                        <form id="form1">
+                            <ul>
+                                <li>姓名：<input type="text" name="" id="userName"></li>
+                                <li>身份证号：<input type="text" name="" id="idNumber"></li>
+                            </ul>
+                            <div class="search_footer">
+                                <div class="query">
+                                    <button type="button" id="queryArchives" style="outline: none;">查询</button>
+                                    <button type="button" onclick="formReset()" style="outline: none;">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="postList">
+                    <div class="maintab">
+                        <p>结果公示</p>
+                        <table border="0" cellspacing="1" cellpadding="2">
+                            <thead>
+                                <th>档案编号</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 信息查询结束 -->
+        <div class="clear"></div>
+    </div>
+    <iframe src="./PageFooter.html" style="width: 100%; height: 210px;" scrolling="no" frameborder="0"></iframe>
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/domainName.js"></script>
+    <script>
+        function formReset() {
+            var form1 = document.getElementById('form1').reset();
+        }
+        $(function() {
+            $('#queryArchives').click(function() {
+                var parameter = {
+                    "pageIndex": 1,
+                    "recordCount": 5,
+                    "criteria": {
+                        "mobileName": $('#userName').val(),
+                        "mobileIdentity": $('#idNumber').val()
+                    }
+                }
+                console.log('parameter=', parameter);
+                var userName = $('#userName').val();
+                var idNumber = $('#idNumber').val();
+
+                var reg = /(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                if (userName != '' && idNumber != '') {
+                    if (reg.test(idNumber) === false) {
+                        alert('身份证输入不合法!');
+                        return false;
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: ipAddress + '/inquiry/queryArchive',
+                        data: JSON.stringify(parameter),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+                            var html = '';
+                            console.log('result=', result);
+                            if (result.data.length != 0) {
+                                $('table thead').siblings().remove();
+                                for (var i = 0; i < result.data.length; i++) {
+                                    html += '<tr>' +
+                                        '<td>' + result.data[i].mobileCode +
+                                        '</td>' +
+                                        '<td>' + result.data[i].mobileName +
+                                        '</td>' +
+                                        '<td>' + (result.data[i].mobileSex == 0 ? '女' : '男') +
+                                        '</td>' +
+                                        '</tr>'
+                                }
+                                $('table').append(html);
+                            } else {
+                                $('table thead').siblings().remove();
+                                alert('没有该信息!')
+                            }
+
+                        },
+                        error: function() {
+                            alert('失败')
+                        }
+                    })
+                } else {
+                    alert('姓名或身份证号不能为空!');
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

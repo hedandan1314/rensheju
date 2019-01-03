@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定点医药机构新申请(医疗机构)</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/onlineHandle.css">
+</head>
+
+<body>
+    <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" frameborder="0"></iframe>
+    <div class="container">
+        <!-- 事项信息开始 -->
+        <div class="container_top">
+            <div class="container_top_header">
+                <div class="con_top_header_left"></div>
+                <div class="con_top_header_center">事项信息</div>
+                <div class="con_top_header_right"></div>
+            </div>
+            <div class="container_top_main">
+                <table border="0">
+                    <form action="">
+                        <tr>
+                            <td colspan="2">事项名称：<span id="matterNumber">医药机构新申请(医疗机构)</span></td>
+                        </tr>
+                        <tr>
+                            <td>办件类型：<span id="commitment">承诺件</span></td>
+                            <td>受理部门：<span id="department">区人社局社保中心</span></td>
+                        </tr>
+                    </form>
+
+                </table>
+            </div>
+        </div>
+        <!-- 事项信息结束 -->
+        <div class="clear"></div>
+        <!-- 经办人信息开始 -->
+        <div class="container_middle">
+            <div class="container_middle_header">
+                <div class="con_middle_header_left"></div>
+                <div class="con_middle_header_center">经办人信息</div>
+                <div class="con_middle_header_right"></div>
+            </div>
+            <div class="container_middle_main">
+                <table border="0">
+                    <form action="">
+                        <tr>
+                            <td>申请人：<span id="applicant"></span></td>
+                            <td>身份证号：<span id="number"></span></td>
+                        </tr>
+                        <tr>
+                            <td>联系电话：<span id="telephone"></span></td>
+                            <td>单位名称：<span id="unit"></span></td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
+        </div>
+        <!-- 经办人信息结束 -->
+        <div class="clear"></div>
+        <!-- 在线表格开始 -->
+        <div class="container_top">
+            <div class="container_top_header">
+                <div class="con_top_header_left"></div>
+                <div class="con_top_header_center">表格填写</div>
+                <div class="con_top_header_right"></div>
+            </div>
+            <div class="container_top_main" id='tableSee'>
+                <button>样表预览</button>
+                <button onClick="Print('#mytable')">在线打印</button>
+                <div class="light">
+                    <div class="close">
+                        关闭
+                    </div>
+                    <div class="picture">
+                        <img src="./img/onlineHandleMedicalApply2.PNG" alt="">
+                    </div>
+                </div>
+                <div class="black_overlay"></div>
+                <form id="form1" name="form1" method="post" action="">
+                    <table id="mytable" border="0" cellpadding="0" cellspacing="0">
+                        <caption>淮安市基本医疗保险医疗机构签约申请书</caption>
+                        <tr>
+                            <td height="40" colspan="2" style="padding-left:10px;">机构名称</td>
+                            <td height="40" colspan="5">
+                                <input type="text" id="hospitalName" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                            <td width="127" height="40" style="padding-left:10px;">医院等级</td>
+                            <td width="246" height="40" colspan="2"><input type="text" id="hospitalLevel" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="2" style="padding-left:10px;">法人代表</td>
+                            <td height="40" colspan="2"><input type="text" id="hospitalMaster" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                            <td height="40" colspan="2" style="padding-left:10px; width:100px;">身份证号</td>
+                            <td height="40" colspan="4"><input type="text" id="hospitalMasterid" style="height:80%; width:90%; border:0; outline:none;margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding-left:10px;">经营性质</td>
+                            <td height="80" colspan="4" align="center">
+                                <p>公立
+                                    <input type="checkbox" name="checkbox" class="checkbox" />
+                                    <label for="checkbox"></label> 民营
+                                    <input type="checkbox" name="checkbox" class="checkbox" />
+                                </p>
+                                <p>
+                                    <label for="checkbox"></label> 盈利
+                                    <input type="checkbox" name="checkbox" class="checkbox" />
+                                    <label for="checkbox"></label> 非盈利
+                                    <input type="checkbox" name="checkbox" class="checkbox" />
+                                    <label for="checkbox"></label>
+                                </p>
+                            </td>
+                            <td colspan="2" style="padding-left:10px;">
+                                <p>申请</p>
+                                <p>服务类型</p>
+                            </td>
+                            <td width="246" colspan="2" align="center">
+                                <p>门诊
+                                    <input type="checkbox" name="checkbox2" class="checkbox2" />
+                                    <label for="checkbox"></label> 住院
+                                    <input type="checkbox" name="checkbox2" class="checkbox2" />
+                                </p>
+                                <p>
+                                    <label for="checkbox"></label> 门特
+                                    <input type="checkbox" name="checkbox2" class="checkbox2" />
+                                    <label for="checkbox"></label>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="2" style="padding-left:10px;">单位地址</td>
+                            <td height="40" colspan="8"><input type="text" id="hospitalAddress" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="2" style="padding-left:10px;">医保分管负责人</td>
+                            <td height="40" colspan="4"><input type="text" id="carePerson" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                            <td height="40" colspan="2" style="padding-left:10px;">联系电话</td>
+                            <td height="40" colspan="2"><input type="text" id="carePhone" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="2" style="padding-left:10px;">医保科负责人</td>
+                            <td height="40" colspan="4"><input type="text" id="masterPerson" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                            <td height="40" colspan="2" style="padding-left:10px;">联系电话</td>
+                            <td height="40" colspan="2"><input type="text" id="masterPhone" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="2" style="padding-left:10px;">联系人</td>
+                            <td height="40" colspan="4"><input type="text" id="contactPerson" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                            <td height="40" colspan="2" style="padding-left:10px;">联系电话</td>
+                            <td height="40" colspan="2"><input type="text" id="contactPhone" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="3" style="padding-left:10px;">医疗机构执业许可证号</td>
+                            <td height="40" colspan="7"><input type="text" id="hospitalLicense" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="3" style="padding-left:10px;">单位开户银行及账号</td>
+                            <td height="40" colspan="7"><input type="text" id="hospitalAccount" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td width="144" rowspan="3" align="center" style="width:130px;">
+                                <p>人</p>
+                                <p>员</p>
+                                <p>构</p>
+                                <p>成</p>
+                            </td>
+                            <td colspan="2" align="center">执业医师</td>
+                            <td height="80" colspan="7" style="padding-left:10px; height: 80px;">
+                                <p>共<input type="text" style="height:80%; width:50px; border:0; outline:none;" />人，其中：</p>
+                                <p>高级职称<input type="text" id="doctorAdvanced" style="height:80%; width:50px; border:0; outline:none; border-bottom:1px solid #000;" /> 中级职称<input type="text" id="doctorMedium" style="height:80%; width:50px; border:0; outline:none; border-bottom:1px solid #000;"
+                                    /> 初级职称<input type="text" id="doctorPrimary" style="height:80%; width:50px; border:0; outline:none; border-bottom:1px solid #000;" /></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">注册护士</td>
+                            <td height="80" colspan="7" style="padding-left:10px; height: 80px;">
+                                <p>共<input type="text" style="height:80%; width:50px; border:none; outline:none;" />人，其中：</p>
+                                <p>高级职称<input type="text" id="nurseAdvanced" style="height:80%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;" /> 中级职称<input type="text" id="nurseMedium" style="height:80%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;"
+                                    /> 初级职称<input type="text" id="nursePrimary" style="height:80%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;" /></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">其他人员</td>
+                            <td colspan="3" align="center">共<input type="text" id="teamOther" style="height:80%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;" />人</td>
+                            <td height="80" colspan="2" align="center">合计</td>
+                            <td colspan="2"><input type="text" style="height:80%; width:90%; border:0; outline:none; margin-left: 5px;" /></td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <p>科室</p>
+                                <p>情况</p>
+                            </td>
+                            <td height="90" colspan="9" style="padding-left:10px;">临床科室：<input type="text" id="departClinical" style="height:50%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;" />个; 医技科室<input type="text" id="departTech" style="height:50%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;"
+                                />个</td>
+                        </tr>
+                        <tr>
+                            <td height="80" align="center">
+                                <p>床位</p>
+                                <p>情况</p>
+                            </td>
+                            <td height="90" colspan="9" style="padding-left:10px;">核定床位：<input type="text" id="bedVerify" style="height:50%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;" />张;开放床位<input type="text" id="bedOpen" style="height:50%; width:50px; border:0; outline:none; border-bottom: 1px solid #000;"
+                                />张</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" align="center">
+                                <p>申</p>
+                                <p>请</p>
+                                <p>内</p>
+                                <p>容</p>
+                            </td>
+                            <td height="228" colspan="9" align="left" style="border-bottom:1px solid #FFF;"><textarea id="applyContent" style="height:85%; width:98%; border:none; outline:none; resize: none; margin-left: 5px;" name="" cols="" rows="10"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td height="80" colspan="9" align="right" style="padding-right:10px;">
+                                <p>(申请单位盖章)</p>
+                                <p>法人代表签字&nbsp;&nbsp;&nbsp;&nbsp;<span style="margin-right: 20px; margin-left: 100px;">年</span><span style="margin-right: 20px;">月</span><span>日</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" align="center">
+                                <p>医疗保</p>
+                                <p>险经办</p>
+                                <p>机构审</p>
+                                <p>核意见</p>
+                            </td>
+                            <td height="226" colspan="9" align="left" style="border-bottom:1px solid #FFF;"><textarea style="height:98%; width:98%; border:none; outline:none; resize: none; margin-left: 5px;" name="" cols="" rows="10"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td height="80" colspan="9" align="center">
+                                <p>(印章)</p>
+                                <span style="margin-right: 20px;">年</span><span style="margin-right: 20px;">月</span><span>日</span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <!-- 在线表格结束 -->
+        <div class="clear"></div>
+        <!-- 申报材料开始 -->
+        <div class="container_footer">
+            <div class="container_footer_header">
+                <div class="container_footer_header_left"></div>
+                <div class="container_footer_header_center">申报材料</div>
+                <div class="container_footer_header_right"></div>
+            </div>
+            <div class="container_footer_main">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <table border="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%;">材料名称</th>
+                                <th style="width: 30%;">材料上传</th>
+                                <th style="width: 20%;">表格下载</th>
+                                <th>是否必须</th>
+                                <!-- <th style="width: 40px;">操作</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <!-- 申报材料结束 -->
+    </div>
+    <iframe src="./PageFooter.html" style="width: 100%; height: 210px;" scrolling="no" frameborder="0"></iframe>
+    <script src='./js/jquery-1.10.2.min.js'></script>
+    <script src='./lib/jquery.cookie.js'></script>
+    <script src="./js/Print.js"></script>
+    <script src="./js/domainName.js"></script>
+    <script>
+        var userInfo = JSON.parse($.cookie('PHPSESSID'));
+        console.log('userInfo=', userInfo);
+        var contactPhone = userInfo.ownerCompany.contactPhone,
+            masterId = userInfo.ownerCompany.masterId;
+        var phone = contactPhone.substring(0, 3) + "*****" + contactPhone.substring(8, 11);
+        var num = masterId.substring(0, 1) + "****************" + masterId.substring(17, 18); //身份证加密
+
+        $('#applicant').html(userInfo.ownerCompany.contactName);
+        $('#number').html(num);
+        $('#telephone').html(phone);
+        $('#unit').html(userInfo.ownerCompany.companyName);
+
+        $(function() {
+            $('#tableSee button:first-child').on('click', function() {
+                // $(this).siblings().css('display', 'block')
+                $('.light').css('display', 'block');
+                $('.black_overlay').css('display', 'block')
+            });
+            $('.close').on('click', function() {
+                $(this).parent().css('display', 'none');
+                $(this).parent().next().css('display', 'none');
+            }).on('mouseover', function() {
+                $(this).css('color', '#e60c17')
+            }).on('mouseout', function() {
+                $(this).css('color', '')
+            })
+            $('.light').attr('style', 'overflow-x:hidden')
+        })
+
+        var parameter = {
+            "serviceCode": "14"
+        }
+        var arr = [];
+        var res;
+        console.log('parameter=', parameter);
+        $.ajax({
+            type: 'POST',
+            url: ipAddress + '/service/detailProcedure',
+            data: JSON.stringify(parameter),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(result) {
+                res = result;
+                var html = '';
+                $('table:last thead').next('tbody').remove();
+                console.log('result=', result);
+                console.log('result=', result.serviceAttachModels.length);
+                for (var i = 0; i < result.serviceAttachModels.length; i++) {
+                    arr.push(result.serviceAttachModels[i].attachName);
+                    html += '<tr>' +
+                        '<td style="padding-right: 10px;">' + result.serviceAttachModels[i].attachName +
+                        '</td>' +
+                        '<td><input class="file" type="file" name="key_' + (i + 1) + '" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,image/*,application/pdf,application/msword">' +
+                        '</td>' +
+                        '<td>' + (result.serviceAttachModels[i].attachFrom != null && result.serviceAttachModels[i].attachFrom != '' ? '<a href="./medicalApply1.html#sheet?serviceCode=' + result.serviceCode + '">' + result.serviceAttachModels[i].attachName + '</a>' : '') +
+                        '</td>' +
+                        '<td>' + (result.serviceAttachModels[i].attachStatus == 1 ? '是' : '否') +
+                        '</td>' +
+                        '</tr>'
+                }
+                html += '<tr>' +
+                    '<td colspan="4">' +
+                    '<button type="button" class="submit" id="submits" onclick="doUpload()">提交</button>' +
+                    '</td>' +
+                    '</tr>';
+                $('table:last').append(html);
+                console.log('arr=', arr);
+                console.log('arr11=', arr.toString());
+            },
+            error: function() {
+                alert('失败')
+            }
+        })
+
+        // 提交
+        function doUpload() {
+            for (var i = 0; i < res.serviceAttachModels.length; i++) {
+                if (res.serviceAttachModels[i].attachStatus == 1) {
+                    if ($(".file").eq(i).val() == '') {
+                        alert('必选材料不能为空!')
+                        return false
+                    }
+                }
+            }
+
+            var parameter = {
+                "serviceCode": "14",
+                "userCode": userInfo.userCode,
+                "serviceType": "04"
+            }
+            var arr1 = [],
+                arr2 = [],
+                length1 = 0,
+                length2 = 0;
+            length1 = document.getElementsByClassName('checkbox').length;
+            length2 = document.getElementsByClassName('checkbox2').length;
+            var str1 = '',
+                str2 = '';
+            for (var i = 0; i < length1; i++) {
+                if (document.getElementsByClassName('checkbox')[i].checked) {
+                    // arr1.push(document.getElementsByClassName('checkbox')[i].value);
+                    str1 += '1';
+                } else {
+                    str1 += '0';
+                }
+            }
+
+            for (var i = 0; i < length2; i++) {
+                if (document.getElementsByClassName('checkbox2')[i].checked) {
+                    str2 += '1';
+                } else {
+                    str2 += '0';
+                }
+            }
+            var parameter2 = {
+                "hospitalName": $('#hospitalName').val(),
+                "hospitalLevel": $('#hospitalLevel').val(),
+                "hospitalMaster": $('#hospitalMaster').val(),
+                "hospitalMasterid": $('#hospitalMasterid').val(),
+                "operationType": str1,
+                "applyType": str2,
+                "hospitalAddress": $('#hospitalAddress').val(),
+                "carePerson": $('#carePerson').val(),
+                "carePhone": $('#carePhone').val(),
+                "masterPerson": $('#masterPerson').val(),
+                "masterPhone": $('#masterPhone').val(),
+                "contactPerson": $('#contactPerson').val(),
+                "contactPhone": $('#contactPhone').val(),
+                "hospitalLicense": $('#hospitalLicense').val(),
+                "hospitalAccount": $('#hospitalAccount').val(),
+                "doctorAdvanced": $('#doctorAdvanced').val(),
+                "doctorMedium": $('#doctorMedium').val(),
+                "doctorPrimary": $('#doctorPrimary').val(),
+                "nurseAdvanced": $('#nurseAdvanced').val(),
+                "nurseMedium": $('#nurseMedium').val(),
+                "nursePrimary": $('#nursePrimary').val(),
+                "teamOther": $('#teamOther').val(),
+                "departClinical": $('#departClinical').val(),
+                "bedVerify": $('#bedVerify').val(),
+                "applyContent": $('#applyContent').val()
+            }
+            var formData = new FormData($("#uploadForm")[0]);
+            formData.append("masterVO", JSON.stringify(parameter)); // 经办人信息
+            formData.append("detailVO", JSON.stringify(parameter2)); // 表单信息
+            formData.append("filesMapping", arr.toString()); // 拼接数组
+
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/service/addHospitalApply',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(result) {
+                    console.log('result=', result);
+                    if (result.code == 3020) {
+                        alert('提交成功');
+                        location.href = './office.html';
+                        document.getElementById('uploadForm').reset();
+                        document.getElementById('form1').reset();
+                    } else {
+                        alert('提交失败')
+                    }
+                },
+                error: function() {
+                    alert('失败');
+                    document.getElementById('uploadForm').reset();
+                    document.getElementById('form1').reset();
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

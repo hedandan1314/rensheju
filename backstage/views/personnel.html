@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人员管理</title>
+    <link rel="stylesheet" href="../assets/less/base.css" type="text/css">
+    <link rel="stylesheet" href="../assets/less/index.css" type="text/css">
+    <link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <style>
+        select {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 3rem;
+            outline: none;
+        }
+        
+        select:disabled {
+            color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .header ul li a {
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .pagination li {
+            cursor: pointer;
+        }
+        
+        .disable {
+            pointer-events: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 左边的侧边栏 -->
+    <div class="aside" id="aside">
+        <!-- 左上部分的用户信息 -->
+        <div class="profile">
+            <div class="avatar" id="aa">
+                <img src="../uploader/1.jpg" alt="" class='img-circle'>
+            </div>
+            <h5 id="usersName"></h5>
+        </div>
+
+        <!--左下部分的导航-->
+        <div class="menu">
+            <ul>
+                <li><a href="./personnel.html">权限管理</a></li>
+                <li><a href="./userControl.html">用户管理</a></li>
+                <li style="display: none;"><a href="./operation.html">业务管理</a></li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">业务管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li><a href="./operation.html">就管中心</a> </li>
+                        <li><a href="./operation.html">社保中心</a> </li>
+                        <li><a href="./operation.html">劳动监察</a> </li>
+                        <li><a href="./operation.html">仲裁院</a> </li>
+                        <li><a href="./operation.html">人事处</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="slide" style="cursor: pointer;">信息管理<span class='arrow fa fa-angle-right pull-right'></span></a>
+                    <ul style="display: none;" id="show" class="xz">
+                        <li><a href="./notice.html">公告</a> </li>
+                        <li><a href="./commonProblems.html">常见问题</a> </li>
+                        <li><a href="./guide.html">办事指南</a> </li>
+                        <li>
+                            <a href="./query.html">信息录入</a>
+                        </li>
+                        <li>
+                            <a href="./datafill.html">数据录入</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="./DataDisplay2.html">数据报表</a></li>
+                <li><a href="./systemMaintenance.html">系统维护</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右边主体部分 -->
+    <div class="main">
+        <!-- 右边上部分工具部分 -->
+        <div class="header">
+            <!-- 导航条部分 -->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:;"><span class='fa fa-navicon'></span></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a data-toggle="modal" data-target="#personalInformation"> <span class='fa fa-user-circle'></span> 个人中心</a>
+                            </li>
+                            <li><a data-toggle="modal" data-target="#changePassword"><span class='fa fa-key fa-fw'></span>修改密码</a></li>
+                            <li><a data-toggle="modal" data-target="#logOut"><span class='fa fa-sign-out'></span>退出</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+
+        </div>
+
+        <!-- 右边下部分 ，网站的主体页面-->
+        <div class="body">
+            <!-- 面包屑导航 -->
+            <ol class="breadcrumb">
+                <!-- <li>首页</li> -->
+                <li>权限管理</li>
+            </ol>
+            <!-- 面板，搜索框与表格 -->
+            <div class="panel panel-default">
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 搜索框 -->
+                    <div class="col-md-6">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>账号查询：</label>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="text" placeholder="账号" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="button" id="queryUser" style="outline: none;">搜索</button>
+                                </span>
+                            </div>
+                            <input type="button" class='btn btn-success btn-sm' data-toggle="modal" data-target="#myModal" style="outline: none;" onclick="myModal()" value="新增账号">
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-body" style="margin-top: 15px;">
+                    <!-- 表格 -->
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>编号</th>
+                            <th>账号</th>
+                            <th>姓名</th>
+                            <!-- <th>身份证</th> -->
+                            <th>部门</th>
+                            <th>角色</th>
+                            <th>手机号码</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <nav class="page col-md-4 col-md-offset-8" aria-label="Page navigation">
+                            <ul class="pagination" style="margin: 40px -240px;">
+                                <li id="fristPage">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">首页</span>
+                                    </a>
+                                </li>
+                                <li id="previous">
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                </li>
+                                <li id="next">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                </li>
+                                <li id="lastPage">
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">尾页</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="" style="float: right; margin: 40px;">
+                                <span>跳转到</span>
+                                <input type="number" name="" id="toPage" value="" style="width: 40px;height: 25px;border-radius: 3px; text-align: center;" />
+                                <span>页</span>
+                                <button class="btn btn-primary btn-sm" id="jumpPage" style="margin-left: 10px; outline: none;">确定</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增用户 -->
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 620px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true" onclick="closeAccount()">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增账号</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addAccount">
+                        <div class="form-group">
+                            <label class="col-md-2" for="account">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="account" name="addTitle" onblur="addCheckTitle()" placeholder="账号">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="titlespan"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">密码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="pwd" disabled class="form-control" value="123456">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="userName0">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="userName0" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="department">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="department">
+                                    <!-- <option value="">请选择</option> -->
+                                    <option value="01">社保中心</option>
+                                    <option value="02">就管中心</option>
+                                    <option value="03">劳动监察</option>
+                                    <option value="04">劳动人事争议仲裁院</option>
+                                    <option value="05">人事处</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="role">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="role">
+                                    <!-- <option value="">请选择</option> -->
+                                    <option value="0">管理员</option>
+                                    <option value="1">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="mobilePhoneNumber">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="mobilePhoneNumber" placeholder="手机号码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="note">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="note" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;" onclick="closeAccount()">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" data-dismiss="modal" id="addAccessory">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑 -->
+    <div class="modal fade" id="editor" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑用户</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2" for="account2">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="account2" disabled placeholder="账号" value="aaaaa" name="editorTitle" onblur="checkTitle()">
+                            </div>
+                            <span style="height: 34px; line-height: 34px; color: red;">*</span>
+                            <span id="namespan"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">密码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="pwd2" disabled class="form-control" value="123456">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="userName2">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="userName2" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="department2">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="department2">
+                                    <option value="">请选择</option>
+                                    <option value="01">社保中心</option>
+                                    <option value="02">就管中心</option>
+                                    <option value="03">劳动监察</option>
+                                    <option value="04">劳动人事争议仲裁院</option>
+                                    <option value="05">人事处</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="role2">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="role2">
+                                    <option value="">请选择</option>
+                                    <option value="0">管理员</option>
+                                    <option value="1">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="mobilePhoneNumber2">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="mobilePhoneNumber2" placeholder="手机号码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2" for="note2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="note2" placeholder="备注">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary save" style="outline: none;" id="saves" data-dismiss="modal">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">是否删除？</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认删除本行数据？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="sureDelete()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人信息 -->
+    <div class="modal fade" id="personalInformation" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="outline: none;" class="close" data-dismiss="modal" aria-label="Close" onclick="closeWindow()" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="information">
+                        <div class="form-group">
+                            <label class="col-md-2">账号</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userId" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">用户名</label>
+                            <div class="col-md-6">
+                                <input type="text" id="userName" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">部门</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect" disabled>
+                                        <option value="请选择">请选择</option>
+                                        <option value="01">社保中心</option>
+                                        <option value="02">就管中心</option>
+                                        <option value="03">劳动监察</option>
+                                        <option value="04">劳动人事争议仲裁院</option>
+                                        <option value="05">人事处</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">角色</label>
+                            <div class="col-md-6">
+                                <select name="" id="multiSelect2" disabled>
+                                        <option value="请选择">请选择</option>
+                                        <option value="0">管理员</option>
+                                        <option value="1">普通用户</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">手机号码</label>
+                            <div class="col-md-6">
+                                <input type="text" id="phone" disabled class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">备注</label>
+                            <div class="col-md-6">
+                                <input type="text" id="remark" disabled class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button style="outline: none;" type="button" class="btn btn-default" data-dismiss="modal" onclick="restoreSettings()" style="outline: none;">关闭</button>
+                    <button style="outline: none;" type="button" class="btn btn-primary" id="informationEditor" onclick="myEditor()" style="outline: none;">编辑</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="modal fade" id="logOut" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">退出登录</h4>
+                </div>
+                <div class="modal-body">
+                    您是否确认退出此次登录？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">取消</button>
+                    <button type="button" class="btn btn-primary" style="outline: none;" onclick="exitLogon()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改密码 -->
+    <div class="modal fade" id="changePassword" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="formInformation">
+                        <div class="form-group">
+                            <label class="col-md-2">原密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">新密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="新密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">确认密码</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" placeholder="确认密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="outline: none;">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="outline: none;" onclick="changePwd()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-1.10.2.js"></script>
+    <script src='../assets/lib/bootstrap/dist/js/bootstrap.js'></script>
+    <script src="../assets/js/index.js"></script>
+    <script src="../assets/js/sidebarAnimation.js"></script>
+    <script src="../assets/js/jquery.cookie.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/domainName.js"></script>
+    <script src="../assets/js/info.js"></script>
+    <script src="../assets/js/cookie.js"></script>
+    <script src="../assets/js/navigationList.js"></script>
+    <script>
+        $(function() {
+            var flag = true;
+            $('.navbar-brand').click(function() {
+                if (flag) {
+                    $("#aside").animate({
+                        marginLeft: '-180px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '0px'
+                    });
+                    // $("#main", parent.document).animate({
+                    //     marginLeft: '0px'
+                    // });
+                    flag = false;
+                } else {
+                    $("#aside").animate({
+                        marginLeft: '0px'
+                    });
+                    $(".main").animate({
+                        marginLeft: '180px'
+                    });
+                    // $("#main", parent.document).animate({
+                    //     marginLeft: '180px'
+                    // });
+                    flag = true;
+                }
+
+            })
+
+        })
+
+
+        window.onload = function() {
+            initAjax();
+        }
+        var pageIndex = 1,
+            addCount = 0,
+            totalPage = 0,
+            lastPage = 0;
+
+        // 分页
+        function page() {
+            if (totalPage <= 6) {
+                while (totalPage > 0) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + totalPage + '">' + totalPage + '</a></li>');
+                    totalPage--
+                }
+            } else {
+                if (pageIndex > 3 && totalPage - 2 >= pageIndex) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + (pageIndex - 2) + '">' + (pageIndex - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex - 1) + '">' + (pageIndex - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex) + '">' + pageIndex +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex + 1) + '">' + (pageIndex + 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (pageIndex + 2) + '">' + (pageIndex + 2) +
+                        '</a></li>');
+                } else if (pageIndex > 3 && totalPage - 2 < pageIndex) {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 4) + '">' + (totalPage - 4) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 3) + '">' + (totalPage - 3) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 2) + '">' + (totalPage - 2) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage - 1) + '">' + (totalPage - 1) +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo' + (totalPage) + '">' + totalPage +
+                        '</a></li>');
+                } else {
+                    $('#previous').after('<li><a href="javascript:;" class="pageNo pageNo1">' + 1 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo2">' + 2 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo3">' + 3 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo4">' + 4 +
+                        '</a></li><li><a href="javascript:;" class="pageNo pageNo5">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.pagination .pageNo' + pageIndex).css('background-color', '#ddd');
+            if (pageIndex <= 0) {
+                $('.pagination .pageNo1').css('background-color', '#ddd');
+            }
+            $('.pagination .pageNo').click(function() {
+                pageIndex = parseInt($(this).text());
+                addCount = pageIndex * 5 - 5;
+                initAjax();
+            })
+
+        }
+
+        // 初始化用户列表
+        function initAjax() {
+            var parameter = {
+                    "pageIndex": pageIndex,
+                    "recordCount": 5,
+                    "criteria": {
+                        "userCode": names,
+                        "userType": '02'
+                    }
+                }
+                // console.log('parameter=', parameter);
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/queryUser',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    $('table thead').siblings().remove();
+                    var html = '';
+                    // console.log(result);
+                    lastPage = result.totalPage;
+                    totalPage = lastPage;
+                    $('.pageNo').remove();
+                    page();
+                    if (pageIndex > lastPage) {
+                        pageIndex = lastPage;
+                        addCount -= 5;
+                        initAjax();
+                    }
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<td>' + (i + 1 + addCount) +
+                            '</td>' +
+                            '<td>' + result.data[i].userCode +
+                            '</td>' +
+                            '<td>' + result.data[i].userName +
+                            '</td>' +
+                            '<td>' + (result.data[i].ownerDepart == null ? '' : result.data[i].ownerDepart == 01 ? '社保中心' : result.data[i].ownerDepart == 02 ? '就管中心' : result.data[i].ownerDepart == 03 ? '劳动监察' : result.data[i].ownerDepart == 04 ? '劳动人事争议仲裁院' : result.data[i].ownerDepart == 05 ? '人事处' : result.data[i].ownerDepart) +
+                            '</td>' +
+                            '<td>' + (result.data[i].roleType == null || result.data[i].roleType == '' ? '' : result.data[i].roleType == 0 ? '管理员' : '普通用户') +
+                            '</td>' +
+                            // '<td>' + result.data[i].userIdentity +
+                            // '</td>' +
+                            '<td>' + (result.data[i].userPhone == null ? '' : result.data[i].userPhone) +
+                            '</td>' +
+                            '<td>' + (result.data[i].userRemark == null || result.data[i].userRemark == '' ? '' : result.data[i].userRemark) +
+                            '</td>' +
+                            '<td>' +
+                            '<a class="btn btn-default" data-toggle="modal" data-target="#editor" style="outline: none;" onclick="myEditorUser(\'' + result.data[i].userCode + '\')">编辑</a>' +
+                            '<a class="btn btn-warning" data-toggle="modal" data-target="#delete" style="outline: none; margin-left: 5px;" onclick="myDelete(this,\'' + result.data[i].userCode + '\')">删除</a>' +
+                            '</td>' +
+                            '</tr>'
+                    }
+                    $('table:first').append(html);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索)
+        $('#jumpPage').click(function() {
+            var jumPage = $("#toPage").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+                if (jumPage <= lastPage) {
+                    pageIndex = jumPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                } else {
+                    $("#toPage").val(lastPage);
+                    pageIndex = lastPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                }
+            } else {
+                $("#toPage").val('1');
+                pageIndex = 1;
+                addCount = 0;
+                initAjax();
+            }
+        })
+
+        // 首页
+        $('#fristPage').click(function() {
+            pageIndex = 1;
+            addCount = 0;
+            initAjax();
+        })
+
+        // 尾页
+        $('#lastPage').click(function() {
+            pageIndex = lastPage;
+            addCount = pageIndex * 5 - 5;
+            initAjax();
+        })
+
+        // 上一页
+        $('#previous').click(function() {
+            if (pageIndex < 2) {
+                alert('已经是第一页');
+                addCount = 0;
+                return
+            } else {
+                $('table:first thead').siblings().remove();
+            }
+            if (--pageIndex < 2) {
+                pageIndex = 1;
+
+            }
+            addCount -= 5;
+            initAjax();
+        })
+
+        // 下一页
+        $('#next').click(function() {
+            if (pageIndex == lastPage) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('table:first thead').siblings().remove();
+                addCount += 5;
+            }
+            ++pageIndex;
+            initAjax();
+        })
+
+        // 新增用户
+        $('#addAccessory').click(function() {
+            var parameter = {
+                "userCode": $('#account').val(),
+                "userPwd": $('#pwd').val(),
+                "userName": $('#userName0').val(),
+                "ownerDepart": $('#department option:selected').val(),
+                "roleType": $('#role option:selected').val(),
+                "userPhone": $('#mobilePhoneNumber').val(),
+                "userRemark": $('#note').val(),
+                "userType": '02'
+            }
+
+            // console.log('parameter=', parameter);
+            var userPhone = $('#mobilePhoneNumber').val();
+            var userCode = $('#account').val();
+            if (userPhone != '') {
+                var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+                if (!myreg.test(userPhone)) {
+                    alert('手机号码格式错误');
+                    return false
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: ipAddress + '/usrmgr/addUser',
+                        data: JSON.stringify(parameter),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+                            // console.log('result=', result);
+                            if (result.code) {
+                                if (result.code == 1002) {
+                                    alert(result.message)
+                                }
+                            }
+                            $('#account').val('');
+                            $('#userName0').val('');
+                            $('#department').val('请选择');
+                            $('#role').val('请选择');
+                            $('#mobilePhoneNumber').val('');
+                            $('#note').val('');
+                            $('#titlespan').html('');
+                            initAjax();
+                        },
+                        error: function() {
+                            alert('失败')
+                        }
+                    })
+                }
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/usrmgr/addUser',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        // console.log('result=', result);
+                        if (result.code) {
+                            alert(result.message)
+                        }
+                        $('#account').val('');
+                        $('#userName0').val('');
+                        $('#department').val('请选择');
+                        $('#role').val('请选择');
+                        $('#mobilePhoneNumber').val('');
+                        $('#note').val('');
+                        $('#titlespan').html('');
+                        initAjax();
+                    },
+                    error: function() {
+                        alert('失败')
+                    }
+                })
+            }
+        })
+
+        // 关闭新增用户窗口
+        function closeAccount() {
+            document.getElementById('addAccount').reset();
+            $('#titlespan').html('');
+        }
+
+        // 编辑
+        var editorUserCode;
+
+        function myEditorUser(obj) {
+            editorUserCode = obj;
+            var parameter = {
+                    "userCode": obj
+                }
+                // console.log('parameter=', parameter);
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/detailUser',
+                data: parameter,
+                success: function(result) {
+                    $('#account2').val(result.userCode);
+                    $('#userName2').val(result.userName);
+                    $('#department2').val(result.ownerDepart);
+                    $('#role2').val(result.roleType);
+                    $('#mobilePhoneNumber2').val(result.userPhone);
+                    $('#note2').val(result.userRemark);
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 保存
+        $('#saves').click(function() {
+            var parameter = {
+                "userCode": $('#account2').val(),
+                "userPwd": $('#pwd2').val(),
+                "userName": $('#userName2').val(),
+                "ownerDepart": $('#department2 option:selected').val(),
+                "roleType": $('#role2 option:selected').val(),
+                "userPhone": $('#mobilePhoneNumber2').val(),
+                "userRemark": $('#note2').val(),
+                "userType": '02'
+            }
+            var userPhone = $('#mobilePhoneNumber2').val();
+            if (userPhone != '') {
+                var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+                if (!myreg.test(userPhone)) {
+                    alert('手机号码格式错误');
+                    return false
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: ipAddress + '/usrmgr/modifyUser',
+                        data: JSON.stringify(parameter),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+                            // console.log('result=', result);
+                            initAjax();
+                        },
+                        error: function() {
+                            alert('失败')
+                        }
+                    })
+                }
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: ipAddress + '/usrmgr/modifyUser',
+                    data: JSON.stringify(parameter),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        // console.log('result=', result);
+                        initAjax();
+                    },
+                    error: function() {
+                        alert('失败')
+                    }
+                })
+            }
+        })
+
+        // 根据账号查询
+        var names;
+        $('#queryUser').click(function() {
+            names = $('#queryUser').parent().siblings('input').val();
+            var parameter = {
+                    "pageIndex": pageIndex,
+                    "recordCount": 5,
+                    "criteria": {
+                        "userCode": names
+                    }
+                }
+                // console.log('parameter=', parameter);
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/queryUser',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    // console.log('result=', result);
+                    initAjax();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        })
+
+        var trId,
+            trObj,
+            userCode;
+
+        // 删除
+        function myDelete(obj, id) {
+            userCode = id;
+            trId = obj.parentNode.parentNode;
+            trObj = trId.parentNode;
+        }
+
+        // 确认删除
+        function sureDelete() {
+            var parameter = {
+                    "userCode": userCode
+                }
+                // console.log('myDelete parameter=', parameter);
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/usrmgr/deleteUser',
+                data: parameter,
+                success: function(result) {
+                    // console.log('result=', result);
+                    initAjax();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

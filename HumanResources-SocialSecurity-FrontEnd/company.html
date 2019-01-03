@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单位办事</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/personal.css">
+    <style>
+        .con_right_footer ul li {
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <iframe src="./PageHeader.html" style="width: 100%; height: 375px;" scrolling="no" frameborder="0"></iframe>
+    </header>
+
+    <div class="container">
+        <!-- 左侧模块列表开始 -->
+        <div class="container_left">
+            <div class="verticalMenu">
+                <ul>
+                    <li onclick="mysb()" class="active" id="active1">
+                        <a href="javascript:;" class="sb" style="display: inline-block; width: 100%; height: 100%;">社会保险<i id="fa1" class="fa fa-angle-right fa-lg" style="transform:rotate(90deg)"></i></a>
+                    </li>
+                    <li onclick="myjy()" id="active2">
+                        <a href="javascript:;" class="jy" style="display: inline-block; width: 100%; height: 100%;">就业创业<i id="fa2" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                    <li onclick="mylq()" id="active3" style="border-top: none;">
+                        <a href="javascript:;" class="lq" style="display: inline-block; width: 100%; height: 100%;">劳动权益<i id="fa3" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                    <li onclick="myyj()" id="active4" style="border-top: none;">
+                        <a href="javascript:;" class="yj" style="display: inline-block; width: 100%; height: 100%;">医药机构<i id="fa4" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                    <li onclick="myxs()" id="active5" style="border-top: none;">
+                        <a href="javascript:;" class="xs" style="display: inline-block; width: 100%; height: 100%;">业务审批<i id="fa5" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                    <li style="border-top: none;">
+                        <a href="http://www.hasrcsc.com/" target="_blank" class="xs" style="display:inline-block ;width: 100%; height: 100%;">人事人才<i id="fa6" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                    <li style="border-top: none;">
+                        <a href="http://jshrss.jiangsu.gov.cn/col/col45367/" target="_blank" class="xs" style="display:inline-block ; width: 100%; height: 100%;">社保卡服务<i id="fa7" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                    <li>
+                        <a href="http://ha.jszwfw.gov.cn/jszwfw/bscx/itemlist/fr_index.do?webId=12&themid=B228&deptid=" target="_blank" class="xs" style="display:inline-block ; width: 100%; height: 100%;">公安消防<i id="fa8" class="fa fa-angle-right fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- 左侧模块列表结束 -->
+
+        <!-- 单位办事开始 -->
+        <div class="container_right">
+            <div class="con_right_top">
+                <p>您当前的位置：
+                    <a href="./homePage.html" target="_blank">大厅首页</a> >> 单位办事</p>
+            </div>
+            <div class="con_right_middle" id="sb">
+                <ul>
+                </ul>
+                <div class="con_right_footer">
+                    <ul>
+                        <li id="previous1">
+                            <a><img src="./img/previous.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                        <li id="next1">
+                            <a><img src="./img/next.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                    </ul>
+                    <div><span>跳转到</span><input type="number" value="" id="toPage"><input type="button" id="jump1" value="GO"></div>
+                </div>
+            </div>
+
+            <div class="con_right_middle" id="jy" style="display: none;">
+                <ul>
+                </ul>
+                <div class="con_right_footer">
+                    <ul>
+                        <li id="previous2">
+                            <a><img src="./img/previous.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                        <li id="next2">
+                            <a><img src="./img/next.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                    </ul>
+                    <div><span>跳转到</span><input type="number" value="" id="toPage2"><input type="button" id="jump2" value="GO"></div>
+                </div>
+            </div>
+            <div class="con_right_middle" id="lq" style="display: none;">
+                <ul>
+                </ul>
+                <div class="con_right_footer">
+                    <ul>
+                        <li id="previous3">
+                            <a><img src="./img/previous.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                        <li id="next3">
+                            <a><img src="./img/next.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                    </ul>
+                    <div><span>跳转到</span><input type="number" value="" id="toPage3"><input type="button" id="jump3" value="GO"></div>
+                </div>
+            </div>
+            <div class="con_right_middle" id="yj" style="display: none;">
+                <ul>
+                    <li>
+                        <div>定点医药机构新申请(药店)</div>
+                        <ul>
+                            <li><img src="./img/guide2.png" style="width: 25px;" />
+                                <a href="./workGuideMedical.html?serviceCode=13" target="_top">办事指南</a>
+                            </li>
+                            <li><img src="./img/handle.png" style="width: 25px;" />
+                                <a href="./onlineHandleMedicalApply1.html" target="_top">在线办理</a>
+                            </li>
+                            <li><img src="./img/consult.png" style="width: 25px;" />
+                                <a href="http://rsj.huaian.gov.cn/hdjl/12333fw/index.html" target="_blank">在线咨询</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>定点医药机构新申请(医疗机构)</div>
+                        <ul>
+                            <li><img src="./img/guide2.png" style="width: 25px;" />
+                                <a href="./workGuideMedical.html?serviceCode=14" target="_top">办事指南</a>
+                            </li>
+                            <li><img src="./img/handle.png" style="width: 25px;" />
+                                <a href="./onlineHandleMedicalApply2.html" target="_top">在线办理</a>
+                            </li>
+                            <li><img src="./img/consult.png" style="width: 25px;" />
+                                <a href="http://rsj.huaian.gov.cn/hdjl/12333fw/index.html" target="_blank">在线咨询</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>定点医药机构变更(药店)</div>
+                        <ul>
+                            <li><img src="./img/guide2.png" style="width: 25px;" />
+                                <a href="./workGuideMedical.html?serviceCode=11" target="_top">办事指南</a>
+                            </li>
+                            <li><img src="./img/handle.png" style="width: 25px;" />
+                                <a href="./onlineHandleMedicalChange1.html" target="_top">在线办理</a>
+                            </li>
+                            <li><img src="./img/consult.png" style="width: 25px;" />
+                                <a href="http://rsj.huaian.gov.cn/hdjl/12333fw/index.html" target="_blank">在线咨询</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>定点医药机构变更(医疗机构)</div>
+                        <ul>
+                            <li><img src="./img/guide2.png" style="width: 25px;" />
+                                <a href="./workGuideMedical.html?serviceCode=12" target="_top">办事指南</a>
+                            </li>
+                            <li><img src="./img/handle.png" style="width: 25px;" />
+                                <a href="./onlineHandleMedicalChange2.html" target="_top">在线办理</a>
+                            </li>
+                            <li><img src="./img/consult.png" style="width: 25px;" />
+                                <a href="http://rsj.huaian.gov.cn/hdjl/12333fw/index.html" target="_blank">在线咨询</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="con_right_middle" id="xs" style="display: none;">
+                <ul>
+                </ul>
+                <div class="con_right_footer">
+                    <ul>
+                        <li id="previous4">
+                            <a><img src="./img/previous.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                        <li id="next4">
+                            <a><img src="./img/next.png" style="width: 25px; margin-top: 2px;" alt=""></a>
+                        </li>
+                    </ul>
+                    <div><span>跳转到</span><input type="number" value="" id="toPage4"><input type="button" id="jump4" value="GO"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 单位办事结束 -->
+    </div>
+
+    <iframe src="./PageFooter.html" style="width: 100%; height: 210px;" scrolling="no" frameborder="0"></iframe>
+    <script src='./js/jquery-1.10.2.min.js'></script>
+    <script src="./js/domainName.js"></script>
+    <script src="./js/VerticalMenuJs.js"></script>
+    <script src="./js/parsingURL.js"></script>
+    <script>
+        // 鼠标禁止点击
+        window.onload = function() {
+            var operation = document.getElementsByClassName('operation');
+            for (var i = 0; i < operation.length; i++) {
+                operation[i].setAttribute('href', 'javascript:void(0);');
+                operation[i].setAttribute('disabled', 'true');
+                operation[i].style.color = '#999';
+            }
+        }
+
+        var UrlParameter_obj = getJsonFromUrl(true, location.href);
+        var id = UrlParameter_obj.id;
+
+        var pageIndex = 1,
+            addCount = 0,
+            totalPage = 0,
+            lastPage = 0;
+
+        if (id == 1) {
+            initAjax();
+        } else if (id == 2) {
+            myjy();
+        } else if (id == 3) {
+            mylq()
+        } else if (id == 4) {
+            myyj();
+        } else if (id == 5) {
+            myxs();
+        } else {
+            initAjax();
+        }
+
+        // 分页(社会保险)
+        function page() {
+            if (totalPage <= 6) {
+                while (totalPage > 0) {
+                    $('#previous1').after('<li class="pageNo pageNo' + totalPage + '"><a href="javascript:;">' + totalPage + '</a></li>');
+                    totalPage--
+                }
+            } else {
+                if (pageIndex > 3 && totalPage - 2 >= pageIndex) {
+                    $('#previous1').after('<li class="pageNo pageNo' + (pageIndex - 2) + '"><a href="javascript:;">' + (pageIndex - 2) +
+                        '</a></li><li class="pageNo pageNo' + (pageIndex - 1) + '"><a href="javascript:;">' + (pageIndex - 1) +
+                        '</a></li><li class="pageNo pageNo' + (pageIndex) + '"><a href="javascript:;">' + pageIndex +
+                        '</a></li><li class="pageNo pageNo' + (pageIndex + 1) + '"><a href="javascript:;">' + (pageIndex + 1) +
+                        '</a></li><li class="pageNo pageNo' + (pageIndex + 2) + '"><a href="javascript:;">' + (pageIndex + 2) +
+                        '</a></li>');
+                } else if (pageIndex > 3 && totalPage - 2 < pageIndex) {
+                    $('#previous1').after('<li class="pageNo pageNo' + (totalPage - 4) + '"><a href="javascript:;">' + (totalPage - 4) +
+                        '</a></li><li class="pageNo pageNo' + (totalPage - 3) + '"><a href="javascript:;">' + (totalPage - 3) +
+                        '</a></li><li class="pageNo pageNo' + (totalPage - 2) + '"><a href="javascript:;">' + (totalPage - 2) +
+                        '</a></li><li class="pageNo pageNo' + (totalPage - 1) + '"><a href="javascript:;">' + (totalPage - 1) +
+                        '</a></li><li class="pageNo pageNo' + (totalPage) + '"><a href="javascript:;">' + totalPage +
+                        '</a></li>');
+                } else {
+                    $('#previous1').after('<li class="pageNo pageNo1"><a href="javascript:;">' + 1 +
+                        '</a></li><li class="pageNo pageNo2"><a href="javascript:;">' + 2 +
+                        '</a></li><li class="pageNo pageNo3"><a href="javascript:;">' + 3 +
+                        '</a></li><li class="pageNo pageNo4"><a href="javascript:;">' + 4 +
+                        '</a></li><li class="pageNo pageNo5"><a href="javascript:;">' + 5 +
+                        '</a></li>');
+                }
+            }
+            //获取当前页面的页码变色
+            $('.con_right_footer:eq(0) .pageNo' + pageIndex).css('background-color', '#ddd');
+            if (pageIndex <= 0) {
+                $('.con_right_footer:eq(0) .pageNo1').css('background-color', '#ddd');
+            }
+            $('.con_right_footer:eq(0) .pageNo').click(function() {
+                pageIndex = parseInt($(this).find('a').text());
+                addCount = pageIndex * 5 - 5;
+                initAjax();
+            })
+
+        }
+
+        // 初始化社会保险模块
+        function initAjax() {
+            var parameter = {
+                "pageIndex": pageIndex,
+                "recordCount": 5,
+                "criteria": {
+                    "ownerDepart": "01",
+                    "companyStatus": "1",
+                    "serviceStatus": "1"
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: ipAddress + '/service/queryProcedureAll',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json;charset=UTF-8',
+                success: function(result) {
+                    console.log('result=', result.data);
+                    $('.con_right_middle:eq(0) ul:eq(0)').children().remove();
+                    lastPage = result.totalPage;
+                    totalPage = lastPage;
+                    $('.pageNo').remove();
+                    page();
+                    var html = '';
+                    for (var i = 0; i < result.data.length; i++) {
+                        if (result.data[i].canOnline == 1) {
+                            html += '<li>' +
+                                '<div>' + result.data[i].serviceName + '</div>' +
+                                '<ul>' +
+                                '<li><img src="./img/guide2.png" style="width: 25px;" />' +
+                                '<a href="./workGuideD.html?serviceCode=' + result.data[i].serviceCode + '"id="workguide" >办事指南</a>' +
+                                '<input type="hidden" id=' + result.data[i].serviceCode + '>' +
+                                '</li>' +
+                                '<li><img src="./img/handle.png" style="width: 25px;" />' +
+                                '<a href="./onlineHandleD.html?serviceCode=' + result.data[i].serviceCode + '&serviceName=' + result.data[i].serviceName + '&orgName=' + result.data[i].orgName + '" target="_top">在线办理</a>' +
+                                '</li>' +
+                                '<li><img src="./img/consult.png" style="width: 25px;" />' +
+                                '<a href="http://rsj.huaian.gov.cn/hdjl/12333fw/index.html" target="_blank">在线咨询</a>' +
+                                '</li>' +
+                                '</ul>' +
+                                '</li>'
+                        } else {
+                            html += '<li>' +
+                                '<div>' + result.data[i].serviceName + '</div>' +
+                                '<ul>' +
+                                '<li><img src="./img/guide2.png" style="width: 25px;" />' +
+                                '<a href="./workGuideD.html?serviceCode=' + result.data[i].serviceCode + '"id="workguide" >办事指南</a>' +
+                                '</li>' +
+                                '<li><img src="./img/handle.png" style="width: 25px;" />' +
+                                '<a href="./onlineHandleD.html?serviceCode=' + result.data[i].serviceCode + '" target="_top" class="operation">在线办理</a>' +
+                                '</li>' +
+                                '<li><img src="./img/consult.png" style="width: 25px;" />' +
+                                '<a href="http://rsj.huaian.gov.cn/hdjl/12333fw/index.html" target="_blank">在线咨询</a>' +
+                                '</li>' +
+                                '</ul>' +
+                                '</li>'
+                        }
+
+                    }
+                    $('.con_right_middle:eq(0) ul:eq(0)').append(html);
+                    onload();
+                },
+                error: function() {
+                    alert('失败')
+                }
+            })
+        }
+
+        // 跳转页数(搜索)
+        $('#jump1').click(function() {
+            var jumPage = $("#toPage").val();
+            if (jumPage > 0) {
+                jumPage = parseInt(jumPage);
+
+                if (jumPage <= lastPage) {
+                    pageIndex = jumPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                } else {
+                    $("#toPage").val(lastPage);
+                    pageIndex = lastPage;
+                    addCount = pageIndex * 5 - 5;
+                    initAjax();
+                }
+            } else {
+                $("#toPage").val('1');
+                pageIndex = 1;
+                addCount = 0;
+                initAjax();
+            }
+        })
+
+        // 上一页
+        $('#previous1').click(function() {
+            if (pageIndex < 2) {
+                alert('已经是第一页');
+                addCount = 0;
+                return
+            } else {
+                $('.con_right_middle:eq(0) ul:eq(0)').children().remove();
+            }
+            if (--pageIndex < 2) {
+                pageIndex = 1;
+
+            }
+            addCount -= 5;
+            initAjax();
+        })
+
+        // 下一页
+        $('#next1').click(function() {
+            if (pageIndex == lastPage) {
+                alert('已经是最后一页');
+                return;
+            } else {
+                $('.con_right_middle:eq(0) ul:eq(0)').children().remove();
+                addCount += 5;
+            }
+            ++pageIndex;
+            initAjax();
+        })
+    </script>
+</body>
+
+</html>

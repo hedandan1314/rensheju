@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+	<!--
+    	作者：kongfc
+    	时间：2018-07-17
+    	描述：人社公众号个人登入
+    -->
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人登入</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+			.container {
+			max-width: 95%;
+			padding: 0px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		
+	
+		/*
+ * 标签
+ */
+		
+		label {
+			font-size: 16px;
+	</style>
+
+	<body>
+		<div class="container">
+
+			<div class="col-xs-12 " id="form-container" style="margin-top: 40px ;">
+				<h1 class="text-center" style="margin-bottom: 100px;">
+            用 户 退 出
+        </h1>
+				
+					<div class="form-group" style="width: 100%;">
+			<div class="form-group " style="margin-bottom: 15px;margin: 0 auto; width: 60%">
+						<p style="font-size: 18px;color: #000000;">是否确定退出？</p>
+						<div class="col-xs-3 ">
+							<button class="btn btn-primary btn-sm" type="submit" onclick="window.history.back(-1)">取消</button>
+						</div>
+						<div class="col-xs-3 "style="margin-left: 30px;">
+							<a class="btn btn-primary  btn-sm" href="index.html" style="color: #ffffff;"onclick="clearAllCookie();">确定</a>			
+						</div>
+				</div>			
+			</div>
+
+		</div>
+		<script type="text/javascript">
+			
+		</script>
+		<script src="js/jquery-3.2.1.min.js " type="text/javascript " charset="utf-8 "></script>
+		<script src="js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js " type="text/javascript " charset="utf-8 "></script>
+	</body>
+	<script type="text/javascript">
+		//退出登录
+				function clearAllCookie() {
+				
+					var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+					if(keys) {
+						for(var i = keys.length; i--;)
+							document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+					}
+				}
+	</script>
+</html>
